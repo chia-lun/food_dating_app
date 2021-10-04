@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "751800801633",
+    "project_id": "food-dating-app-1ef3f",
+    "storage_bucket": "food-dating-app-1ef3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751800801633:android:ab23e78be8f30053ef8d20",
+        "android_client_info": {
+          "package_name": "com.example.food_dating_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751800801633-ulhrk9681lc34oraqoqisv1mc37chcc8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0EzWlt7lDERNG_x4rhhYIbGtVCWmpe-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "751800801633-ulhrk9681lc34oraqoqisv1mc37chcc8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
