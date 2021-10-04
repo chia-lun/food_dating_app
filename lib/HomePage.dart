@@ -75,7 +75,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             label: 'Message',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pages_rounded),
+            icon: Icon(Icons.pages),
             label: 'Pages',
           ),
         ],
