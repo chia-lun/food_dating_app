@@ -1,7 +1,22 @@
-import 'package:flutter/material.dart';
-
 /// Author: Hengrui Jia
 /// This is the message page
+///
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)),
+      title: "MessagePage",
+      home: MessagePage(),
+    );
+  }
+}
 
 class MessagePage extends StatefulWidget {
   @override
