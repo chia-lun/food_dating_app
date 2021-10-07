@@ -10,9 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange,),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.orange,
+        ),
       ),
       title: _title,
       home: MyStatefulWidget(),
@@ -57,11 +59,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Center(
-        child: Text("hello"),
+        child:
+            Text("NED MAYO, 20yrs"), // how to make it to the lower botton side?
+        // image path
+        // but the issue is: how to put both text and image
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orange,
         items: const <BottomNavigationBarItem>[
