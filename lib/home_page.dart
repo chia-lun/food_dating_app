@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: _title,
-      home: MyStatefulWidget(),
+      home: const MyStatefulWidget(),
     );
   }
 }
@@ -33,22 +34,6 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Chat',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -59,12 +44,31 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child:
-            Text("NED MAYO, 20yrs"), // how to make it to the lower botton side?
-        // image path
-        // but the issue is: how to put both text and image
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0), // here the desired height
+          child: AppBar(
+        backgroundColor: const Color(0x44000000),
+        elevation: 0,
+          )
       ),
+      
+      body: Column(
+          
+          children: [
+            Center(
+              child: Image.asset(
+              'assert/images/B79EF9C0-58CF-4F03-B7B9-63E54FFBCB58.JPG',
+              height: 600,
+              //width: 700,
+              fit: BoxFit.cover
+            ),
+            ),
+            const Text(
+              'Nedy, 20',
+            )
+          ],
+      ),
+      
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orange,
         items: const <BottomNavigationBarItem>[
