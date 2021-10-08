@@ -3,6 +3,7 @@
 ///
 
 import 'package:flutter/material.dart';
+import 'package:food_dating_app/models/message_model.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,23 +25,47 @@ class MessagePage extends StatefulWidget {
 }
 
 class MessagePageState extends State<MessagePage> {
-  final _contactList = <String>["Steve", "Peter"];
-
-  //final _contactList = Set<String>();
   Widget _buildList() {
     return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemBuilder: (context, item) {
-          if (item.isOdd) return Divider();
-
-          final index = item ~/ 2;
-
-          return _buildRow(_contactList[index]);
+        itemCount: chats.length,
+        itemBuilder: (BuildContext context, int index) {
+          final Message chat = chats[index];
+          return Row(
+            children: <Widget>[
+              CircleAvatar(
+                radius: 35.0,
+                backgroundImage: AssetImage(chat.sender.imageUrl),
+              ),
+              SizedBox(width: 10.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    chat.sender.name,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Text(
+                      chat.text,
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
         });
-  }
-
-  Widget _buildRow(String contactName) {
-    return ListTile(title: Text(contactName, style: TextStyle(fontSize: 18.0)));
   }
 
   Widget build(BuildContext context) {
