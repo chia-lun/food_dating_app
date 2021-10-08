@@ -44,44 +44,54 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                child: InkWell(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0),
-                          topRight: Radius.circular(8.0),
-                        ),
-                        child: Image.asset('assert/images/NedOne.JPG',
-                            height: 500, fit: BoxFit.cover),
-                      ),
-                      ListTile(
-                        title:
-                            Text("Ned Mayo, 20"), // this could be static later
-                        subtitle:
-                            Text("French Meadow"), // this could be static later
-                      )
-                    ],
+      body: Column(children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(bottom: 15),
+        ),
+        Container(
+          margin: const EdgeInsets.all(20.0),
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            child: InkWell(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0),
+                    ),
+                    child: Image.asset('assets/images/NedOne.JPG',
+                        height: 500, fit: BoxFit.cover),
                   ),
-                )),
+                  const ListTile(
+                    title: Text("Ned Mayo, 20"), // this could be static later
+                    subtitle:
+                        Text("French Meadow"), // this could be static later
+                  )
+                ],
+              ),
+            ),
           ),
-          //TODO: add buttom here
-          //Text("Chat"),
-          //child
-          //  FlatButton(
-          //    color: Colors.orange,
-          //    textColor: Colors.white,
-          //  )
-        ],
-      ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text('Chat',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+          // style: TextButton.styleFrom(
+          //   //padding: const EdgeInsets.all(16.0),
+          //   primary: Colors.white,
+          //   textStyle: const TextStyle(fontSize: 20),
+          //   backgroundColor: Colors.orange,
+
+          // ),
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.orange,
+            //minimumSize: const Size(30.0, 10.0),
+          ),
+        )
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orange,
         items: const <BottomNavigationBarItem>[
