@@ -44,32 +44,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /**
-       * appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(0), // here the desired height
-          child: AppBar(
-            backgroundColor: Colors.orange,
-            elevation: 2,
-          )),
-       */
-
-      /** 
-      body: Column(
-        children: [
-          Center(
-            
-          ),
-          Center(
-            child: Image.asset('assert/images/NedOne.JPG',
-                height: 500, fit: BoxFit.fitHeight),
-          ),
-          const Text(
-            'Nedy, 20',
-          )
-        ],
-      ),
-      */
-
       body: ListView(
         children: <Widget>[
           Container(
@@ -87,16 +61,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           topRight: Radius.circular(8.0),
                         ),
                         child: Image.asset('assert/images/NedOne.JPG',
-                            height: 500, fit: BoxFit.fill),
+                            height: 500, fit: BoxFit.cover),
                       ),
                       ListTile(
-                        title: Text("Ned Mayo, 20"),
-                        subtitle: Text("French Meadow"),
+                        title:
+                            Text("Ned Mayo, 20"), // this could be static later
+                        subtitle:
+                            Text("French Meadow"), // this could be static later
                       )
                     ],
                   ),
                 )),
           ),
+          //TODO: add buttom here
+          //Text("Chat"),
+          //child
+          //  FlatButton(
+          //    color: Colors.orange,
+          //    textColor: Colors.white,
+          //  )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
