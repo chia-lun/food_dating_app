@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: _title,
-      home: MyStatefulWidget(),
+      home: const MyStatefulWidget(),
     );
   }
 }
@@ -33,22 +34,6 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Chat',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -59,8 +44,60 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("hello"),
+      /**
+       * appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0), // here the desired height
+          child: AppBar(
+            backgroundColor: Colors.orange,
+            elevation: 2,
+          )),
+       */
+
+      /** 
+      body: Column(
+        children: [
+          Center(
+            
+          ),
+          Center(
+            child: Image.asset('assert/images/NedOne.JPG',
+                height: 500, fit: BoxFit.fitHeight),
+          ),
+          const Text(
+            'Nedy, 20',
+          )
+        ],
+      ),
+      */
+
+      body: ListView(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: InkWell(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
+                        ),
+                        child: Image.asset('assert/images/NedOne.JPG',
+                            height: 500, fit: BoxFit.fill),
+                      ),
+                      ListTile(
+                        title: Text("Ned Mayo, 20"),
+                        subtitle: Text("French Meadow"),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orange,
