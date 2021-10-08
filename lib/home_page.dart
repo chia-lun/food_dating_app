@@ -44,31 +44,61 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      /**
+       * appBar: PreferredSize(
           preferredSize: const Size.fromHeight(0), // here the desired height
           child: AppBar(
-        backgroundColor: const Color(0x44000000),
-        elevation: 0,
-          )
-      ),
-      
+            backgroundColor: Colors.orange,
+            elevation: 2,
+          )),
+       */
+
+      /** 
       body: Column(
-          
-          children: [
-            Center(
-              child: Image.asset(
-              'assert/images/B79EF9C0-58CF-4F03-B7B9-63E54FFBCB58.JPG',
-              height: 600,
-              //width: 700,
-              fit: BoxFit.cover
-            ),
-            ),
-            const Text(
-              'Nedy, 20',
-            )
-          ],
+        children: [
+          Center(
+            
+          ),
+          Center(
+            child: Image.asset('assert/images/NedOne.JPG',
+                height: 500, fit: BoxFit.fitHeight),
+          ),
+          const Text(
+            'Nedy, 20',
+          )
+        ],
       ),
-      
+      */
+
+      body: ListView(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: InkWell(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
+                        ),
+                        child: Image.asset('assert/images/NedOne.JPG',
+                            height: 500, fit: BoxFit.fill),
+                      ),
+                      ListTile(
+                        title: Text("Ned Mayo, 20"),
+                        subtitle: Text("French Meadow"),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orange,
         items: const <BottomNavigationBarItem>[

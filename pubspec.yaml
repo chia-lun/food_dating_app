@@ -52,7 +52,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - assert/images/EE51C5BD-E203-43E7-B83F-3E0E0F598274.JPG
+    - assert/images/NedOne.JPG
   
 
   # The following line ensures that the Material Icons font is
