@@ -7,26 +7,14 @@ import 'package:food_dating_app/models/message_model.dart';
 
 import 'chat_screen.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)),
-      title: "MessagePage",
-      home: MessagePage(),
-    );
-  }
-}
-
 class MessagePage extends StatefulWidget {
+  const MessagePage({Key? key}) : super(key: key);
+
   @override
-  MessagePageState createState() => MessagePageState();
+  _MessagePageState createState() => _MessagePageState();
 }
 
-class MessagePageState extends State<MessagePage> {
+class _MessagePageState extends State<MessagePage> {
   Widget _buildList() {
     return ListView.builder(
         itemCount: chats.length,
