@@ -35,25 +35,25 @@ class _MessagePageState extends State<MessagePage> {
                     radius: 35.0,
                     backgroundImage: AssetImage(chat.sender.imageUrl),
                   ),
-                  SizedBox(width: 10.0),
+                  const SizedBox(width: 10.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         chat.sender.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 5.0),
+                      const SizedBox(height: 5.0),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.45,
                         child: Text(
                           chat.text,
-                          style: TextStyle(
-                            color: Colors.blueGrey,
+                          style: const TextStyle(
+                            color: Colors.orangeAccent,
                             fontSize: 15.0,
                             fontWeight: FontWeight.w600,
                           ),
@@ -67,8 +67,11 @@ class _MessagePageState extends State<MessagePage> {
         });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('ContactList')), body: _buildList());
+        appBar: AppBar(
+            title: const Text('Food Lovers'), backgroundColor: Colors.orange),
+        body: _buildList());
   }
 }

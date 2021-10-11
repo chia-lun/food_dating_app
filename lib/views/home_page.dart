@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Column(children: <Widget>[
         const Padding(
-          padding: EdgeInsets.only(bottom: 15),
+          padding: EdgeInsets.only(bottom: 40),
         ),
         Container(
           margin: const EdgeInsets.all(20.0),
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     ),
-                    child: Image.asset('assets/images/NedOne.JPG',
+                    child: Image.asset('assets/images/ned1.jpg',
                         height: 500, fit: BoxFit.cover),
                   ),
                   const ListTile(
@@ -53,10 +53,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 15),
+        ),
         TextButton(
           onPressed: () {},
           child: const Text('Chat',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
+              style: TextStyle(fontSize: 18, color: Colors.white)),
           // style: TextButton.styleFrom(
           //   //padding: const EdgeInsets.all(16.0),
           //   primary: Colors.white,
@@ -82,8 +85,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Message',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pages),
-            label: 'Pages',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,

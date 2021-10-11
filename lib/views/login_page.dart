@@ -13,9 +13,6 @@ class _LoginPageWidgetState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: const Text("Login Page"),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -32,8 +29,9 @@ class _LoginPageWidgetState extends State<LoginPage> {
               ),
             ),
             const Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 0, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -72,7 +70,7 @@ class _LoginPageWidgetState extends State<LoginPage> {
                 onPressed: () {},
                 child: const Text(
                   'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
