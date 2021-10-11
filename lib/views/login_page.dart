@@ -66,7 +66,8 @@ class _LoginPageWidgetState extends State<LoginPage> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {},
                 child: const Text(
