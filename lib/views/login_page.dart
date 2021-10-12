@@ -1,24 +1,31 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:food_dating_app/views/accounts/sign_in_controller.dart';
-// import 'package:food_dating_app/views/accounts/sign_up_controller.dart';
-// import 'package:food_dating_app/views/accounts/sign_in_form.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_dating_app/views/accounts/sign_in_controller.dart';
+import 'package:food_dating_app/views/accounts/sign_up_controller.dart';
+import 'package:food_dating_app/views/accounts/sign_in_form.dart';
+import 'package:food_dating_app/views/accounts/sign_up_form.dart';
+import 'package:food_dating_app/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
-// class LoginPage extends StatefulWidget {
-//   const LoginPage({Key? key}) : super(key: key);
+  @override
+  State<LoginPage> createState() => _LoginPageWidgetState();
+}
 
-//   @override
-//   State<LoginPage> createState() => _LoginPageWidgetState();
-// }
-
-// class _LoginPageWidgetState extends State<LoginPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     sign
-//   }
-// }
+class _LoginPageWidgetState extends State<LoginPage> {
+  @override
+  Widget build(BuildContext context) {
+    if (Auth.FirebaseAuth.instance.currentUser!.uid != '') {
+      Navigator.pushNamed(context, 'sign_in');
+    } else {
+      Navigator.pushNamed(context, 'sign_in');
+    }
+    return Row();
+  }
+}
 
 
 // class _LoginPageWidgetState extends State<LoginPage> {

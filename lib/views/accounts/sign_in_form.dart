@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:food_dating_app/views/accounts/sign_in_controller.dart';
 import 'package:food_dating_app/widgets/input_text.dart';
 
-class _SignInView extends StatefulWidget {
+class SignInView extends StatefulWidget {
   @override
   _SignInViewState createState() => _SignInViewState();
 }
 
-class _SignInViewState extends State<_SignInView> {
+class _SignInViewState extends State<SignInView> {
   SignInController signInController = new SignInController();
   String _email = '';
   String _password = '';
