@@ -12,11 +12,11 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   String _currentPage = "Home";
-  List<String> pageKeys = ["Home", "Message", "Settings"];
+  List<String> pageKeys = ["Home", "Messages", "Profiles"];
   final Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Home": GlobalKey<NavigatorState>(),
-    "Message": GlobalKey<NavigatorState>(),
-    "Settings": GlobalKey<NavigatorState>(),
+    "Messages": GlobalKey<NavigatorState>(),
+    "Profiles": GlobalKey<NavigatorState>(),
   };
   int _selectedIndex = 0;
 
@@ -50,8 +50,8 @@ class AppState extends State<App> {
         body: Stack(
           children:<Widget>[
             _buildOffstageNavigator("Home"),
-            _buildOffstageNavigator("Message"),
-            _buildOffstageNavigator("Settings"),
+            _buildOffstageNavigator("Messages"),
+            _buildOffstageNavigator("Profiles"),
           ]
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -65,11 +65,11 @@ class AppState extends State<App> {
           ),
             BottomNavigationBarItem(
             icon: Icon(Icons.message),
-            label: 'Message',
+            label: 'Messages',
           ),
             BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: 'Profiles',
           ),
           ],
           type: BottomNavigationBarType.fixed,
@@ -78,8 +78,6 @@ class AppState extends State<App> {
     );
    
   }
-
-
 
   Widget _buildOffstageNavigator(String tabItem) {
       return Offstage(
