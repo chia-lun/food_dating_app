@@ -54,3 +54,5 @@ ios/Runner.xcodeproj/project.pbxproj
 ios/Runner/google-services.json
 android/.settings/org.eclipse.buildship.core.prefs
 android/.settings/org.eclipse.buildship.core.prefs
+pubspec.lock
+pubspec.lock
