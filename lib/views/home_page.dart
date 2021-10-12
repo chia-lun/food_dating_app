@@ -11,13 +11,7 @@ class HomePage extends StatefulWidget {
 
 /// This is the private State class that goes with HomePage.
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,26 +67,29 @@ class _HomePageState extends State<HomePage> {
           ),
         )
       ]),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.orange,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Message',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: Colors.orange,
+      //   onTap: (int index) {
+      //     _selectTab(pageKeys[index], index);
+      //   },
+      //   currentIndex: _selectedIndex,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.message),
+      //       label: 'Message',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: 'Settings',
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.white,
+      //   //onTap: _onItemTapped,
+      // ),
     );
   }
 }
