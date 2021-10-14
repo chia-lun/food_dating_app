@@ -140,7 +140,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Email",
                     hint: "",
-                    onChanged: (firstName) {
+                    onChanged: (email) {
                       setState(() {
                         this.email = email;
                       });
@@ -149,7 +149,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Password",
                     hint: "",
-                    onChanged: (firstName) {
+                    onChanged: (password) {
                       setState(() {
                         this.password = password;
                       });
@@ -158,7 +158,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Name",
                     hint: "",
-                    onChanged: (firstName) {
+                    onChanged: (name) {
                       setState(() {
                         this.name = name;
                       });
@@ -167,7 +167,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Gender",
                     hint: "",
-                    onChanged: (firstName) {
+                    onChanged: (gener) {
                       setState(() {
                         this.gender = gender;
                       });
@@ -190,7 +190,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Restaurant",
                     hint: "",
-                    onChanged: (lastName) {
+                    onChanged: (restaurant) {
                       setState(() {
                         this.restaurant = restaurant;
                       });
