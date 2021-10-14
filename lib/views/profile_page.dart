@@ -37,14 +37,29 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: const NeumorphicThemeData(
-        defaultTextColor: Color(0xFF3E3E3E),
+      // theme: const NeumorphicThemeData(
+      //   baseColor: Color(0xFFFFFFFF),
+      //   lightSource: LightSource.topLeft,
+      //   defaultTextColor: Color(0xFF3E3E3E),
+      //   accentColor: Colors.orange,
+      //   variantColor: Colors.black38,
+      //   depth: 10,
+      //   intensity: 0.5,
+      // ),
+      // themeMode: ThemeMode.light,
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: Color(0xFFFFFFFF),
+        lightSource: LightSource.topLeft,
         accentColor: Colors.orange,
         variantColor: Colors.black38,
-        depth: 2,
-        intensity: 0.5,
+        depth: 10,
       ),
-      themeMode: ThemeMode.light,
+      darkTheme: NeumorphicThemeData(
+        baseColor: Color(0xFF3E3E3E),
+        lightSource: LightSource.topLeft,
+        depth: 6,
+      ),
       child: Material(
         child: NeumorphicBackground(
           child: _Page(),
@@ -95,9 +110,17 @@ class __PageState extends State<_Page> {
               ),
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
-                    height: 8,
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: NeumorphicIcon(
+                      Icons.add_circle,
+                      size: 80,
+                    ),
                   ),
+
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
                   // Align(
                   //   alignment: Alignment.centerRight,
                   //   child: NeumorphicButton(
