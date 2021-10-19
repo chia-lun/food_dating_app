@@ -56,3 +56,5 @@ android/.settings/org.eclipse.buildship.core.prefs
 android/.settings/org.eclipse.buildship.core.prefs
 pubspec.lock
 pubspec.lock
+.vscode/launch.json
+pubspec.lock

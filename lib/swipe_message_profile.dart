@@ -5,16 +5,18 @@ import 'package:flutter/cupertino.dart';
 //import 'package:custom_navigator/custom_scaffold.dart';
 import 'package:food_dating_app/tab_navigator.dart';
 
-class App extends StatefulWidget {
+class SwipeMessageProfile extends StatefulWidget {
+  const SwipeMessageProfile({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => AppState();
+  State<StatefulWidget> createState() => SwipeMessageProfileState();
 }
 
-class AppState extends State<App> {
-  String _currentPage = "Home";
-  List<String> pageKeys = ["Home", "Messages", "Profiles"];
+class SwipeMessageProfileState extends State<SwipeMessageProfile> {
+  String _currentPage = "SwipePage";
+  List<String> pageKeys = ["SwipePage", "Messages", "Profiles"];
   final Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
-    "Home": GlobalKey<NavigatorState>(),
+    "SwipePage": GlobalKey<NavigatorState>(),
     "Messages": GlobalKey<NavigatorState>(),
     "Profiles": GlobalKey<NavigatorState>(),
   };
@@ -38,55 +40,53 @@ class AppState extends State<App> {
         final isFirstRouteInCurrentTab =
             !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
         if (isFirstRouteInCurrentTab) {
-          if (_currentPage != "Home") {
-            _selectTab("Home", 1);
+          if (_currentPage != "SwipePage") {
+            _selectTab("SwipePage", 1);
             return false;
           }
         }
         // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;
       },
-          child: Scaffold(
-        body: Stack(
-          children:<Widget>[
-            _buildOffstageNavigator("Home"),
-            _buildOffstageNavigator("Messages"),
-            _buildOffstageNavigator("Profiles"),
-          ]
-        ),
+      child: Scaffold(
+        body: Stack(children: <Widget>[
+          _buildOffstageNavigator("SwipePage"),
+          _buildOffstageNavigator("Messages"),
+          _buildOffstageNavigator("Profiles"),
+        ]),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.orange,
-          onTap: (int index) { _selectTab(pageKeys[index], index); },
-          currentIndex: _selectedIndex, 
+          onTap: (int index) {
+            _selectTab(pageKeys[index], index);
+          },
+          currentIndex: _selectedIndex,
           items: const [
             BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
-          ),
+              icon: Icon(Icons.message),
+              label: 'Messages',
+            ),
             BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Profiles',
-          ),
+              icon: Icon(Icons.settings),
+              label: 'Profiles',
+            ),
           ],
           type: BottomNavigationBarType.fixed,
         ),
       ),
     );
-   
   }
 
   Widget _buildOffstageNavigator(String tabItem) {
-      return Offstage(
-        offstage: _currentPage != tabItem,
-        child: TabNavigator(
-          navigatorKey: _navigatorKeys[tabItem]!,
-          tabItem: tabItem,
-        ),
-      );
-  
+    return Offstage(
+      offstage: _currentPage != tabItem,
+      child: TabNavigator(
+        navigatorKey: _navigatorKeys[tabItem]!,
+        tabItem: tabItem,
+      ),
+    );
   }
 }
