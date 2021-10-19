@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -11,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 /// This is the private State class that goes with HomePage.
 class _HomePageState extends State<HomePage> {
-
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 // import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +33,8 @@ import 'package:food_dating_app/widgets/neumorphic_widgets.dart'
 // }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class _Page extends StatefulWidget {
+  final auth = FirebaseAuth.instance;
   @override
   __PageState createState() => __PageState();
 }

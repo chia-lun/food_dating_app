@@ -2,6 +2,8 @@
 /// This is the message page
 ///
 
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/message_model.dart';
@@ -12,13 +14,15 @@ import 'package:food_dating_app/models/user_repository.dart';
 import 'package:food_dating_app/styles.dart';
 
 class MessagePage extends StatefulWidget {
-  const MessagePage({Key? key}) : super(key: key);
+
+  MessagePage({Key? key}) : super(key: key);
 
   @override
   _MessagePageState createState() => _MessagePageState();
 }
 
 class _MessagePageState extends State<MessagePage> {
+  final auth = Auth.FirebaseAuth.instance;
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
   UserRepository users = UserRepository();
