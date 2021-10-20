@@ -2,85 +2,217 @@
 /// This is the message page
 ///
 
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/message_model.dart';
-
+import 'package:provider/provider.dart';
 import 'chat_screen.dart';
+import 'package:food_dating_app/models/user_model.dart';
+import 'package:food_dating_app/models/user_repository.dart';
+import 'package:food_dating_app/styles.dart';
 
-void main() => runApp(MyApp());
+class MessagePage extends StatefulWidget {
 
-class MyApp extends StatelessWidget {
+  MessagePage({Key? key}) : super(key: key);
+
+  @override
+  _MessagePageState createState() => _MessagePageState();
+}
+
+class _MessagePageState extends State<MessagePage> {
+  final auth = Auth.FirebaseAuth.instance;
+  late final TextEditingController _controller;
+  late final FocusNode _focusNode;
+  UserRepository users = UserRepository();
+  String _terms = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController()..addListener(_onTextChanged);
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    setState(() {
+      _terms = _controller.text;
+    });
+  }
+
+  Widget _buildSearchBox() {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: SearchBar(
+        controller: _controller,
+        focusNode: _focusNode,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)),
-      title: "MessagePage",
-      home: MessagePage(),
+    final results = users.loadUsers();
+
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+          color: Styles.scaffoldBackground,
+          ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            _buildSearchBox(),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) => MatchRowItem(
+                  user: results[index],
+                  lastItem: index == results.length - 1,
+                ),
+                itemCount: results.length,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class MessagePage extends StatefulWidget {
+//class for the search bar
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    required this.controller,
+    required this.focusNode,
+    Key? key,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final FocusNode focusNode;
+
   @override
-  MessagePageState createState() => MessagePageState();
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 4,
+          vertical: 8,
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              CupertinoIcons.search,
+              color: Colors.white,
+            ),
+            Expanded(
+              child: CupertinoTextField(
+                controller: controller,
+                focusNode: focusNode,
+                style: Styles.searchText,
+                cursorColor: Styles.searchCursorColor,
+                decoration: null,
+              ),
+            ),
+            GestureDetector(
+              onTap: controller.clear,
+              child: const Icon(
+                CupertinoIcons.clear_thick_circled,
+                color: Styles.searchIconColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class MessagePageState extends State<MessagePage> {
-  Widget _buildList() {
-    return ListView.builder(
-        itemCount: chats.length,
-        itemBuilder: (BuildContext context, int index) {
-          final Message chat = chats[index];
-          return GestureDetector(
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatScreen(
-                        user: chat.sender,
-                      ),
-                    ),
-                  ),
-              child: Row(
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 35.0,
-                    backgroundImage: AssetImage(chat.sender.imageUrl),
-                  ),
-                  SizedBox(width: 10.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        chat.sender.name,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 5.0),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Text(
-                          chat.text,
-                          style: TextStyle(
-                            color: Colors.blueGrey,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ));
-        });
-  }
+class MatchRowItem extends StatelessWidget {
+  const MatchRowItem({
+    required this.user,
+    required this.lastItem,
+    Key? key,
+  }) : super(key: key);
 
+  final User user;
+  final bool lastItem;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('ContactList')), body: _buildList());
+    final row = SafeArea(
+      top: false,
+      bottom: false,
+      minimum: const EdgeInsets.only(
+        left: 16,
+        top: 8,
+        bottom: 8,
+        right: 8,
+      ),
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.asset(
+              user.imageUrl,
+              //package: product.assetPackage,
+              fit: BoxFit.cover,
+              width: 60,
+              height: 60,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    user.name,
+                    style: Styles.productRowItemName,
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  // Text(
+                  //   '\$${product.price}',
+                  //   style: Styles.productRowItemPrice,
+                  // )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (lastItem) {
+      return row;
+    }
+
+    return Column(
+      children: <Widget>[
+        row,
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 100,
+            right: 16,
+          ),
+          child: Container(
+            height: 1,
+            color: Styles.productRowDivider,
+          ),
+        ),
+      ],
+    );
   }
 }
