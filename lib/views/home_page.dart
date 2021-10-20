@@ -1,52 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-void main() => runApp(const MyApp());
-
-/// This is the main application widget.
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  static const String _title = 'Fooder';
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.orange,
-        ),
-      ),
-      title: _title,
-      home: const MyStatefulWidget(),
-    );
-  }
-}
-
 /// This is the stateful widget that the main application instantiates.
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+/// This is the private State class that goes with HomePage.
+class _HomePageState extends State<HomePage> {
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: <Widget>[
         const Padding(
-          padding: EdgeInsets.only(bottom: 15),
+          padding: EdgeInsets.only(bottom: 40),
         ),
         Container(
           margin: const EdgeInsets.all(20.0),
@@ -62,7 +36,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     ),
-                    child: Image.asset('assets/images/NedOne.JPG',
+                    child: Image.asset('assets/images/ned1.jpg',
                         height: 500, fit: BoxFit.cover),
                   ),
                   const ListTile(
@@ -75,10 +49,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
           ),
         ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 15),
+        ),
         TextButton(
           onPressed: () {},
           child: const Text('Chat',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
+              style: TextStyle(fontSize: 18, color: Colors.white)),
           // style: TextButton.styleFrom(
           //   //padding: const EdgeInsets.all(16.0),
           //   primary: Colors.white,
@@ -92,26 +69,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         )
       ]),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.orange,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Message',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pages),
-            label: 'Pages',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: Colors.orange,
+      //   onTap: (int index) {
+      //     _selectTab(pageKeys[index], index);
+      //   },
+      //   currentIndex: _selectedIndex,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.message),
+      //       label: 'Message',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: 'Settings',
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.white,
+      //   //onTap: _onItemTapped,
+      // ),
     );
   }
 }
