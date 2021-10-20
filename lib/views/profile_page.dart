@@ -4,36 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:food_dating_app/views/login_signup_page.dart';
 import 'package:food_dating_app/widgets/neumorphic_widgets.dart'
     as neumorphic_widgets;
 
-//import 'package:card_settings/card_settings.dart';
-
-// class ProfilePage extends StatefulWidget {
-//   const ProfilePage({Key? key}) : super(key: key);
-
-//   @override
-//   State<ProfilePage> createState() => _ProfilePageState();
-// }
-
-// class _ProfilePageState extends State<ProfilePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoPageScaffold(
-//         navigationBar: CupertinoNavigationBar(
-//           middle: Text(
-//             "Profile Setting",
-//             textAlign: TextAlign.justify,
-//           ),
-//         ),
-//         child: CupertinoTextField(
-//           placeholder: "HEllo",
-//         ));
-//   }
-// }
-
 class ProfilePage extends StatelessWidget {
-
   ProfilePage({Key? key}) : super(key: key);
 
   @override
@@ -101,11 +76,17 @@ class __PageState extends State<_Page> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: NeumorphicButton(
-                      onPressed: _isButtonEnabled() ? () {} : null,
+                      onPressed: _isButtonEnabled()
+                          ? () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginSignupPage()));
+                            }
+                          : null,
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: Text(
-                        "Sign Up",
+                        "Log out",
                         style: TextStyle(fontWeight: FontWeight.w800),
                       ),
                     ),

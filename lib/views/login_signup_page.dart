@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_dating_app/views/accounts/sign_in_controller.dart';
-import 'package:food_dating_app/views/accounts/sign_up_controller.dart';
-import 'package:food_dating_app/views/accounts/sign_in_form.dart';
-import 'package:food_dating_app/views/accounts/sign_up_form.dart';
 import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:food_dating_app/swipe_message_profile.dart';
@@ -22,18 +18,18 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
-      appBar: AppBar(title: const Text('Login'),),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(  
-                hintText: 'Email'
-              ),
-               onChanged: (value) {
+              decoration: const InputDecoration(hintText: 'Email'),
+              onChanged: (value) {
                 setState(() {
                   _email = value.trim();
                 });
@@ -51,32 +47,36 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                 });
               },
             ),
-            
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:[
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            ElevatedButton(
+                //color: Theme.of(context).accentColor,
+                child: const Text('Signin'),
+                onPressed: () {
+                  auth
+                      .signInWithEmailAndPassword(
+                          email: _email, password: _password)
+                      .then((_) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const SwipeMessageProfile()));
+                  });
+                }),
             ElevatedButton(
               //color: Theme.of(context).accentColor,
-              child: const Text('Signin'),
-              onPressed: (){
-                  auth.signInWithEmailAndPassword(email: _email, password: _password).then((_){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const SwipeMessageProfile()));
-                  });
-                  
-            }),
-            ElevatedButton( 
-              //color: Theme.of(context).accentColor,
               child: const Text('Signup'),
-              onPressed: (){
-                auth.createUserWithEmailAndPassword(email: _email, password: _password).then((_){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const SwipeMessageProfile()));
+              onPressed: () {
+                auth
+                    .createUserWithEmailAndPassword(
+                        email: _email, password: _password)
+                    .then((_) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const SwipeMessageProfile()));
                 });
-                
               },
             )
           ])
-        ],),
+        ],
+      ),
     );
   }
 }
