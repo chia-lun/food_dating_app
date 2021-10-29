@@ -1,10 +1,98 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:food_dating_app/widgets/neumorphic_widgets.dart';
 
-/// This is the stateful widget that the main application instantiates.
+// class homePage extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return NeumorphicApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Neumorphic App',
+//       themeMode: ThemeMode.light,
+//       theme: const NeumorphicThemeData(
+//         baseColor: Color(0xFFFFFFFF),
+//         lightSource: LightSource.topLeft,
+//         depth: 10,
+//       ),
+//       darkTheme: const NeumorphicThemeData(
+//         baseColor: Color(0xFF3E3E3E),
+//         lightSource: LightSource.topLeft,
+//         depth: 6,
+//       ),
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+// class MyHomePage extends StatefulWidget {
+//   @override
+//   State<StatefulWidget> createState() => __PageState();
+// }
+
+// class __PageState extends State<MyHomePage> {
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+
+//     )
+// }
+
+// class HomePage extends StatelessWidget {
+//   HomePage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return NeumorphicTheme(
+//       themeMode: ThemeMode.light,
+//       theme: const NeumorphicThemeData(
+//         baseColor: Color(0xFFFFFFFF),
+//         lightSource: LightSource.topLeft,
+//         accentColor: Colors.orange,
+//         variantColor: Colors.black38,
+//         depth: 10,
+//       ),
+//       darkTheme: const NeumorphicThemeData(
+//         baseColor: Color(0xFF3E3E3E),
+//         lightSource: LightSource.topLeft,
+//         depth: 6,
+//       ),
+//       child: Material(
+//         child: NeumorphicBackground(
+//           child: _Page(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class _Page extends StatefulWidget {
+//   @override
+//   __PageState createState() => __PageState();
+// }
+
+// class HomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Neumorphic(
+//       style: NeumorphicStyle(
+//           shape: NeumorphicShape.concave,
+//           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+//           depth: 20,
+//           lightSource: LightSource.topLeft,
+//           color: Colors.orange),
+//       child: NeumorphicButton(
+
+//       )
+//     );
+//   }
+// }
+
+// This is the stateful widget that the main application instantiates.
 class HomePage extends StatefulWidget {
-  
   HomePage({Key? key}) : super(key: key);
 
   @override
