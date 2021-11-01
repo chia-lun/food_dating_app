@@ -5,12 +5,15 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 final List data = [
   {
     'color': Colors.red,
+    'image': Image.asset('assets/images/ned1.jpg', height: 500),
   },
   {
     'color': Colors.green,
+    'image': Image.asset('assets/images/jiaying.jpg', height: 500),
   },
   {
     'color': Colors.blue,
+    'image': Image.asset('assets/images/james.jpg', height: 500),
   }
 ];
 
@@ -24,12 +27,15 @@ class _TinderState extends State<Tinder> {
   List<Card> cards = [
     Card(
       data[0]['color'],
+      data[0]['image'],
     ),
     Card(
       data[1]['color'],
+      data[1]['image'],
     ),
     Card(
       data[2]['color'],
+      data[2]['image'],
     ),
   ];
 
@@ -48,10 +54,9 @@ class _TinderState extends State<Tinder> {
 }
 
 class Card extends StatelessWidget {
-  // Made to distinguish cards
-  // Add your own applicable data here
+  final Image image;
   final Color color;
-  Card(this.color);
+  Card(this.color, this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +65,10 @@ class Card extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
+          image: DecorationImage(
+            image: AssetImage('assets/images/ned1.jpg'),
+            fit: BoxFit.cover,
+          ),
           color: color,
         ),
       ),
