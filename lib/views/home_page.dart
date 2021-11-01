@@ -50,10 +50,9 @@ class _HomePageState extends State<HomePage> {
           //),
           //),
         ),
-        // const Padding(
-        //   padding: EdgeInsets.only(bottom: 15),
-        // ),
-
+        const Padding(
+          padding: EdgeInsets.only(bottom: 15),
+        ),
         TextButton(
           onPressed: () {},
           child: const Text('Chat',
