@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-  static const TextStyle productRowItemName = TextStyle(
+  static const TextStyle contactsName = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.8),
     fontSize: 18,
     fontStyle: FontStyle.normal,
@@ -27,15 +27,6 @@ abstract class Styles {
     fontSize: 14,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
-  );
-
-  static const TextStyle deliveryTimeLabel = TextStyle(
-    color: Color(0xFFC2C2C2),
-    fontWeight: FontWeight.w300,
-  );
-
-  static const TextStyle deliveryTime = TextStyle(
-    color: CupertinoColors.inactiveGray,
   );
 
   static const Color productRowDivider = Color(0xFFD9D9D9);
