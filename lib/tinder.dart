@@ -17,6 +17,11 @@ final List data = [
     'image': AssetImage('assets/images/james.jpg'),
     'title': Text("James, 20"),
     'subtitle': Text("Cafe Mac"),
+  },
+  {
+    'image': AssetImage('assets/images/hari.jpg'),
+    'title': Text("Hari,19"),
+    'subtitle': Text("Cooking at 30 mac"),
   }
 ];
 
@@ -44,6 +49,7 @@ class _TinderState extends State<Tinder> {
       data[2]['title'],
       data[2]['subtitle'],
     ),
+    Card(data[3]['image'], data[3]['title'], data[3]['subtitle'])
   ];
 
   @override
