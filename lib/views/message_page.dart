@@ -14,7 +14,6 @@ import 'package:food_dating_app/models/user_repository.dart';
 import 'package:food_dating_app/styles.dart';
 
 class MessagePage extends StatefulWidget {
-
   MessagePage({Key? key}) : super(key: key);
 
   @override
@@ -64,8 +63,8 @@ class _MessagePageState extends State<MessagePage> {
 
     return DecoratedBox(
       decoration: const BoxDecoration(
-          color: Styles.scaffoldBackground,
-          ),
+        color: Styles.scaffoldBackground,
+      ),
       child: SafeArea(
         child: Column(
           children: [
@@ -180,13 +179,9 @@ class MatchRowItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     user.name,
-                    style: Styles.productRowItemName,
+                    style: Styles.contactsName,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
-                  // Text(
-                  //   '\$${product.price}',
-                  //   style: Styles.productRowItemPrice,
-                  // )
                 ],
               ),
             ),
@@ -196,23 +191,37 @@ class MatchRowItem extends StatelessWidget {
     );
 
     if (lastItem) {
-      return row;
+      return GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ChatScreen(
+                        user: user,
+                      ))),
+          child: row);
     }
 
-    return Column(
-      children: <Widget>[
-        row,
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 100,
-            right: 16,
-          ),
-          child: Container(
-            height: 1,
-            color: Styles.productRowDivider,
-          ),
-        ),
-      ],
-    );
+    return GestureDetector(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => ChatScreen(
+                      user: user,
+                    ))),
+        child: Column(
+          children: <Widget>[
+            row,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 100,
+                right: 16,
+              ),
+              child: Container(
+                height: 1,
+                color: Styles.productRowDivider,
+              ),
+            ),
+          ],
+        ));
   }
 }
