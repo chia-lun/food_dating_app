@@ -19,13 +19,14 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Login'),
+      // ),
+
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 220.0, left: 40, right: 40),
             child: TextField(
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(hintText: 'Email'),
@@ -37,7 +38,7 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(40.0),
             child: TextField(
               obscureText: true,
               decoration: const InputDecoration(hintText: 'Password'),
