@@ -5,11 +5,9 @@ class User {
   late String gender;
   late String birthday;
   late String phone;
-  late String address;
-  late String create_at;
-  late String type;
+  late String restaurant;
   User(this.fullname, this.username, this.password, this.gender, this.birthday,
-      this.phone, this.address, this.create_at, this.type);
+      this.phone, this.restaurant);
 
   User.fromJson(Map<String, dynamic> json) {
     fullname = json['fullname'];
@@ -18,9 +16,7 @@ class User {
     gender = json['gender'];
     birthday = json['birthday'];
     phone = json['phone'];
-    address = json['address'];
-    create_at = json['create_at'];
-    type = json['type'];
+    restaurant = json['restaurant'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,9 +27,7 @@ class User {
     data['gender'] = gender;
     data['birthday'] = birthday;
     data['phone'] = phone;
-    data['address'] = address;
-    data['create_at'] = create_at;
-    data['type'] = type;
+    data['restaurant'] = restaurant;
     return data;
   }
 }

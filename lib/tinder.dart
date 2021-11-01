@@ -29,7 +29,6 @@ class _TinderState extends State<Tinder> {
   // Dynamically load cards from database
   List<Card> cards = [
     Card(
-      //data[0]['color'],
       data[0]['image'],
       data[0]['title'],
       data[0]['subtitle'],
