@@ -4,10 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:food_dating_app/views/signup_page.dart';
 
 class LoginSignupPage extends StatefulWidget {
-  //const LoginSignupPage({Key? key}) : super(key: key);
-
   @override
   State<LoginSignupPage> createState() => _LoginSignupPageWidgetState();
 }
@@ -19,10 +18,6 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Login'),
-      // ),
-
       body: Column(
         children: [
           Padding(
@@ -50,29 +45,48 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            ElevatedButton(
-                //color: Theme.of(context).accentColor,
-                child: const Text('Signin'),
+            MaterialButton(
+                color: Colors.orange,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Text(
+                  'Signin',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
                 onPressed: () {
                   auth
                       .signInWithEmailAndPassword(
                           email: _email, password: _password)
                       .then((_) {
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => SwipeMessageProfile()));
+
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const SwipeMessageProfile()));
                   });
                 }),
-            ElevatedButton(
-              //color: Theme.of(context).accentColor,
-              child: const Text('Signup'),
+            MaterialButton(
+              color: Colors.orange,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              child: const Text(
+                'Signup',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
               onPressed: () {
-                auth
-                    .createUserWithEmailAndPassword(
-                        email: _email, password: _password)
-                    .then((_) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const SwipeMessageProfile()));
-                });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()));
+                // auth
+                //     .createUserWithEmailAndPassword(
+                //         email: _email, password: _password)
+                //     .then((_) {
+                //   // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //   //     builder: (context) => const SwipeMessageProfile()));
+
+                // });
               },
             )
           ])

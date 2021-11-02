@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/routes.dart';
+import 'package:food_dating_app/views/login_signup_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
                   builder: DevicePreview.appBuilder,
                   initialRoute: initialRoute,
                   routes: routes,
+                  //routes: (context)=> LoginSignupPage()
                 );
               } else {
                 return const Center(
