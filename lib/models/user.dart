@@ -1,33 +1,48 @@
+import 'package:meta/meta.dart';
+
+import 'package:food_dating_app/widgets/utils.dart';
+
+class UserField {
+  static final String lastMessageTime = 'lastMessageTime';
+}
+
 class User {
-  late String fullname;
-  late String username;
-  late String password;
-  late String gender;
-  late String birthday;
-  late String phone;
-  late String restaurant;
-  User(this.fullname, this.username, this.password, this.gender, this.birthday,
-      this.phone, this.restaurant);
+  final String idUser;
+  final String name;
+  final String urlAvatar;
+  final String lastMessageTime;
 
-  User.fromJson(Map<String, dynamic> json) {
-    fullname = json['fullname'];
-    username = json['username'];
-    password = json['password'];
-    gender = json['gender'];
-    birthday = json['birthday'];
-    phone = json['phone'];
-    restaurant = json['restaurant'];
-  }
+  const User({
+    required this.idUser,
+    required this.name,
+    required this.urlAvatar,
+    required this.lastMessageTime,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fullname'] = fullname;
-    data['username'] = username;
-    data['password'] = password;
-    data['gender'] = gender;
-    data['birthday'] = birthday;
-    data['phone'] = phone;
-    data['restaurant'] = restaurant;
-    return data;
-  }
+  User copyWith({
+    required String idUser,
+    required String name,
+    required String urlAvatar,
+    required String lastMessageTime,
+  }) =>
+      User(
+        idUser: idUser,
+        name: name,
+        urlAvatar: urlAvatar,
+        lastMessageTime: lastMessageTime,
+      );
+
+  static User fromJson(Map<String, dynamic> json) => User(
+        idUser: json['idUser'],
+        name: json['name'],
+        urlAvatar: json['urlAvatar'],
+        lastMessageTime: Utils.toDateTime(json['lastMessageTime']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'idUser': idUser,
+        'name': name,
+        'urlAvatar': urlAvatar,
+        'lastMessageTime': Utils.fromDateTimeToJson(lastMessageTime),
+      };
 }

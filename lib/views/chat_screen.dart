@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_dating_app/models/message_model.dart';
+import 'package:food_dating_app/models/message.dart';
 import 'package:food_dating_app/models/user_model.dart';
 
 class ChatScreen extends StatefulWidget {
