@@ -1,11 +1,14 @@
-class User {
+class OurUser {
+  late final String uid;
   late final String name;
-  late final String gender;
   late final int age;
   late final String restaurant;
 
-  User({ required this.name, required this.gender, required this.age, required this.restaurant});
-
+  OurUser(
+      {required this.uid,
+      required this.name,
+      required this.age,
+      required this.restaurant});
 
   // User(this.fullname, this.username, this.password, this.gender, this.birthday,
   //     this.phone, this.address, this.create_at, this.type);
