@@ -1,48 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 import 'package:food_dating_app/widgets/utils.dart';
 
-class UserField {
-  static final String lastMessageTime = 'lastMessageTime';
-}
-
 class User {
   final String idUser;
   final String name;
-  final String urlAvatar;
-  final String lastMessageTime;
+  //final String urlAvatar;
 
   const User({
     required this.idUser,
     required this.name,
-    required this.urlAvatar,
-    required this.lastMessageTime,
+    //required this.urlAvatar,
   });
 
-  User copyWith({
-    required String idUser,
-    required String name,
-    required String urlAvatar,
-    required String lastMessageTime,
-  }) =>
-      User(
-        idUser: idUser,
-        name: name,
-        urlAvatar: urlAvatar,
-        lastMessageTime: lastMessageTime,
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'idUser': idUser,
+      'name': name,
+      //'urlAvatar': urlAvatar,
+    };
+  }
 
-  static User fromJson(Map<String, dynamic> json) => User(
-        idUser: json['idUser'],
-        name: json['name'],
-        urlAvatar: json['urlAvatar'],
-        lastMessageTime: Utils.toDateTime(json['lastMessageTime']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'idUser': idUser,
-        'name': name,
-        'urlAvatar': urlAvatar,
-        'lastMessageTime': Utils.fromDateTimeToJson(lastMessageTime),
-      };
+  factory User.fromDocument(DocumentSnapshot doc) {
+    String idUser = "";
+    String name = "";
+    //String urlAvatar = "";
+    try {
+      idUser = doc.get("idUser");
+    } catch (e) {}
+    try {
+      name = doc.get("name");
+    } catch (e) {}
+    return User(idUser: idUser, name: name);
+  }
 }

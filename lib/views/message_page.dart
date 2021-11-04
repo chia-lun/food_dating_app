@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_dating_app/models/message_model.dart';
+//import 'package:food_dating_app/models/message_model.dart';
 import 'package:provider/provider.dart';
 import 'chat_screen.dart';
 import 'package:food_dating_app/models/user_model.dart';
