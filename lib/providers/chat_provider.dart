@@ -3,10 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:food_dating_app/models/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:NSUserDefaults/NSUserDefaults.dart';
 
 class ChatProvider {
-  final NSUserDefaults prefs;
+  final SharedPreferences prefs;
   final FirebaseFirestore firebaseFirestore;
   final FirebaseStorage firebaseStorage;
   ChatProvider(
@@ -41,8 +40,8 @@ class ChatProvider {
         .snapshots();
   }
 
-  void sendMessage(String content, int type, String groupChatId,
-      String currentUserId, String peerId) {
+  void sendMessage(
+      String content, String groupChatId, String currentUserId, String peerId) {
     DocumentReference documentReference = firebaseFirestore
         .collection("message")
         .doc(groupChatId)

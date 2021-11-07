@@ -13,7 +13,8 @@ class Message {
       {required this.senderID,
       required this.receiverID,
       required this.time,
-      required this.text});
+      required this.text,
+      String? idUser});
 
   Map<String, dynamic> toJson() {
     return {
