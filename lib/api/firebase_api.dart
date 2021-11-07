@@ -6,11 +6,11 @@ import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/widgets/utils.dart';
 
 class FirebaseApi {
-  static Stream<List<User>> getUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .orderBy(UserField.lastMessageTime, descending: true)
-      .snapshots()
-      .transform(Utils.transformer(User.fromJson));
+  // static Stream<List<User>> getUsers() => FirebaseFirestore.instance
+  //     .collection('users')
+  //     .orderBy("time", descending: true)
+  //     .snapshots()
+  //     .transform(Utils.transformer(User.fromJson));
 
   static Future uploadMessage(String idUser, String message) async {
     final refMessages =
