@@ -44,6 +44,7 @@ dependencies:
     git:
       url: https://github.com/tsvillain/Flutter-Neumorphic.git
   flutter_colorpicker: ^0.6.0
+  firebase_storage: ^10.1.0
 
 dev_dependencies:
   flutter_test:

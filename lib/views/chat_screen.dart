@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/message.dart';
 import 'package:food_dating_app/models/user_model.dart';
+import 'package:food_dating_app/providers/chat_provider.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
@@ -12,6 +13,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late ChatProvider chatProvider;
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
@@ -162,5 +164,11 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  void onSendMessage(String content) {
+    if (content.trim().isNotEmpty) {
+      chatProvider.sendMessage(content, groupChatId, currentUserId, peerId)
+    }
   }
 }
