@@ -94,7 +94,10 @@ class __PageState extends State<_Page> {
                       child: NeumorphicButton(
                         onPressed: () {
                           ///_logoutStatus = true;
-                          Navigator.of(context).pushReplacement(
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => LoginSignupPage()));
+                          Navigator.push(
+                              context,
                               MaterialPageRoute(
                                   builder: (context) => LoginSignupPage()));
                         },
