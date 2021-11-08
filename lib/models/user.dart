@@ -34,4 +34,11 @@ class User {
     } catch (e) {}
     return User(idUser: idUser, name: name);
   }
+  String getid() {
+    return idUser;
+  }
+
+  String getname() {
+    return name;
+  }
 }

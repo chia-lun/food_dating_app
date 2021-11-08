@@ -1,19 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_dating_app/constants/color_constants.dart';
 import 'package:food_dating_app/models/message.dart';
 import 'package:food_dating_app/models/user_model.dart';
+import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/providers/chat_provider.dart';
+import 'package:food_dating_app/views/login_signup_page.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
 
-  const ChatScreen({required this.user});
+  ChatScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  ChatScreenState createState() => ChatScreenState(
+        user: user,
+      );
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class ChatScreenState extends State<ChatScreen> {
+  ChatScreenState({required this.user});
+  User user;
+  late String currentUserId;
   late ChatProvider chatProvider;
+  late AuthProvider authProvider;
+  @override
+  void initState() {
+    super.initState();
+    //chatProvider = context.read<ChatProvider>;
+  }
+
+  List<QueryDocumentSnapshot> listMessage = [];
+  int _limit = 20;
+  int _limitIncrement = 20;
+  String groupChatId = "";
+
+  final TextEditingController textEditingController = TextEditingController();
+  final ScrollController listScrollController = ScrollController();
+  final FocusNode focusNode = FocusNode();
+
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
@@ -84,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: Icon(Icons.photo),
             iconSize: 25.0,
             color: Theme.of(context).primaryColor,
-            onPressed: () {},
+            onPressed: () => onSendMessage(textEditingController.text),
           ),
           Expanded(
             child: TextField(
@@ -142,21 +168,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
-                      return _buildMessage(message, isMe);
-                    },
-                  ),
-                ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                    child: buildListMessage()),
               ),
             ),
             _buildMessageComposer(),
@@ -166,9 +182,116 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  void readLocal() {
+    if (authProvider.getUserFirebaseId()?.isNotEmpty == true) {
+      currentUserId = authProvider.getUserFirebaseId()!;
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginSignupPage()),
+        (Route<dynamic> route) => false,
+      );
+    }
+    if (currentUserId.compareTo(user.id) > 0) {
+      groupChatId = '$currentUserId-$user.id';
+    } else {
+      groupChatId = '$user.id-$currentUserId';
+    }
+
+    chatProvider.updateDataFirestore(
+      "users",
+      currentUserId,
+      {'chattingWith': user.id},
+    );
+  }
+
   void onSendMessage(String content) {
     if (content.trim().isNotEmpty) {
-      chatProvider.sendMessage(content, groupChatId, currentUserId, peerId)
+      chatProvider.sendMessage(content, groupChatId, currentUserId, user.id);
+    }
+  }
+
+  Widget buildListMessage() {
+    return Flexible(
+      child: groupChatId.isNotEmpty
+          ? StreamBuilder<QuerySnapshot>(
+              stream: chatProvider.getChatStream(groupChatId, _limit),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  listMessage = snapshot.data!.docs;
+                  if (listMessage.length > 0) {
+                    return ListView.builder(
+                      padding: EdgeInsets.all(10),
+                      itemBuilder: (context, index) =>
+                          buildItem(index, snapshot.data?.docs[index]),
+                      itemCount: snapshot.data?.docs.length,
+                      reverse: true,
+                      controller: listScrollController,
+                    );
+                  } else {
+                    return Center(child: Text("No message here yet..."));
+                  }
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorConstants.themeColor,
+                    ),
+                  );
+                }
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(
+                color: ColorConstants.themeColor,
+              ),
+            ),
+    );
+  }
+
+  Widget buildItem(int index, DocumentSnapshot? documentSnapshot) {
+    if (documentSnapshot != null) {
+      Message message = Message.fromDocument(documentSnapshot);
+      if (message.receiverID == currentUserId) {
+        return Row(
+          children: <Widget>[
+            Container(
+              child: Text(
+                message.text,
+                style: TextStyle(color: ColorConstants.primaryColor),
+              ),
+              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+              width: 200,
+              decoration: BoxDecoration(color: ColorConstants.greyColor),
+              margin: EdgeInsets.only(bottom: 20),
+            )
+          ],
+          mainAxisAlignment: MainAxisAlignment.end,
+        );
+      } else {
+        return Container(
+            child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    message.text,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: ColorConstants.primaryColor,
+                      borderRadius: BorderRadius.circular(8)),
+                  margin: EdgeInsets.only(left: 10),
+                )
+              ],
+            )
+          ],
+        ));
+      }
+    } else {
+      return SizedBox.shrink();
     }
   }
 }
