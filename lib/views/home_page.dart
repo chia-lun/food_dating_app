@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:food_dating_app/tinder.dart';
+import 'package:food_dating_app/tinder_image.dart';
+import 'package:food_dating_app/views/message_page.dart';
+//import 'package:food_dating_app/tinder_text.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -22,41 +24,54 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(bottom: 40),
         ),
         Container(
-          margin: const EdgeInsets.all(20.0),
-          child: Tinder(),
-          // child: Card(
-          //   shape: const RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          //   child: InkWell(
-          //     child: Tinder(),
-          // child: Column(
-          //   crossAxisAlignment: CrossAxisAlignment.stretch,
-          //   children: [
-          //     ClipRRect(
-          //       borderRadius: const BorderRadius.only(
-          //         topLeft: Radius.circular(8.0),
-          //         topRight: Radius.circular(8.0),
-          //       ),
-          //       child: Image.asset('assets/images/ned1.jpg',
-          //           height: 500, fit: BoxFit.cover),
-          //     ),
-          //     const ListTile(
-          //       title: Text("Ned Mayo, 20"), // this could be static later
-          //       subtitle:
-          //           Text("French Meadow"), // this could be static later
-          //     )
-          //   ],
-          // ),
-          //),
-          //),
-        ),
+            margin: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TinderImage(),
+                //tinderText(),
+                // ListTile(
+                //   title: Text("Ned Mayo, 20"), // this could be static later
+                //   subtitle: Text("French Meadow"), // this could be static later
+                // )
+              ],
+            )
+
+            // child: Card(
+            //   shape: const RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            //   child: InkWell(
+            //     child: Tinder(),
+            // child: Column(
+            //   crossAxisAlignment: CrossAxisAlignment.stretch,
+            //   children: [
+            //     ClipRRect(
+            //       borderRadius: const BorderRadius.only(
+            //         topLeft: Radius.circular(8.0),
+            //         topRight: Radius.circular(8.0),
+            //       ),
+            //       child: Image.asset('assets/images/ned1.jpg',
+            //           height: 500, fit: BoxFit.cover),
+            //     ),
+            //     const ListTile(
+            //       title: Text("Ned Mayo, 20"), // this could be static later
+            //       subtitle:
+            //           Text("French Meadow"), // this could be static later
+            //     )
+            //   ],
+            // ),
+            //),
+            //),
+            ),
         const Padding(
           padding: EdgeInsets.only(bottom: 15),
         ),
         TextButton(
-          onPressed: () {},
-          child: const Text('Chat',
-              style: TextStyle(fontSize: 18, color: Colors.white)),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => MessagePage()));
+          },
+          child:
+              Text('Chat', style: TextStyle(fontSize: 18, color: Colors.white)),
           // style: TextButton.styleFrom(
           //   //padding: const EdgeInsets.all(16.0),
           //   primary: Colors.white,
