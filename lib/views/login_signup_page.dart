@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:food_dating_app/services/database.dart';
 
 class LoginSignupPage extends StatefulWidget {
   //const LoginSignupPage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class LoginSignupPage extends StatefulWidget {
 
 class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
   late String _email, _password;
-  final auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -65,13 +66,17 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
             ElevatedButton(
               //color: Theme.of(context).accentColor,
               child: const Text('Signup'),
-              onPressed: () {
+              onPressed: () async {
                 auth
                     .createUserWithEmailAndPassword(
                         email: _email, password: _password)
-                    .then((_) {
+                    .then((_) async {
+                  User user = await auth.createUserWithEmailAndPassword(
+                      email: _email, password: _password);
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const SwipeMessageProfile()));
+                  await DatabaseService(uid: user.uid)
+                      .updateUser("ned", 20, "french meadow");
                 });
               },
             )

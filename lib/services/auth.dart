@@ -1,4 +1,4 @@
-import 'package:food_dating_app/models/our_user.dart';
+import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,18 +6,21 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
-  OurUser? _userFromFirebaseUser(User user) {
-    return user != null
-        ? OurUser(uid: user.uid, name: "uma", age: 10, restaurant: "restaurant")
-        : null;
+  AppUser _userFromFirebaseUser(User user) {
+    return AppUser(
+        uid: user.uid, name: "uma", age: 10, restaurant: "restaurant");
   }
 
-  // auth change user stream
-  Stream<OurUser> get user {
-    return _auth.authStateChanged
-        //.map((User user) => _userFromFirebaseUser(user));
-        .map(_userFromFirebaseUser);
-  }
+  // // auth change user stream
+  // Stream<AppUser> get user {
+  //   return _auth
+
+  //       .authStateChanges()
+  //       //.map((User user) => _userFromFirebaseUser(user));
+  //       .map(_userFromFirebaseUser);
+  // }
+
+  Stream<User?> get onAuthStateChanged => _auth.authStateChanges();
 
   // sign in anon
   Future signInAnon() async {

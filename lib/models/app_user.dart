@@ -1,10 +1,10 @@
-class OurUser {
+class AppUser {
   late final String uid;
   late final String name;
   late final int age;
   late final String restaurant;
 
-  OurUser(
+  AppUser(
       {required this.uid,
       required this.name,
       required this.age,
