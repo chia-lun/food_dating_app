@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/constants/color_constants.dart';
@@ -6,6 +9,7 @@ import 'package:food_dating_app/models/user_model.dart';
 import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/providers/chat_provider.dart';
 import 'package:food_dating_app/views/login_signup_page.dart';
+import 'package:provider/src/provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -28,7 +32,11 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    //chatProvider = context.read<ChatProvider>;
+    chatProvider = context.read<ChatProvider>();
+    authProvider = context.read<AuthProvider>();
+    //focusNode.addListener(onFocusChange);
+    // listScrollController.addListener(_scrollListener);
+    readLocal();
   }
 
   List<QueryDocumentSnapshot> listMessage = [];
@@ -107,25 +115,32 @@ class ChatScreenState extends State<ChatScreen> {
       child: Row(
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.photo),
-            iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
-            onPressed: () => onSendMessage(textEditingController.text),
-          ),
+              icon: Icon(Icons.photo),
+              iconSize: 25.0,
+              color: Theme.of(context).primaryColor,
+              onPressed: () {} //onSendMessage(textEditingController.text),
+              ),
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
-              onChanged: (value) {},
+              onSubmitted: (value) {
+                onSendMessage(textEditingController.text);
+              },
+              style:
+                  TextStyle(color: ColorConstants.primaryColor, fontSize: 15),
+              controller: textEditingController,
               decoration: InputDecoration.collapsed(
-                hintText: 'Send a message...',
+                hintText: 'Type your message...',
+                hintStyle: TextStyle(color: ColorConstants.greyColor),
               ),
+              focusNode: focusNode,
             ),
           ),
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
             color: Theme.of(context).primaryColor,
-            onPressed: () {},
+            onPressed: () => onSendMessage(textEditingController.text),
           ),
         ],
       ),
@@ -206,7 +221,10 @@ class ChatScreenState extends State<ChatScreen> {
 
   void onSendMessage(String content) {
     if (content.trim().isNotEmpty) {
+      textEditingController.clear();
       chatProvider.sendMessage(content, groupChatId, currentUserId, user.id);
+      listScrollController.animateTo(0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     }
   }
 
