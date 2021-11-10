@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:provider/provider.dart';
 
 class LoginSignupPage extends StatefulWidget {
   //const LoginSignupPage({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text('Login'),
@@ -54,6 +58,7 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                 //color: Theme.of(context).accentColor,
                 child: const Text('Signin'),
                 onPressed: () {
+                  authProvider.handleSignIn();
                   auth
                       .signInWithEmailAndPassword(
                           email: _email, password: _password)

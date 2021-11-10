@@ -201,10 +201,12 @@ class ChatScreenState extends State<ChatScreen> {
     if (authProvider.getUserFirebaseId()?.isNotEmpty == true) {
       currentUserId = authProvider.getUserFirebaseId()!;
     } else {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginSignupPage()),
-        (Route<dynamic> route) => false,
-      );
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginSignupPage()),
+          (Route<dynamic> route) => false,
+        );
+      });
     }
     if (currentUserId.compareTo(user.id) > 0) {
       groupChatId = '$currentUserId-$user.id';
