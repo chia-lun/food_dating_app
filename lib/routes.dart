@@ -3,10 +3,10 @@
 //import 'dart:js';
 
 import 'package:food_dating_app/swipe_message_profile.dart';
-import 'package:food_dating_app/views/home_page.dart';
-import 'package:food_dating_app/views/login_signup_page.dart';
-import 'package:food_dating_app/views/message_page.dart';
-import 'package:food_dating_app/views/profile_page.dart';
+import 'package:food_dating_app/screens/home_page.dart';
+import 'package:food_dating_app/screens/login_signin_page.dart';
+import 'package:food_dating_app/screens/message_page.dart';
+import 'package:food_dating_app/screens/profile_page.dart';
 
 const initialRoute = "login_signup_page";
 

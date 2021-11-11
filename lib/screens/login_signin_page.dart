@@ -5,7 +5,7 @@ import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
-import 'package:food_dating_app/views/signup_page.dart';
+import 'package:food_dating_app/screens/signup_page.dart';
 
 class LoginSignupPage extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class LoginSignupPage extends StatefulWidget {
 
 class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
   late String _email, _password;
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +51,32 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 child: const Text(
+                  'Signin anon',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
+                onPressed: () async {
+                  dynamic result = await _auth.signInAnonymously();
+                  if (result == null) {
+                    print("error signing in");
+                  } else {
+                    print("signed in");
+                    print(result);
+                  }
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const SwipeMessageProfile()));
+                }),
+            MaterialButton(
+                color: Colors.orange,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Text(
                   'Signin',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),
                 onPressed: () {
-                  auth
+                  _auth
                       .signInWithEmailAndPassword(
                           email: _email, password: _password)
                       .then((_) {
