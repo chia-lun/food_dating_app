@@ -7,9 +7,16 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
+  //method to update an existing user
   Future updateUser(String name, int age, String restaurant) async {
     return await userCollection
         .doc(uid)
         .set({'name': name, 'age': age, 'restaurant': restaurant});
+  }
+
+  //method to add a new user
+  Future addUser(String name, int age, String restaurant) async {
+    return await userCollection
+        .add({'name': name, 'age': age, 'restaurant': restaurant});
   }
 }
