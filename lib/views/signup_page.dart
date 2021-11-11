@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/widgets/input_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../swipe_message_profile.dart';
+import 'package:food_dating_app/services/database.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -12,6 +16,22 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  String getUserId() {
+
+    final User? user = auth.currentUser;
+    final userId = user!.uid;
+    
+    return userId;
+  }
+
+  //Create a TextEditingController to retrieve the text a user has entered
+  //into a text field
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final restaurantController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +45,10 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             TextFormField(
+              //for future text call
+              controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'Enter your email',
+                hintText: 'Enter your name',
               ),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
@@ -36,17 +58,8 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Enter your password',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
+              //for future text call
+              controller: ageController,
               decoration: const InputDecoration(
                 hintText: 'Enter your age',
               ),
@@ -58,6 +71,8 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             TextFormField(
+              //for future text call
+              controller: restaurantController,
               decoration: const InputDecoration(
                 hintText: 'Enter your restaurant',
               ),
@@ -75,6 +90,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 onPressed: () {
+                  DatabaseService(uid: getUserId()).addUser(nameController.text,
+                      int.parse(ageController.text), restaurantController.text);
                   // Validate will return true if the form is valid, or false if
                   // the form is invalid.
                   // if (_formKey.currentState!.validate()) {
