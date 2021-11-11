@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import '../swipe_message_profile.dart';
+import '../../swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -20,10 +20,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   String getUserId() {
-
     final User? user = auth.currentUser;
     final userId = user!.uid;
-    
+
     return userId;
   }
 

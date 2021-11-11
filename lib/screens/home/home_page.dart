@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:food_dating_app/widgets/tinder_image.dart';
-import 'package:food_dating_app/screens/chat_screen.dart';
-import 'package:food_dating_app/screens/message_page.dart';
+import 'package:food_dating_app/screens/home/chat_screen.dart';
+import 'package:food_dating_app/screens/home/message_page.dart';
 //import 'package:food_dating_app/tinder_text.dart';
 
 class HomePage extends StatefulWidget {

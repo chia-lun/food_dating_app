@@ -3,10 +3,10 @@
 //import 'dart:js';
 
 import 'package:food_dating_app/swipe_message_profile.dart';
-import 'package:food_dating_app/screens/home_page.dart';
-import 'package:food_dating_app/screens/login_signin_page.dart';
-import 'package:food_dating_app/screens/message_page.dart';
-import 'package:food_dating_app/screens/profile_page.dart';
+import 'package:food_dating_app/screens/home/home_page.dart';
+import 'package:food_dating_app/screens/authenticate/signin_page.dart';
+import 'package:food_dating_app/screens/home/message_page.dart';
+import 'package:food_dating_app/screens/home/profile_page.dart';
 
 const initialRoute = "login_signup_page";
 
@@ -23,5 +23,5 @@ var routes = {
   //login_signup_page is the page that users use to sign up or log in, after
   //either sign up bottom or log in bottom is on press, they will be navigated
   //to swipe_message_profile page
-  'login_signup_page': (context) => LoginSignupPage()
+  'login_signup_page': (context) => SignInPage()
 };

@@ -5,14 +5,14 @@ import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
-import 'package:food_dating_app/screens/signup_page.dart';
+import 'package:food_dating_app/screens/authenticate/signup_page.dart';
 
-class LoginSignupPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  State<LoginSignupPage> createState() => _LoginSignupPageWidgetState();
+  State<SignInPage> createState() => _SignInPageWidgetState();
 }
 
-class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
+class _SignInPageWidgetState extends State<SignInPage> {
   late String _email, _password;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -61,7 +61,7 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                     print("error signing in");
                   } else {
                     print("signed in");
-                    print(result);
+                    //print(result.uid);
                   }
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const SwipeMessageProfile()));
@@ -118,7 +118,7 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
 }
 
 
-// class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
+// class _SignInPageWidgetState extends State<SignInPage> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(

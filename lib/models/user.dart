@@ -12,9 +12,7 @@ class User {
     fullname = json['fullname'];
     username = json['username'];
     password = json['password'];
-
     age = json['age'];
-
     restaurant = json['restaurant'];
   }
 
@@ -23,9 +21,7 @@ class User {
     data['fullname'] = fullname;
     data['username'] = username;
     data['password'] = password;
-
     data['age'] = age;
-
     data['restaurant'] = restaurant;
     return data;
   }

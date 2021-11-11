@@ -2,10 +2,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:food_dating_app/services/auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
-import 'package:food_dating_app/screens/login_signin_page.dart';
+import 'package:food_dating_app/screens/authenticate/signin_page.dart';
 import 'package:food_dating_app/widgets/neumorphic_widgets.dart'
     as neumorphic_widgets;
 
@@ -54,6 +55,9 @@ class __PageState extends State<_Page> {
   String restaurant = "";
   Set<String> rides = Set();
 
+  //for signout
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,26 +84,17 @@ class __PageState extends State<_Page> {
                 children: <Widget>[
                   Align(
                       alignment: Alignment.bottomRight,
-                      // NeumorphicButton(
-                      //   onPressed: () {
-                      //     print('Pressed !');
-                      //   },
-                      //   child: const Text('Button'),
-                      // );
-                      // child: NeumorphicIcon(
-                      //   Icons.add_circle,
-                      //   size: 20,
-                      // ),
-
                       child: NeumorphicButton(
-                        onPressed: () {
-                          ///_logoutStatus = true;
+                        onPressed: () async {
+                          await _auth.signOut();
+
+                          /// _logoutStatus = true;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginSignupPage()));
+                                  builder: (context) => SignInPage()));
                         },
-                        child: const Text("Sign out"),
+                        child: const Text("logout"),
                       )
 
                       // child: NeumorphicButton(
