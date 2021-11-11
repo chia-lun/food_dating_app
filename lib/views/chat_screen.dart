@@ -15,21 +15,21 @@ class _ChatScreenState extends State<ChatScreen> {
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
-          ? EdgeInsets.only(
+          ? const EdgeInsets.only(
               top: 8.0,
               bottom: 8.0,
               left: 80.0,
             )
-          : EdgeInsets.only(
+          : const EdgeInsets.only(
               top: 8.0,
               bottom: 8.0,
             ),
-      padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
       width: MediaQuery.of(context).size.width * 0.75,
       decoration: BoxDecoration(
         color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
         borderRadius: isMe
-            ? BorderRadius.only(
+            ? const BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 bottomLeft: Radius.circular(15.0),
               )
@@ -43,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: <Widget>[
           Text(
             message.time,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.blueGrey,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
           SizedBox(height: 8.0),
           Text(
             message.text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.blueGrey,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,

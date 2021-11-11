@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:food_dating_app/tinder_image.dart';
+import 'package:food_dating_app/views/chat_screen.dart';
 import 'package:food_dating_app/views/message_page.dart';
 //import 'package:food_dating_app/tinder_text.dart';
 
@@ -15,6 +17,31 @@ class HomePage extends StatefulWidget {
 /// This is the private State class that goes with HomePage.
 class _HomePageState extends State<HomePage> {
   final auth = FirebaseAuth.instance;
+
+  //This is the chat pop-up dialog function
+  createChatDialog(BuildContext context) {
+    TextEditingController customController = TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Dinner?"),
+            content: TextField(
+              controller: customController,
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                elevation: 5.0,
+                child: Text("Go"),
+                onPressed: () {
+                  Navigator.of(context).pop(customController.text.toString());
+                },
+              )
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +94,10 @@ class _HomePageState extends State<HomePage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => MessagePage()));
+            createChatDialog(context);
           },
-          child:
-              Text('Chat', style: TextStyle(fontSize: 18, color: Colors.white)),
+          child: const Text('Chat',
+              style: TextStyle(fontSize: 18, color: Colors.white)),
           // style: TextButton.styleFrom(
           //   //padding: const EdgeInsets.all(16.0),
           //   primary: Colors.white,
