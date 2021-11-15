@@ -3,6 +3,7 @@ import 'package:food_dating_app/widgets/input_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:food_dating_app/services/auth.dart';
 
 import '../../swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
@@ -16,7 +17,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   String getUserId() {
@@ -26,11 +26,20 @@ class _SignUpPageState extends State<SignUpPage> {
     return userId;
   }
 
+  // text field state
+  String name = "";
+  String age = "";
+  String restaurant = "";
+  String email = '';
+  String password = '';
+
   //Create a TextEditingController to retrieve the text a user has entered
   //into a text field
   final nameController = TextEditingController();
   final ageController = TextEditingController();
   final restaurantController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +90,41 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
                 return null;
               },
+              onChanged: (value) {
+                setState(() => restaurant = value);
+              },
+            ),
+            TextFormField(
+              //for future text call
+              controller: emailController,
+              decoration: const InputDecoration(
+                hintText: 'Enter your email',
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please an email';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                setState(() => email = value);
+              },
+            ),
+            TextFormField(
+              //for future text call
+              controller: passwordController,
+              decoration: const InputDecoration(
+                hintText: 'Enter your password',
+              ),
+              validator: (String? value) {
+                if (value == null || value.length < 6) {
+                  return 'Enter vaild password with 6+ chars long';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                setState(() => password = value);
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -89,8 +133,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 onPressed: () {
-                  DatabaseService(uid: getUserId()).addUser(nameController.text,
-                      int.parse(ageController.text), restaurantController.text);
+                  DatabaseService(uid: getUserId()).addUser(
+                      nameController.text,
+                      int.parse(ageController.text),
+                      restaurantController.text,
+                      emailController.text,
+                      passwordController.text);
                   // Validate will return true if the form is valid, or false if
                   // the form is invalid.
                   // if (_formKey.currentState!.validate()) {

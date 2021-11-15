@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/screens/authentication/signup_page.dart';
 
 class Authenticate extends StatefulWidget {
@@ -9,8 +10,6 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SignUpPage(),
-    );
+    return Container(child: SignInPage());
   }
 }

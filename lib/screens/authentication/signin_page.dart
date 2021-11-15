@@ -75,7 +75,7 @@ class _SignInPageWidgetState extends State<SignInPage> {
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   _auth
                       .signInWithEmailAndPassword(
                           email: _email, password: _password)

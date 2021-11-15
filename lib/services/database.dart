@@ -15,8 +15,14 @@ class DatabaseService {
   }
 
   //method to add a new user
-  Future addUser(String name, int age, String restaurant) async {
-    return await userCollection
-        .add({'name': name, 'age': age, 'restaurant': restaurant});
+  Future addUser(String name, int age, String restaurant, String email,
+      String password) async {
+    return await userCollection.add({
+      'name': name,
+      'age': age,
+      'restaurant': restaurant,
+      'email': email,
+      'password': password
+    });
   }
 }
