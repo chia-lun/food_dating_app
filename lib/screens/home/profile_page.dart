@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:food_dating_app/services/auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
-import 'package:food_dating_app/screens/authenticate/signin_page.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/widgets/neumorphic_widgets.dart'
     as neumorphic_widgets;
 

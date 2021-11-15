@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/screens/home/home_page.dart';
 import 'package:provider/provider.dart';
-import 'authenticate/authenticate.dart';
+import 'authentication/authenticate.dart';
 
 class Wrapper extends StatelessWidget {
   @override

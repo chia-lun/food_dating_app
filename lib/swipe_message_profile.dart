@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:custom_navigator/custom_scaffold.dart';
 import 'package:food_dating_app/tab_navigator.dart';
-import 'package:food_dating_app/screens/authenticate/signin_page.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/screens/home/profile_page.dart';
 
 class SwipeMessageProfile extends StatefulWidget {

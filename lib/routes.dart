@@ -4,7 +4,7 @@
 
 import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:food_dating_app/screens/home/home_page.dart';
-import 'package:food_dating_app/screens/authenticate/signin_page.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/screens/home/message_page.dart';
 import 'package:food_dating_app/screens/home/profile_page.dart';
 

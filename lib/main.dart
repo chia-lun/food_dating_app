@@ -2,7 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/routes.dart';
-import 'package:food_dating_app/screens/authenticate/signin_page.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

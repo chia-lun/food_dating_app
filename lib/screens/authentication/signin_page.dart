@@ -5,7 +5,7 @@ import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
-import 'package:food_dating_app/screens/authenticate/signup_page.dart';
+import 'package:food_dating_app/screens/authentication/signup_page.dart';
 
 class SignInPage extends StatefulWidget {
   @override

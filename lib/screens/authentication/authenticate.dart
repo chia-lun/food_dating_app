@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_dating_app/screens/authenticate/signup_page.dart';
+import 'package:food_dating_app/screens/authentication/signup_page.dart';
 
 class Authenticate extends StatefulWidget {
   @override
