@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_dating_app/api/firebase_api.dart';
 import 'package:food_dating_app/widgets/input_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -81,6 +82,23 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+  Future uploadImage() async {
+    if (_image == null) return;
+
+    final pickedFileList = File(_image!.path);
+    final destination = 'profiles/$pickedFileList';
+
+    FirebaseApi.uploadFile(destination, _image!);
+    // setState(() {});
+
+    // if (task == null) return;
+
+    // final snapshot = await task!.whenComplete(() {});
+    // final urlDownload = await snapshot.ref.getDownloadURL();
+
+    // print('Download-Link: $urlDownload');
+  }
+
   // void _handleURLButtonPress(BuildContext context, var type) {
   //   Navigator.push(context,
   //       MaterialPageRoute(builder: (context) => ImageFromGalleryEx(type)));
@@ -142,17 +160,21 @@ class _SignUpPageState extends State<SignUpPage> {
                           fit: BoxFit.contain)),
             ),
             MaterialButton(
-              color: Colors.orange,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              child: const Text(
-                'Pick image from your gallery',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-              ),
-              onPressed: () => pickImage(),
-              //onPressed: () => _handleURLButtonPress(context, ImageSourceType.gallery);
-            ),
+                color: Colors.orange,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Text(
+                  'Pick image from your gallery',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
+                onPressed: () {
+                  pickImage();
+                  uploadImage();
+                }
+
+                //onPressed: () => _handleURLButtonPress(context, ImageSourceType.gallery);
+                ),
             TextFormField(
               //for future text call
               controller: nameController,
