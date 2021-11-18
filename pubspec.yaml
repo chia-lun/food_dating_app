@@ -47,6 +47,8 @@ dependencies:
       url: https://github.com/tsvillain/Flutter-Neumorphic.git
   flutter_colorpicker: ^0.6.0
   device_preview: ^1.0.0-alpha.12
+  image_picker: ^0.8.4+4
+  image_cropper: ^1.4.1
 
 dev_dependencies:
   flutter_test:

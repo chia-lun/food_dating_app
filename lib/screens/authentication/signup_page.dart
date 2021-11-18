@@ -1,9 +1,13 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food_dating_app/widgets/input_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/services/auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
@@ -15,16 +19,11 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
+enum ImageSourceType { gallery, camera }
+
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  String getUserId() {
-    final User? user = auth.currentUser;
-    final userId = user!.uid;
-
-    return userId;
-  }
 
   // text field state
   String name = "";
@@ -41,8 +40,84 @@ class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+  File? _image;
+  //XFile? _image;
+
+  dynamic _pickImageError;
+  bool isVideo = false;
+
+  String getUserId() {
+    final User? user = auth.currentUser;
+    final userId = user!.uid;
+
+    return userId;
+  }
+
+  // void _handleImage({required ImageSource source}) async {
+  //   Navigator.pop(context);
+  //   XFile? imageFile = await ImagePicker().pickImage(source: source);
+
+  //   if (imageFile != null) {
+  //     //imageFile = await _cropImage(imageFile: imageFile);
+  //     setState(() {
+  //       _image = imageFile;
+  //     });
+  //   }
+  // }
+
+  Future pickImage() async {
+    try {
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      final pickedFileList = File(image.path);
+
+      setState(() {
+        _image = pickedFileList;
+      });
+    } on PlatformException catch (e) {
+      print("Failed to pick image: $e");
+    }
+  }
+
+  // void _handleURLButtonPress(BuildContext context, var type) {
+  //   Navigator.push(context,
+  //       MaterialPageRoute(builder: (context) => ImageFromGalleryEx(type)));
+  // }
+
+  // void _showSelectImageDialog() {
+  //   showCupertinoModalPopup(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return CupertinoActionSheet(
+  //         title: const Text('Add Photo'),
+  //         actions: <Widget>[
+  //           CupertinoActionSheetAction(
+  //             child: const Text('Take Photo'),
+  //             onPressed: () => _handleImage(source: ImageSource.camera),
+  //           ),
+  //           CupertinoActionSheetAction(
+  //             child: const Text('Choose From Gallery'),
+  //             onPressed: () => _handleImage(source: ImageSource.gallery),
+  //           )
+  //         ],
+  //         cancelButton: CupertinoActionSheetAction(
+  //           child: const Text(
+  //             'Cancel',
+  //             style: TextStyle(color: Colors.redAccent),
+  //           ),
+  //           onPressed: () => Navigator.pop(context),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // get the screenWidth
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -51,7 +126,33 @@ class _SignUpPageState extends State<SignUpPage> {
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+          children: [
+            GestureDetector(
+              // onTap: () {
+              //   _showSelectImageDialog();
+              // },
+              child: Container(
+                  height: screenWidth - 150,
+                  width: screenWidth - 150,
+                  color: Colors.grey[300],
+                  child: _image == null
+                      ? Icon(Icons.add_a_photo, color: Colors.white, size: 150)
+                      : Image(
+                          image: FileImage(File(_image!.path)),
+                          fit: BoxFit.contain)),
+            ),
+            MaterialButton(
+              color: Colors.orange,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              child: const Text(
+                'Pick image from your gallery',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+              onPressed: () => pickImage(),
+              //onPressed: () => _handleURLButtonPress(context, ImageSourceType.gallery);
+            ),
             TextFormField(
               //for future text call
               controller: nameController,
