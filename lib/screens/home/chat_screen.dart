@@ -9,7 +9,8 @@ import 'package:food_dating_app/models/message.dart';
 import 'package:food_dating_app/models/user_model.dart' as model;
 import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/providers/chat_provider.dart';
-import 'package:food_dating_app/views/login_signup_page.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
+import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:provider/src/provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
@@ -250,7 +251,7 @@ class ChatScreenState extends State<ChatScreen> {
       //print("check if runs");
       Future.delayed(Duration.zero, () {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LoginSignupPage()),
+          MaterialPageRoute(builder: (context) => SignInPage()),
           (Route<dynamic> route) => false,
         );
       });
