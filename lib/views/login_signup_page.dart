@@ -58,7 +58,6 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                 //color: Theme.of(context).accentColor,
                 child: const Text('Signin'),
                 onPressed: () {
-                  authProvider.handleSignIn();
                   auth
                       .signInWithEmailAndPassword(
                           email: _email, password: _password)
@@ -66,6 +65,8 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const SwipeMessageProfile()));
                   });
+                  //print(auth.currentUser.toString());
+                  authProvider.handleSignIn();
                 }),
             ElevatedButton(
               //color: Theme.of(context).accentColor,
@@ -78,6 +79,7 @@ class _LoginSignupPageWidgetState extends State<LoginSignupPage> {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const SwipeMessageProfile()));
                 });
+                authProvider.handleSignIn();
               },
             )
           ])

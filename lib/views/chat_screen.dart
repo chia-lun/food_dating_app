@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/constants/color_constants.dart';
 import 'package:food_dating_app/models/message.dart';
-import 'package:food_dating_app/models/user_model.dart';
+import 'package:food_dating_app/models/user_model.dart' as model;
 import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/providers/chat_provider.dart';
 import 'package:food_dating_app/views/login_signup_page.dart';
@@ -13,7 +14,7 @@ import 'package:provider/src/provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
-  final User user;
+  final model.User user;
 
   ChatScreen({Key? key, required this.user}) : super(key: key);
 
@@ -25,19 +26,11 @@ class ChatScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatScreen> {
   ChatScreenState({required this.user});
-  User user;
+  model.User user;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   late String currentUserId;
   late ChatProvider chatProvider;
   late AuthProvider authProvider;
-  @override
-  void initState() {
-    super.initState();
-    chatProvider = context.read<ChatProvider>();
-    authProvider = context.read<AuthProvider>();
-    //focusNode.addListener(onFocusChange);
-    // listScrollController.addListener(_scrollListener);
-    readLocal();
-  }
 
   List<QueryDocumentSnapshot> listMessage = [];
   int _limit = 20;
@@ -47,6 +40,27 @@ class ChatScreenState extends State<ChatScreen> {
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
   final FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    chatProvider = context.read<ChatProvider>();
+    authProvider = context.read<AuthProvider>();
+    //focusNode.addListener(onFocusChange);
+    listScrollController.addListener(_scrollListener);
+    readLocal();
+  }
+
+  _scrollListener() {
+    if (listScrollController.offset >=
+            listScrollController.position.maxScrollExtent &&
+        !listScrollController.position.outOfRange &&
+        _limit <= listMessage.length) {
+      setState(() {
+        _limit += _limitIncrement;
+      });
+    }
+  }
 
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
@@ -169,38 +183,70 @@ class ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-                    child: buildListMessage()),
-              ),
-            ),
-            _buildMessageComposer(),
-          ],
-        ),
-      ),
+      body: WillPopScope(
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[buildListMessage(), _buildMessageComposer()],
+              )
+            ],
+          ),
+          onWillPop: onBackPress),
+      // body: GestureDetector(
+      //   onTap: () => FocusScope.of(context).unfocus(),
+      //   child: Column(
+      //     children: <Widget>[
+      //       Expanded(
+      //         child: Container(
+      //           decoration: BoxDecoration(
+      //             color: Colors.white,
+      //             borderRadius: BorderRadius.only(
+      //               topLeft: Radius.circular(30.0),
+      //               topRight: Radius.circular(30.0),
+      //             ),
+      //           ),
+      //           child: ClipRRect(
+      //               borderRadius: BorderRadius.only(
+      //                 topLeft: Radius.circular(30.0),
+      //                 topRight: Radius.circular(30.0),
+      //               ),
+      //               child: buildListMessage()),
+      //         ),
+      //       ),
+      //       _buildMessageComposer(),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
+  Future<bool> onBackPress() {
+    // if (isShowSticker) {
+    //   setState(() {
+    //     isShowSticker = false;
+    //   });
+    // } else {
+    chatProvider.updateDataFirestore(
+      'users',
+      currentUserId,
+      {'chattingWith': null},
+    );
+    Navigator.pop(context);
+    //}
+
+    return Future.value(false);
+  }
+
   void readLocal() {
-    if (authProvider.getUserFirebaseId()?.isNotEmpty == true) {
-      currentUserId = authProvider.getUserFirebaseId()!;
+    //print("if this method is a decor");
+    if //(authProvider.getUserFirebaseId()?.isNotEmpty == true) {
+        (auth.currentUser != null) {
+      //print("check if runs");
+      currentUserId =
+          auth.currentUser!.uid; //authProvider.getUserFirebaseId()!;
+
     } else {
+      //print("check if runs");
       Future.delayed(Duration.zero, () {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => LoginSignupPage()),

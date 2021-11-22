@@ -58,7 +58,7 @@ class AuthProvider extends ChangeNotifier {
     //   );
 
     // User? firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;
-    User? firebaseUser = auth.currentUser;
+    User? firebaseUser = firebaseAuth.currentUser;
     if (firebaseUser != null) {
       final QuerySnapshot result = await firebaseFirestore
           .collection("users")
@@ -76,7 +76,7 @@ class AuthProvider extends ChangeNotifier {
         });
 
         // Write data to local storage
-        User? currentUser = firebaseUser;
+        User? currentUser = await firebaseUser;
         await prefs.setString("id", currentUser.uid);
         await prefs.setString("name", currentUser.displayName ?? "");
         //await prefs.setString(FirestoreConstants.photoUrl, currentUser.photoURL ?? "");

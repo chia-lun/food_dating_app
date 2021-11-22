@@ -8,8 +8,8 @@ import 'package:food_dating_app/views/login_signup_page.dart';
 import 'package:food_dating_app/views/message_page.dart';
 import 'package:food_dating_app/views/profile_page.dart';
 
-const initialRoute = "swipe_message_profile";
-
+//const initialRoute = "swipe_message_profile";
+const initialRoute = "login_signup_page";
 var routes = {
   //'chat_page': (context) => ChatPage(),
   //'login_page': (context) => LoginPage(),

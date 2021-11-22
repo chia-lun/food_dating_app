@@ -26,7 +26,7 @@ class Message {
   }
 
   factory Message.fromDocument(DocumentSnapshot doc) {
-    String senderID = (doc.get("senderId"));
+    String senderID = (doc.get("senderID"));
     String receiverID = (doc.get("receiverID"));
     String time = (doc.get("time"));
     String text = (doc.get("text"));

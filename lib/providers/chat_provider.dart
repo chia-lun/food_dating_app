@@ -32,7 +32,7 @@ class ChatProvider {
 
   Stream<QuerySnapshot> getChatStream(String groupChatId, int limit) {
     return firebaseFirestore
-        .collection("messages")
+        .collection("messages")//message
         .doc(groupChatId)
         .collection(groupChatId)
         .orderBy("time", descending: true)
@@ -43,7 +43,7 @@ class ChatProvider {
   void sendMessage(
       String content, String groupChatId, String currentUserId, String peerId) {
     DocumentReference documentReference = firebaseFirestore
-        .collection("message")
+        .collection("messages")//message
         .doc(groupChatId)
         .collection(groupChatId)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
