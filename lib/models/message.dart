@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/models/user_model.dart';
 
 class Message {
+  String groupChatID;
   String senderID;
   String receiverID;
   String
@@ -10,7 +11,8 @@ class Message {
   String text;
 
   Message(
-      {required this.senderID,
+      {required this.groupChatID,
+      required this.senderID,
       required this.receiverID,
       required this.time,
       required this.text,
@@ -18,6 +20,7 @@ class Message {
 
   Map<String, dynamic> toJson() {
     return {
+      "groupChatID": this.groupChatID,
       "senderID": this.senderID,
       "receiverID": this.receiverID,
       "time": this.time,
@@ -26,12 +29,17 @@ class Message {
   }
 
   factory Message.fromDocument(DocumentSnapshot doc) {
+    String groupChatID = (doc.get("groupChatID"));
     String senderID = (doc.get("senderID"));
     String receiverID = (doc.get("receiverID"));
     String time = (doc.get("time"));
     String text = (doc.get("text"));
     return Message(
-        senderID: senderID, receiverID: receiverID, time: time, text: text);
+        groupChatID: groupChatID,
+        senderID: senderID,
+        receiverID: receiverID,
+        time: time,
+        text: text);
   }
 }
 // // YOU - current user

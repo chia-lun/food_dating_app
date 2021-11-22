@@ -30,11 +30,11 @@ class ChatProvider {
         .update(dataNeedUpdate);
   }
 
-  Stream<QuerySnapshot> getChatStream(String groupChatId, int limit) {
+  Stream<QuerySnapshot> getChatStream(String groupChatID, int limit) {
     return firebaseFirestore
-        .collection("messages")//message
-        .doc(groupChatId)
-        .collection(groupChatId)
+        .collection("messages") //message
+        .doc(groupChatID)
+        .collection(groupChatID)
         .orderBy("time", descending: true)
         .limit(limit)
         .snapshots();
@@ -43,11 +43,12 @@ class ChatProvider {
   void sendMessage(
       String content, String groupChatId, String currentUserId, String peerId) {
     DocumentReference documentReference = firebaseFirestore
-        .collection("messages")//message
+        .collection("messages") //message
         .doc(groupChatId)
         .collection(groupChatId)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
     Message messageChat = Message(
+      groupChatID: groupChatId,
       senderID: currentUserId,
       receiverID: peerId,
       time: DateTime.now().millisecondsSinceEpoch.toString(),

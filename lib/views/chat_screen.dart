@@ -35,7 +35,8 @@ class ChatScreenState extends State<ChatScreen> {
   List<QueryDocumentSnapshot> listMessage = [];
   int _limit = 20;
   int _limitIncrement = 20;
-  String groupChatId = "";
+  String groupChatID = "";
+  String userID = "";
 
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
@@ -254,10 +255,13 @@ class ChatScreenState extends State<ChatScreen> {
         );
       });
     }
+    userID = user.id;
     if (currentUserId.compareTo(user.id) > 0) {
-      groupChatId = '$currentUserId-$user.id';
+      groupChatID = '$currentUserId+$userID';
+      print(userID);
     } else {
-      groupChatId = '$user.id-$currentUserId';
+      groupChatID = '$userID+$currentUserId';
+      print(userID);
     }
 
     chatProvider.updateDataFirestore(
@@ -270,7 +274,7 @@ class ChatScreenState extends State<ChatScreen> {
   void onSendMessage(String content) {
     if (content.trim().isNotEmpty) {
       textEditingController.clear();
-      chatProvider.sendMessage(content, groupChatId, currentUserId, user.id);
+      chatProvider.sendMessage(content, groupChatID, currentUserId, user.id);
       listScrollController.animateTo(0,
           duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     }
@@ -278,9 +282,9 @@ class ChatScreenState extends State<ChatScreen> {
 
   Widget buildListMessage() {
     return Flexible(
-      child: groupChatId.isNotEmpty
+      child: groupChatID.isNotEmpty
           ? StreamBuilder<QuerySnapshot>(
-              stream: chatProvider.getChatStream(groupChatId, _limit),
+              stream: chatProvider.getChatStream(groupChatID, _limit),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
