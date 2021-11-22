@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/services/auth.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 
@@ -25,6 +25,8 @@ enum ImageSourceType { gallery, camera }
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   // text field state
   String name = "";
@@ -86,51 +88,11 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_image == null) return;
 
     final pickedFileList = File(_image!.path);
-    final destination = 'profiles/$pickedFileList';
+    final destination = 'profiles/';
+    // final destination = 'profiles/$pickedFileList';
 
     FirebaseApi.uploadFile(destination, _image!);
-    // setState(() {});
-
-    // if (task == null) return;
-
-    // final snapshot = await task!.whenComplete(() {});
-    // final urlDownload = await snapshot.ref.getDownloadURL();
-
-    // print('Download-Link: $urlDownload');
   }
-
-  // void _handleURLButtonPress(BuildContext context, var type) {
-  //   Navigator.push(context,
-  //       MaterialPageRoute(builder: (context) => ImageFromGalleryEx(type)));
-  // }
-
-  // void _showSelectImageDialog() {
-  //   showCupertinoModalPopup(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return CupertinoActionSheet(
-  //         title: const Text('Add Photo'),
-  //         actions: <Widget>[
-  //           CupertinoActionSheetAction(
-  //             child: const Text('Take Photo'),
-  //             onPressed: () => _handleImage(source: ImageSource.camera),
-  //           ),
-  //           CupertinoActionSheetAction(
-  //             child: const Text('Choose From Gallery'),
-  //             onPressed: () => _handleImage(source: ImageSource.gallery),
-  //           )
-  //         ],
-  //         cancelButton: CupertinoActionSheetAction(
-  //           child: const Text(
-  //             'Cancel',
-  //             style: TextStyle(color: Colors.redAccent),
-  //           ),
-  //           onPressed: () => Navigator.pop(context),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +132,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {
                   pickImage();
-                  uploadImage();
                 }
 
                 //onPressed: () => _handleURLButtonPress(context, ImageSourceType.gallery);
@@ -252,30 +213,30 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: MaterialButton(
-                color: Colors.orange,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                onPressed: () {
-                  DatabaseService(uid: getUserId()).addUser(
-                      nameController.text,
-                      int.parse(ageController.text),
-                      restaurantController.text,
-                      emailController.text,
-                      passwordController.text);
-                  // Validate will return true if the form is valid, or false if
-                  // the form is invalid.
-                  // if (_formKey.currentState!.validate()) {
-                  //   // Process data.
-                  // }
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const SwipeMessageProfile()));
-                },
-                child: const Text(
-                  'Submit',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                ),
-              ),
+                  color: Colors.orange,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  onPressed: () {
+                    uploadImage();
+                    DatabaseService(uid: getUserId()).addUser(
+                        nameController.text,
+                        int.parse(ageController.text),
+                        restaurantController.text,
+                        emailController.text,
+                        passwordController.text);
+                    // Validate will return true if the form is valid, or false if
+                    // the form is invalid.
+                    // if (_formKey.currentState!.validate()) {
+                    //   // Process data.
+                    // }
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const SwipeMessageProfile()));
+                  },
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w600),
+                  )),
             )
           ],
         ),
