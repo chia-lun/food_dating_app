@@ -85,3 +85,23 @@ ios/build/Pods.build/Release-iphonesimulator/shared_preferences.build/dgph
 pubspec.lock
 pubspec.lock
 pubspec.lock
+.flutter-plugins 2
+.flutter-plugins-dependencies 2
+ios/build/Pods.build/Release-iphonesimulator/firebase_storage.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseStorage.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/image_cropper.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/image_picker.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/TOCropViewController-TOCropViewControllerBundle.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/TOCropViewController.build/dgph
+ios/Flutter/flutter_export_environment 2.sh
+ios/Podfile.lock
+ios/Runner.xcodeproj/project.pbxproj
+pubspec.lock
+.packages 2
+ios/Podfile.lock
+ios/Runner.xcodeproj/project.pbxproj
+pubspec.lock
+ios/Podfile.lock
+*.pbxproj
+*.lock
+*.lock
