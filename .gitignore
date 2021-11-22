@@ -53,3 +53,43 @@ pubspec.lock
 ios/Flutter/Debug.xcconfig
 ios/Flutter/Release.xcconfig
 pubspec.lock
+.flutter-plugins 2
+.flutter-plugins-dependencies 2
+.packages 2
+ios/build/Pods.build/Release-iphonesimulator/abseil.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/BoringSSL-GRPC.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/cloud_firestore.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/Firebase.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/firebase_analytics.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/firebase_auth.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/firebase_core.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/firebase_messaging.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/firebase_storage.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseAnalytics.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseAuth.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseCore.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseCoreDiagnostics.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseFirestore.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseInstallations.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseMessaging.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/FirebaseStorage.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/Flutter.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/GoogleAppMeasurement.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/GoogleDataTransport.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/GoogleUtilities.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/gRPC-C++-gRPCCertificates-Cpp.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/gRPC-C++.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/gRPC-Core.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/GTMSessionFetcher.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/image_cropper.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/image_picker.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/leveldb-library.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/nanopb.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/path_provider.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/Pods-Runner.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/PromisesObjC.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/shared_preferences.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/TOCropViewController-TOCropViewControllerBundle.build/dgph
+ios/build/Pods.build/Release-iphonesimulator/TOCropViewController.build/dgph
+ios/Flutter/flutter_export_environment 2.sh
+pubspec.lock
