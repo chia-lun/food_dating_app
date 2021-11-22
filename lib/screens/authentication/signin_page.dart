@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/screens/authentication/signup_page.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -18,6 +20,8 @@ class _SignInPageWidgetState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       body: Column(
         children: [
@@ -87,6 +91,8 @@ class _SignInPageWidgetState extends State<SignInPage> {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const SwipeMessageProfile()));
                   });
+                  //print(auth.currentUser.toString());
+                  authProvider.handleSignIn();
                 }),
             MaterialButton(
               color: Colors.orange,
