@@ -89,9 +89,8 @@ class __PageState extends State<_Page> {
                           await _auth.signOut();
 
                           /// _logoutStatus = true;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                          Navigator.of(context, rootNavigator: true)
+                              .pushReplacement(MaterialPageRoute(
                                   builder: (context) => SignInPage()));
                         },
                         child: const Text("logout"),
