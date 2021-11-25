@@ -10,8 +10,6 @@ import 'package:food_dating_app/providers/auth_provider.dart';
 //import 'package:food_dating_app/models/message_model.dart';
 import 'package:provider/provider.dart';
 import 'chat_screen.dart';
-import 'package:food_dating_app/models/user_model.dart';
-import 'package:food_dating_app/models/user_repository.dart';
 import 'package:food_dating_app/styles.dart';
 
 class MessagePage extends StatefulWidget {

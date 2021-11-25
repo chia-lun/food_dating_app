@@ -1,6 +1,5 @@
 //import 'package:food_dating_app/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_dating_app/models/user_model.dart';
 
 class Message {
   String groupChatID;
