@@ -50,6 +50,7 @@ dependencies:
   image_picker: ^0.8.4+4
   image_cropper: ^1.4.1
   firebase_storage: ^10.1.0
+  random_string: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -75,14 +76,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/hari.jpg
-    - assets/images/icon.jpg
-    - assets/images/james.jpg
-    - assets/images/jiaying.jpg
-    - assets/images/ned.jpg
-    - assets/images/ned1.jpg
-    - assets/images/ned2.jpg
+  # assets:
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
