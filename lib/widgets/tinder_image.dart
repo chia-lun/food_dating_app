@@ -4,24 +4,28 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 // Update this part with Firebase later
 final List data = [
   {
-    'image': AssetImage('assets/images/ned1.jpg'),
-    // 'title': Text("Ned Mayo, 20"),
-    // 'subtitle': Text("French Meadow"),
+    'image': Image.network(
+        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/ned1.jpg?alt=media&token=010c3652-2c28-47fa-ac0b-405a852ef55c'),
+    'title': Text("Ned Mayo, 20"),
+    'subtitle': Text("French Meadow"),
   },
   {
-    'image': AssetImage('assets/images/jiaying.jpg'),
-    // 'title': Text("Jiaying Wu, 20"),
-    // 'subtitle': Text("Shish"),
+    'image': Image.network(
+        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/jiaying.jpg?alt=media&token=f139075c-c764-4aca-bef2-549f89f8287c'),
+    'title': Text("Jiaying Wu, 20"),
+    'subtitle': Text("Shish"),
   },
   {
-    'image': AssetImage('assets/images/james.jpg'),
-    // 'title': Text("James, 20"),
-    // 'subtitle': Text("Cafe Mac"),
+    'image': Image.network(
+        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/james.jpg?alt=media&token=37933011-41af-47ac-a19f-235c7fb2f4fe'),
+    'title': Text("James, 20"),
+    'subtitle': Text("Cafe Mac"),
   },
   {
-    'image': AssetImage('assets/images/hari.jpg'),
-    // 'title': Text("Hari,19"),
-    // 'subtitle': Text("Cooking at 30 mac"),
+    'image': Image.network(
+        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/hari.jpg?alt=media&token=7c0d1056-ffd5-4d2c-b340-933fbdae82e9'),
+    'title': Text("Hari,19"),
+    'subtitle': Text("Cooking at 30 mac"),
   }
 ];
 
@@ -71,7 +75,7 @@ class _TinderImageState extends State<TinderImage> {
 }
 
 class Card extends StatelessWidget {
-  final AssetImage image;
+  final Image image;
   //final Text title;
   //final Text subtitle;
   Card(this.image);
@@ -92,11 +96,12 @@ class Card extends StatelessWidget {
       //   ],
       // )
       //Set the swipable widget
+
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           image: DecorationImage(
-            image: image,
+            image: image.image,
             fit: BoxFit.cover,
             alignment: Alignment.bottomCenter,
           ),

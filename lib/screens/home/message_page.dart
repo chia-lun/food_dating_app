@@ -162,7 +162,7 @@ class MatchRowItem extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.asset(
+            child: Image.network(
               user.imageUrl,
               //package: product.assetPackage,
               fit: BoxFit.cover,

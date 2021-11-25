@@ -6,6 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
+  // TODO
   AppUser? _userFromFirebaseUser(User user) {
     return user != null
         ? AppUser(uid: user.uid, name: "uma", age: 10, restaurant: "restaurant")
@@ -51,7 +52,7 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco');
+      await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
