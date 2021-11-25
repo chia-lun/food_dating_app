@@ -106,6 +106,21 @@ class AuthProvider extends ChangeNotifier {
   //   notifyListeners();
   //   return false;
   // }
+  Stream<QuerySnapshot> getStreamFireStore(
+      String pathCollection, int limit, String? textSearch) {
+    if (textSearch?.isNotEmpty == true) {
+      return firebaseFirestore
+          .collection("users")
+          .limit(limit)
+          .where("id", isEqualTo: textSearch)
+          .snapshots();
+    } else {
+      return firebaseFirestore
+          .collection("users")
+          .limit(limit)
+          .snapshots();
+    }
+  }
 }
 
 
