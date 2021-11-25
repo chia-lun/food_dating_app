@@ -83,20 +83,6 @@ class Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Swipable(
-      //     child: Column(
-      //   children: [
-      //     Container(
-      //         decoration: BoxDecoration(
-      //             borderRadius: BorderRadius.circular(16.0),
-      //             image: DecorationImage(image: image, fit: BoxFit.cover)),
-      //         child: ListTile(
-      //           title: title,
-      //           subtitle: subtitle,
-      //         )),
-      //   ],
-      // )
-      //Set the swipable widget
-
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
@@ -107,10 +93,6 @@ class Card extends StatelessWidget {
           ),
         ),
       ),
-      // child: ListTile(
-      //       title: title,
-      //       subtitle: subtitle,
-      //     )
       //onSwipeRight, left, up, down, cancel, etc...
     );
   }

@@ -1,7 +1,6 @@
 /// Author: Hengrui Jia
 /// This is the message page
 ///
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
@@ -310,50 +309,6 @@ class SearchBar extends StatelessWidget {
 //   final User user;
 //   final bool lastItem;
 
-<<<<<<< HEAD
-  @override
-  Widget build(BuildContext context) {
-    final row = SafeArea(
-      top: false,
-      bottom: false,
-      minimum: const EdgeInsets.only(
-        left: 16,
-        top: 8,
-        bottom: 8,
-        right: 8,
-      ),
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: Image.network(
-              user.imageUrl,
-              //package: product.assetPackage,
-              fit: BoxFit.cover,
-              width: 60,
-              height: 60,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    user.name,
-                    style: Styles.contactsName,
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 8)),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-=======
 //   @override
 //   Widget build(BuildContext context) {
 //     final row = SafeArea(
@@ -396,7 +351,6 @@ class SearchBar extends StatelessWidget {
 //         ],
 //       ),
 //     );
->>>>>>> 6e4cb05e724c7bd1e6facb3c8d8caed44913838e
 
 //     if (lastItem) {
 //       return GestureDetector(

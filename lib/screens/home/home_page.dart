@@ -61,34 +61,7 @@ class _HomePageState extends State<HomePage> {
                 //   subtitle: Text("French Meadow"), // this could be static later
                 // )
               ],
-            )
-
-            // child: Card(
-            //   shape: const RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            //   child: InkWell(
-            //     child: Tinder(),
-            // child: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.stretch,
-            //   children: [
-            //     ClipRRect(
-            //       borderRadius: const BorderRadius.only(
-            //         topLeft: Radius.circular(8.0),
-            //         topRight: Radius.circular(8.0),
-            //       ),
-            //       child: Image.asset('assets/images/ned1.jpg',
-            //           height: 500, fit: BoxFit.cover),
-            //     ),
-            //     const ListTile(
-            //       title: Text("Ned Mayo, 20"), // this could be static later
-            //       subtitle:
-            //           Text("French Meadow"), // this could be static later
-            //     )
-            //   ],
-            // ),
-            //),
-            //),
-            ),
+            )),
         const Padding(
           padding: EdgeInsets.only(bottom: 15),
         ),

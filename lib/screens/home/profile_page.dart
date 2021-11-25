@@ -67,18 +67,13 @@ class __PageState extends State<_Page> {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(left: 12, right: 12, top: 10),
-              // child: TopBar(
-              //   actions: <Widget>[
-              //     ThemeConfigurator(),
-              //   ],
-              // ),
             ),
             Neumorphic(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               style: NeumorphicStyle(
                 boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(13)),
               ),
               child: Column(
                 children: <Widget>[
@@ -94,19 +89,7 @@ class __PageState extends State<_Page> {
                                   builder: (context) => SignInPage()));
                         },
                         child: const Text("logout"),
-                      )
-
-                      // child: NeumorphicButton(
-                      //   onPressed: _isButtonEnabled() ? () {} : null,
-                      //   padding: const EdgeInsets.symmetric(
-                      //       horizontal: 20, vertical: 20),
-                      //   child: const Text(
-                      //     "Sign Up",
-                      //     style: TextStyle(fontWeight: FontWeight.w800),
-                      //   ),
-                      // )
-                      ),
-
+                      )),
                   neumorphic_widgets.AvatarField(),
                   const SizedBox(
                     height: 8,
@@ -147,9 +130,6 @@ class __PageState extends State<_Page> {
                       });
                     },
                   ),
-                  // const SizedBox(
-                  //   height: 8,
-                  // ),
                   neumorphic_widgets.AgeField(
                     age: this.age,
                     onChanged: (age) {
@@ -158,9 +138,6 @@ class __PageState extends State<_Page> {
                       });
                     },
                   ),
-                  // const SizedBox(
-                  //   height: 8,
-                  // ),
                   neumorphic_widgets.NTextField(
                     label: "Restaurant",
                     hint: "",
@@ -173,21 +150,6 @@ class __PageState extends State<_Page> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // _RideField(
-                  //   rides: this.rides,
-                  //   onChanged: (rides) {
-                  //     setState(() {
-                  //       this.rides = rides;
-                  //     });
-                  //   },
-                  // ),
-                  // SizedBox(
-                  //   height: 28,
-                  // ),
-
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
                 ],
               ),
             )
