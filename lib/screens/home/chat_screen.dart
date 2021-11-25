@@ -15,19 +15,19 @@ import 'package:provider/src/provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
-  final model.User user;
+  final String userID;
 
-  ChatScreen({Key? key, required this.user}) : super(key: key);
+  ChatScreen({Key? key, required this.userID}) : super(key: key);
 
   @override
   ChatScreenState createState() => ChatScreenState(
-        user: user,
+        userID: userID,
       );
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState({required this.user});
-  model.User user;
+  ChatScreenState({required this.userID});
+  String userID;
   final FirebaseAuth auth = FirebaseAuth.instance;
   late String currentUserId;
   late ChatProvider chatProvider;
@@ -37,7 +37,7 @@ class ChatScreenState extends State<ChatScreen> {
   int _limit = 20;
   int _limitIncrement = 20;
   String groupChatID = "";
-  String userID = "";
+  String curuserID = "";
 
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
@@ -169,7 +169,7 @@ class ChatScreenState extends State<ChatScreen> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text(
-          widget.user.name,
+          userID,
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
@@ -256,8 +256,8 @@ class ChatScreenState extends State<ChatScreen> {
         );
       });
     }
-    userID = user.id;
-    if (currentUserId.compareTo(user.id) > 0) {
+    //userID = user.id;
+    if (currentUserId.compareTo(userID) > 0) {
       groupChatID = '$currentUserId+$userID';
       print(userID);
     } else {
@@ -268,14 +268,14 @@ class ChatScreenState extends State<ChatScreen> {
     chatProvider.updateDataFirestore(
       "users",
       currentUserId,
-      {'chattingWith': user.id},
+      {'chattingWith': userID},
     );
   }
 
   void onSendMessage(String content) {
     if (content.trim().isNotEmpty) {
       textEditingController.clear();
-      chatProvider.sendMessage(content, groupChatID, currentUserId, user.id);
+      chatProvider.sendMessage(content, groupChatID, currentUserId, userID);
       listScrollController.animateTo(0,
           duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     }
