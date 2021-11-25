@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseApi {
-  static UploadTask? uploadFile(String destination, File file) {
+  static UploadTask? uploadFile(String randomFileName, File file) {
     try {
-      final ref = FirebaseStorage.instance.ref(destination);
+      final ref = FirebaseStorage.instance.ref("profiles$randomFileName.jpg");
 
       return ref.putFile(file);
     } on FirebaseException catch (e) {
@@ -14,9 +14,9 @@ class FirebaseApi {
     }
   }
 
-  static UploadTask? uploadBytes(String destination, Uint8List data) {
+  static UploadTask? uploadBytes(String randomFileName, Uint8List data) {
     try {
-      final ref = FirebaseStorage.instance.ref(destination);
+      final ref = FirebaseStorage.instance.ref(randomFileName);
 
       return ref.putData(data);
     } on FirebaseException catch (e) {

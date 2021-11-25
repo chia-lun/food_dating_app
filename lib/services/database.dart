@@ -8,21 +8,26 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('user');
 
   //method to update an existing user
-  Future updateUser(String name, int age, String restaurant) async {
-    return await userCollection
-        .doc(uid)
-        .set({'name': name, 'age': age, 'restaurant': restaurant});
+  Future updateUser(
+      String name, int age, String restaurant, String pfpDownloadURL) async {
+    return await userCollection.doc(uid).set({
+      'name': name,
+      'age': age,
+      'restaurant': restaurant,
+      'pfpDownloadURL': pfpDownloadURL
+    });
   }
 
   //method to add a new user
   Future addUser(String name, int age, String restaurant, String email,
-      String password) async {
+      String password, String pfpDownloadURL) async {
     return await userCollection.add({
       'name': name,
       'age': age,
       'restaurant': restaurant,
       'email': email,
-      'password': password
+      'password': password,
+      'pfpDownloadURL': pfpDownloadURL,
     });
   }
 }

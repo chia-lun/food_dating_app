@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
+import '../../helpers/random_string.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -25,8 +26,6 @@ enum ImageSourceType { gallery, camera }
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
 
   // text field state
   String name = "";
@@ -45,6 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final ImagePicker _picker = ImagePicker();
   File? _image;
+  late String randomFileName;
   //XFile? _image;
 
   dynamic _pickImageError;
@@ -88,10 +88,9 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_image == null) return;
 
     final pickedFileList = File(_image!.path);
-    final destination = 'profiles/';
-    // final destination = 'profiles/$pickedFileList';
+    randomFileName = generateRandomString(10);
 
-    FirebaseApi.uploadFile(destination, _image!);
+    return FirebaseApi.uploadFile(randomFileName, _image!);
   }
 
   @override
@@ -216,14 +215,22 @@ class _SignUpPageState extends State<SignUpPage> {
                   color: Colors.orange,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
-                  onPressed: () {
-                    uploadImage();
+                  onPressed: () async {
+                    await uploadImage();
+                    firebase_storage.Reference ref = firebase_storage
+                        .FirebaseStorage.instance
+                        .ref()
+                        .child("profiles$randomFileName.jpg");
+                    String pfpDownloadURL =
+                        (await ref.getDownloadURL()).toString();
                     DatabaseService(uid: getUserId()).addUser(
-                        nameController.text,
-                        int.parse(ageController.text),
-                        restaurantController.text,
-                        emailController.text,
-                        passwordController.text);
+                      nameController.text,
+                      int.parse(ageController.text),
+                      restaurantController.text,
+                      emailController.text,
+                      passwordController.text,
+                      pfpDownloadURL,
+                    );
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
                     // if (_formKey.currentState!.validate()) {
