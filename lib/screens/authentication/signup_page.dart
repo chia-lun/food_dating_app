@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -92,6 +93,37 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return FirebaseApi.uploadFile(randomFileName, _image!);
   }
+
+  // // app_user.dart
+  // Future<void> profileSetUp(
+  //     File image,
+  //     String uid,
+  //     String name,
+  //     int age, //DateTime age -- we can change this later
+  //     String restaurant
+  //     ) async {
+  //         StorageUploadTask storageUploadTask;
+  //         storageUploadTask = FirebaseStorage.instance
+  //         .ref()
+  //         .child('userImage')
+  //         .child(uid)
+  //         .putFile(image);
+
+  //         return await storageUploadTask.onComlete.then(
+  //           (ref) async {
+  //             await ref.ref.getDownloadURL().then(url) async {
+  //               await _firestore.collection('user'.document(uid).setData({
+  //                 'uid' : uid,
+  //                 'imageURL' : url,
+  //                 'name' : name,
+  //                 'age' : age,
+  //                 'restaurant' : restaurant
+  //               }));
+  //             };
+  //           }
+  //         );
+  //       }
+  //     }
 
   @override
   Widget build(BuildContext context) {

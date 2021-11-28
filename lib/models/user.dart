@@ -36,6 +36,8 @@ class User {
   const User({
     required this.idUser,
     required this.name,
+    // age,
+    // restaurant,
     //required this.urlAvatar,
   });
 

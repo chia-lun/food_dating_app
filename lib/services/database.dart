@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/models/user.dart';
 
 class DatabaseService {
   final String uid;
@@ -29,5 +31,21 @@ class DatabaseService {
       'password': password,
       'pfpDownloadURL': pfpDownloadURL,
     });
+  }
+
+  //user list from snapshot
+  List<User>? _userListFromSnapShot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return User(
+          idUser: doc.data['idUser'],
+          name: doc.data['name'] ?? '',
+          age: doc.data['age'] ?? 0,
+          restaurant: doc.data['restaurant'] ?? '');
+    }).toList();
+  }
+
+  //get user stream
+  Stream<User> get user {
+    return userCollection.snapshots().map(_userListFromSnapShot);
   }
 }
