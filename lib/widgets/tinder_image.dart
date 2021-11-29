@@ -52,7 +52,6 @@ class _TinderImageState extends State<TinderImage> {
       data[2]['title'],
       data[2]['subtitle'],
     ),
-    Card(data[3]['image'], data[3]['title'], data[3]['subtitle'])
   ];
 
   @override
@@ -93,6 +92,8 @@ class Card extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.width * 1.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               image: DecorationImage(
