@@ -10,7 +10,8 @@ class AppUser {
     required this.name,
     required this.age,
     required this.restaurant,
-    String? pfpDownloadURL,
+    required this.pfpDownloadURL,
+    idUser,
   });
 
   String getName() {

@@ -4,7 +4,7 @@ import 'package:food_dating_app/models/user.dart';
 
 class DatabaseService {
   final String uid;
-
+  //const
   var appUser;
   DatabaseService({
     required this.uid,
@@ -38,19 +38,33 @@ class DatabaseService {
   }
 
   // user list from snapshot
-  List<AppUser>? userListFromSnapShots(Stream<QuerySnapshot> snapshots) {
-    List<AppUser>? listOfUsers = [];
-    snapshots.forEach((snapshot) {
-      snapshot.docs.map((doc) {
-        listOfUsers.add(AppUser(
-            //idUser: doc.data['idUser'],
-            name: doc.get('name') ?? '',
-            age: doc.get('age') ?? 0,
-            restaurant: doc.get('restaurant') ?? '',
-            uid: ''));
-      });
-    });
+  Future<List<AppUser>> userListFromSnapShots() async {
+    List<AppUser> listOfUsers = [];
+    //snapshots.forEach((snapshot) {
+    await FirebaseFirestore.instance.collection("user").get().then(
+        (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
+              AppUser user = AppUser(
+                  name: doc.get('name') ?? '',
+                  age: doc.get('age') ?? 0,
+                  restaurant: doc.get('restaurant') ?? '',
+                  uid: '',
+                  pfpDownloadURL: doc.get('pfpDownloadURL') ?? '');
+              //print(doc.get('name'));
+              listOfUsers.add(user);
+            })); //{
+    //map((doc) {
+    //
+    //   print(user.name);
+    //   //print(doc.get('name'));
+    // );
+    // }
+    //});
+    // for (AppUser appUser in listOfUsers) {
+    //   print(appUser.name);
+    // }
+    // print("lisyo "listOfUsers.isEmpty);
     return listOfUsers;
+
     // return snapshots.docs.map((doc) {
     //   return AppUser(
     //       //idUser: doc.data['idUser'],
@@ -61,9 +75,9 @@ class DatabaseService {
     // }).toList();
   }
 
-  Stream<QuerySnapshot> getUserStream() {
-    return FirebaseFirestore.instance.collection("user").snapshots();
-  }
+  // Stream<QuerySnapshot> getUserStream() {
+  //   return FirebaseFirestore.instance.collection("user").snapshots();
+  // }
 
   // // get user doc stream
   // Stream<AppUser> get userData {
