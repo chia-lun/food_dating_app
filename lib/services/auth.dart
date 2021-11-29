@@ -9,7 +9,12 @@ class AuthService {
   // TODO
   AppUser? _userFromFirebaseUser(User user) {
     return user != null
-        ? AppUser(uid: user.uid, name: "uma", age: 10, restaurant: "restaurant")
+        ? AppUser(
+            uid: user.uid,
+            name: "uma",
+            age: 10,
+            restaurant: "restaurant",
+            pfpDownloadURL: '')
         : null;
   }
 
