@@ -2,13 +2,28 @@ class AppUser {
   late final String uid;
   late final String name;
   late final int age;
-  late final String restaurant;
+  late String restaurant;
+  late String pfpDownloadURL;
 
-  AppUser(
-      {required this.uid,
-      required this.name,
-      required this.age,
-      required this.restaurant});
+  AppUser({
+    required this.uid,
+    required this.name,
+    required this.age,
+    required this.restaurant,
+    String? pfpDownloadURL,
+  });
+
+  String getName() {
+    return name;
+  }
+
+  String getRestaurant() {
+    return restaurant;
+  }
+
+  String getURL() {
+    return pfpDownloadURL;
+  }
 
   // User(this.fullname, this.username, this.password, this.gender, this.birthday,
   //     this.phone, this.address, this.create_at, this.type);

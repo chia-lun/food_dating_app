@@ -1,33 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
+import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/services/database.dart';
 
 // Update this part with Firebase later
-final List data = [
-  {
-    'image': Image.network(
-        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/ned1.jpg?alt=media&token=010c3652-2c28-47fa-ac0b-405a852ef55c'),
-    'title': const Text("Ned Mayo, 20"),
-    'subtitle': const Text("French Meadow"),
-  },
-  {
-    'image': Image.network(
-        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/jiaying.jpg?alt=media&token=f139075c-c764-4aca-bef2-549f89f8287c'),
-    'title': const Text("Jiaying Wu, 20"),
-    'subtitle': const Text("Shish"),
-  },
-  {
-    'image': Image.network(
-        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/james.jpg?alt=media&token=37933011-41af-47ac-a19f-235c7fb2f4fe'),
-    'title': const Text("James, 20"),
-    'subtitle': const Text("Cafe Mac"),
-  },
-  {
-    'image': Image.network(
-        'https://firebasestorage.googleapis.com/v0/b/food-dating-app-1ef3f.appspot.com/o/hari.jpg?alt=media&token=7c0d1056-ffd5-4d2c-b340-933fbdae82e9'),
-    'title': const Text("Hari,19"),
-    'subtitle': const Text("Cooking at 30 mac"),
-  }
-];
+final DatabaseService db =
+    DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
+final List<AppUser>? userList = db.userListFromSnapShots(db.getUserStream());
 
 class TinderImage extends StatefulWidget {
   @override
@@ -38,20 +18,20 @@ class _TinderImageState extends State<TinderImage> {
   // Dynamically load cards from database
   List<Card> cards = [
     Card(
-      data[0]['image'],
-      data[0]['title'],
-      data[0]['subtitle'],
+      Image.network(userList![0].getURL()),
+      Text(userList![0].getName()),
+      Text(userList![0].getRestaurant()),
     ),
-    Card(
-      data[1]['image'],
-      data[1]['title'],
-      data[1]['subtitle'],
-    ),
-    Card(
-      data[2]['image'],
-      data[2]['title'],
-      data[2]['subtitle'],
-    ),
+    // Card(
+    //   Image.network(userList![1].getURL()),
+    //   Text(userList![1].getName()),
+    //   Text(userList![1].getRestaurant()),
+    // ),
+    // Card(
+    //   Image.network(userList![2].getURL()),
+    //   Text(userList![2].getName()),
+    //   Text(userList![2].getRestaurant()),
+    // ),
   ];
 
   @override

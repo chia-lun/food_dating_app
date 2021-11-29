@@ -4,7 +4,11 @@ import 'package:food_dating_app/models/user.dart';
 
 class DatabaseService {
   final String uid;
-  DatabaseService({required this.uid});
+
+  var appUser;
+  DatabaseService({
+    required this.uid,
+  });
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
@@ -33,19 +37,36 @@ class DatabaseService {
     });
   }
 
-  //user list from snapshot
-  List<User>? _userListFromSnapShot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return User(
-          idUser: doc.data['idUser'],
-          name: doc.data['name'] ?? '',
-          age: doc.data['age'] ?? 0,
-          restaurant: doc.data['restaurant'] ?? '');
-    }).toList();
+  // user list from snapshot
+  List<AppUser>? userListFromSnapShots(Stream<QuerySnapshot> snapshots) {
+    List<AppUser>? listOfUsers = [];
+    snapshots.forEach((snapshot) {
+      snapshot.docs.map((doc) {
+        listOfUsers.add(AppUser(
+            //idUser: doc.data['idUser'],
+            name: doc.get('name') ?? '',
+            age: doc.get('age') ?? 0,
+            restaurant: doc.get('restaurant') ?? '',
+            uid: ''));
+      });
+    });
+    return listOfUsers;
+    // return snapshots.docs.map((doc) {
+    //   return AppUser(
+    //       //idUser: doc.data['idUser'],
+    //       name: doc.get('name') ?? '',
+    //       age: doc.get('age') ?? 0,
+    //       restaurant: doc.get('restaurant') ?? '',
+    //       uid: '');
+    // }).toList();
   }
 
-  //get user stream
-  Stream<User> get user {
-    return userCollection.snapshots().map(_userListFromSnapShot);
+  Stream<QuerySnapshot> getUserStream() {
+    return FirebaseFirestore.instance.collection("user").snapshots();
   }
+
+  // // get user doc stream
+  // Stream<AppUser> get userData {
+  //   return userCollection.doc(uid).snapshots().map();
+  // }
 }

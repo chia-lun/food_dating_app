@@ -50,8 +50,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<User>>.value(
-        value: DatabaseService().appUser,
+    return StreamProvider<List<AppUser>>.value(
+        value: DatabaseService(uid: '').appUser,
         initialData: [],
         child: Scaffold(
           body: Column(children: <Widget>[

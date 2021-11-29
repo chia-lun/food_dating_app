@@ -1,13 +1,9 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_dating_app/api/firebase_api.dart';
-import 'package:food_dating_app/widgets/input_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/services/auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -26,7 +22,8 @@ enum ImageSourceType { gallery, camera }
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService();
 
   // text field state
   String name = "";
@@ -52,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isVideo = false;
 
   String getUserId() {
-    final User? user = auth.currentUser;
+    final User? user = _auth.currentUser;
     final userId = user!.uid;
 
     return userId;
@@ -248,6 +245,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   onPressed: () async {
+                    _authService.registerWithEmailAndPassword(email, password);
                     await uploadImage();
                     firebase_storage.Reference ref = firebase_storage
                         .FirebaseStorage.instance
