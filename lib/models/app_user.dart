@@ -26,6 +26,10 @@ class AppUser {
     return pfpDownloadURL;
   }
 
+  int getAge() {
+    return age;
+  }
+
   // User(this.fullname, this.username, this.password, this.gender, this.birthday,
   //     this.phone, this.address, this.create_at, this.type);
 

@@ -187,7 +187,7 @@ class _MessagePageState extends State<MessagePage> {
                             //'Nickname: ${userChat.nickname}',
                             'UserID: ${document.get('name')}',
                             maxLines: 1,
-                            //style: TextStyle(color: ColorConstants.primaryColor),
+                            style: TextStyle(color: Colors.orange),
                           ),
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.fromLTRB(10, 0, 0, 5),

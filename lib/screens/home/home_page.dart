@@ -73,11 +73,16 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 createChatDialog(context);
               },
-              child: const Text('Chat',
-                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              child: const Text('   Chat   ',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white)),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.orange,
                 //minimumSize: const Size(30.0, 10.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
               ),
             )
           ]),

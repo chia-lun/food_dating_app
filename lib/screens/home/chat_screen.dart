@@ -113,7 +113,7 @@ class ChatScreenState extends State<ChatScreen> {
           Text(
             message.time,
             style: const TextStyle(
-              color: Colors.blueGrey,
+              color: Colors.orange,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
             ),
@@ -122,7 +122,7 @@ class ChatScreenState extends State<ChatScreen> {
           Text(
             message.text,
             style: const TextStyle(
-              color: Colors.blueGrey,
+              color: Colors.orange,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
             ),
@@ -345,7 +345,7 @@ class ChatScreenState extends State<ChatScreen> {
             Container(
               child: Text(
                 message.text,
-                style: TextStyle(color: ColorConstants.primaryColor),
+                style: TextStyle(color: Colors.orange),
               ),
               padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
               width: 200,
@@ -369,7 +369,7 @@ class ChatScreenState extends State<ChatScreen> {
                   padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                   width: 200,
                   decoration: BoxDecoration(
-                      color: ColorConstants.primaryColor,
+                      color: Colors.orange,
                       borderRadius: BorderRadius.circular(8)),
                   margin: EdgeInsets.only(left: 10),
                 )

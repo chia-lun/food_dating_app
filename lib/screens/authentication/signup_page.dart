@@ -91,37 +91,6 @@ class _SignUpPageState extends State<SignUpPage> {
     return FirebaseApi.uploadFile(randomFileName, _image!);
   }
 
-  // // app_user.dart
-  // Future<void> profileSetUp(
-  //     File image,
-  //     String uid,
-  //     String name,
-  //     int age, //DateTime age -- we can change this later
-  //     String restaurant
-  //     ) async {
-  //         StorageUploadTask storageUploadTask;
-  //         storageUploadTask = FirebaseStorage.instance
-  //         .ref()
-  //         .child('userImage')
-  //         .child(uid)
-  //         .putFile(image);
-
-  //         return await storageUploadTask.onComlete.then(
-  //           (ref) async {
-  //             await ref.ref.getDownloadURL().then(url) async {
-  //               await _firestore.collection('user'.document(uid).setData({
-  //                 'uid' : uid,
-  //                 'imageURL' : url,
-  //                 'name' : name,
-  //                 'age' : age,
-  //                 'restaurant' : restaurant
-  //               }));
-  //             };
-  //           }
-  //         );
-  //       }
-  //     }
-
   @override
   Widget build(BuildContext context) {
     // get the screenWidth
@@ -144,7 +113,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: screenWidth - 150,
                   color: Colors.grey[300],
                   child: _image == null
-                      ? Icon(Icons.add_a_photo, color: Colors.white, size: 150)
+                      ? const Icon(Icons.add_a_photo,
+                          color: Colors.white, size: 150)
                       : Image(
                           image: FileImage(File(_image!.path)),
                           fit: BoxFit.contain)),
