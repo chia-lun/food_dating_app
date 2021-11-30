@@ -345,7 +345,7 @@ class ChatScreenState extends State<ChatScreen> {
             Container(
               child: Text(
                 message.text,
-                style: TextStyle(color: Colors.orange),
+                style: TextStyle(color: Colors.white),
               ),
               padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
               width: 200,
