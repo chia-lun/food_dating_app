@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/constants/color_constants.dart';
@@ -27,6 +28,7 @@ class ChatScreen extends StatefulWidget {
 class ChatScreenState extends State<ChatScreen> {
   ChatScreenState({required this.userID});
   String userID;
+  String userName = "loading";
   final FirebaseAuth auth = FirebaseAuth.instance;
   late String currentUserId;
   late ChatProvider chatProvider;
@@ -49,7 +51,23 @@ class ChatScreenState extends State<ChatScreen> {
     authProvider = context.read<AuthProvider>();
     //focusNode.addListener(onFocusChange);
     listScrollController.addListener(_scrollListener);
+    getUserName();
     readLocal();
+  }
+
+  Future<void> getUserName() async {
+    return await FirebaseFirestore.instance
+        .collection("user")
+        .doc(userID)
+        .get()
+        .then((doc) => doc.get("name"))
+        .then((name) {
+      setState(() {
+        userName = name;
+      });
+    });
+
+    //return null;
   }
 
   _scrollListener() {
@@ -168,7 +186,7 @@ class ChatScreenState extends State<ChatScreen> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text(
-          userID,
+          userName,
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
@@ -227,11 +245,11 @@ class ChatScreenState extends State<ChatScreen> {
     //     isShowSticker = false;
     //   });
     // } else {
-    chatProvider.updateDataFirestore(
-      'users',
-      currentUserId,
-      {'chattingWith': null},
-    );
+    // chatProvider.updateDataFirestore(
+    //   'users',
+    //   currentUserId,
+    //   {'chattingWith': null},
+    // );
     Navigator.pop(context);
     //}
 
@@ -264,11 +282,11 @@ class ChatScreenState extends State<ChatScreen> {
       print(userID);
     }
 
-    chatProvider.updateDataFirestore(
-      "users",
-      currentUserId,
-      {'chattingWith': userID},
-    );
+    // chatProvider.updateDataFirestore(
+    //   "users",
+    //   currentUserId,
+    //   {'chattingWith': userID},
+    // );
   }
 
   void onSendMessage(String content) {

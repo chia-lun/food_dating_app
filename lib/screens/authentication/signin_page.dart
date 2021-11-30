@@ -92,7 +92,7 @@ class _SignInPageWidgetState extends State<SignInPage> {
                         builder: (context) => const SwipeMessageProfile()));
                   });
                   //print(auth.currentUser.toString());
-                  authProvider.handleSignIn();
+                  //authProvider.handleSignIn();
                 }),
             MaterialButton(
               color: Colors.orange,

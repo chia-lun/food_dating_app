@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -43,6 +46,7 @@ class AuthService {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
+      //FirebaseFirestore.instance.collection("user").doc()
       return user;
     } catch (error) {
       print(error.toString());
