@@ -71,21 +71,10 @@ class _TinderImageState extends State<TinderImage> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.width * 1.5,
-
       // Important to keep as a stack to have overlay of cards.
       child: Stack(
         children: cards,
       ),
-      // child: StreamBuilder<List<Card>>(
-      //       stream: cards,
-      //       builder: (context, snapshot) {
-      //         if (!snapshot.hasData) return SizedBox();
-      //         final data = snapshot.data;
-      //         return Stack(
-      //           children: data!,
-      //         );
-      //       },
-      //     ),
     );
   }
   //}
@@ -115,17 +104,47 @@ class Card extends StatelessWidget {
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  child: title,
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: title,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: age_title,
+                    )
+                  ],
                 ),
-                Container(
-                  child: age_title,
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: subtitle,
+                    )
+                  ],
                 ),
-                Container(
-                  child: subtitle,
-                )
               ],
+              // children: [
+              //   Container(
+              //     child: title,
+              //   ),
+              //   Container(
+              //     child: age_title,
+              //   ),
+              //   Container(
+              //     child: subtitle,
+              //   )
+              // ],
             ),
           ),
         ],
