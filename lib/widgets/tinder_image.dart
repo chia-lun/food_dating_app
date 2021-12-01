@@ -62,7 +62,8 @@ class _TinderImageState extends State<TinderImage> {
               style: const TextStyle(
                   fontSize: 24,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold))));
+                  fontWeight: FontWeight.bold)),
+          appUser));
       //print(appUser.name + appUser.getURL() + "added");
     }
 
@@ -87,7 +88,7 @@ class Card extends StatelessWidget {
   final AppUser otherUser;
   //late bool isLiked = true;
 
-  Card(this.image, this.title, this.subtitle, this.otherUser);
+  Card(this.image, this.title, this.age_title, this.subtitle, this.otherUser);
 
   final _auth = FirebaseAuth.instance;
   late List<String> _ignoreSwipeIds;
@@ -151,8 +152,6 @@ class Card extends StatelessWidget {
     return false;
   }
 
-  Card(this.image, this.title, this.age_title, this.subtitle);
-
   @override
   Widget build(BuildContext context) {
     return Swipable(
@@ -168,7 +167,7 @@ class Card extends StatelessWidget {
                 fit: BoxFit.cover,
                 alignment: Alignment.bottomCenter,
               ),
-              child: Text(title.toString()),
+              //child: Text(title.toString()),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,21 +200,16 @@ class Card extends StatelessWidget {
                   ],
                 ),
               ],
-              // children: [
-              //   Container(
-              //     child: title,
-              //   ),
-              //   Container(
-              //     child: age_title,
-              //   ),
-              //   Container(
-              //     child: subtitle,
-              //   )
-              // ],
             ),
           ),
         ],
       ),
+      onSwipeLeft: (finalPosition) {
+        personSwiped(otherUser, true);
+      },
+      onSwipeRight: (finalPosition) {
+        personSwiped(otherUser, false);
+      },
     );
   }
 
