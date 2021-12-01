@@ -1,17 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
+import 'package:food_dating_app/models/match.dart';
+import 'package:food_dating_app/models/swipe.dart';
 
 class DatabaseService {
   final String uid;
+  final FirebaseFirestore instance = FirebaseFirestore.instance;
   //const
   var appUser;
+
   DatabaseService({
     required this.uid,
   });
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
+
+  // late CollectionReference swipeColletion = FirebaseFirestore.instance
+  //     .collection('user')
+  //     .doc("POpmAxUz9yMDJSUqKKfAqYOhMSh1")
+  //     .collection("swipes");
 
   //method to update an existing user
   Future updateUser(
@@ -52,35 +61,44 @@ class DatabaseService {
               //print(doc.get('name'));
               listOfUsers.add(user);
             })); //{
-    //map((doc) {
-    //
-    //   print(user.name);
-    //   //print(doc.get('name'));
-    // );
-    // }
-    //});
-    // for (AppUser appUser in listOfUsers) {
-    //   print(appUser.name);
-    // }
-    // print("lisyo "listOfUsers.isEmpty);
     return listOfUsers;
-
-    // return snapshots.docs.map((doc) {
-    //   return AppUser(
-    //       //idUser: doc.data['idUser'],
-    //       name: doc.get('name') ?? '',
-    //       age: doc.get('age') ?? 0,
-    //       restaurant: doc.get('restaurant') ?? '',
-    //       uid: '');
-    // }).toList();
   }
 
-  // Stream<QuerySnapshot> getUserStream() {
-  //   return FirebaseFirestore.instance.collection("user").snapshots();
-  // }
+  Future addMatch(String userId, Match match) async {
+    await userCollection
+        .doc(userId)
+        .collection('matches')
+        .doc(match.id)
+        .set(match.toMap());
+  }
 
-  // // get user doc stream
-  // Stream<AppUser> get userData {
-  //   return userCollection.doc(uid).snapshots().map();
-  // }
+  Future addSwipedUser(Swipe swipe) async {
+    await userCollection.doc(uid).collection('swipes').add(swipe.toMap());
+  }
+
+  Future<DocumentSnapshot> getSwipe(String swipeId) {
+    return FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .collection('swipes')
+        .doc(swipeId)
+        .get();
+  }
+
+  Future<QuerySnapshot> getMatches() async {
+    return await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .collection('matches')
+        .get();
+  }
+
+  Future<QuerySnapshot> getPersonsToMatchWith(
+      int limit, List<String> ignoreIds) {
+    return instance
+        .collection('user')
+        .where('id', whereNotIn: ignoreIds)
+        .limit(limit)
+        .get();
+  }
 }

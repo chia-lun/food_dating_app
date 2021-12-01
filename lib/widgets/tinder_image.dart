@@ -5,7 +5,8 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/screens/home/user_list.dart';
 import 'package:food_dating_app/services/database.dart';
-//import { "user", query, where, getDocs } from "firebase/firestore";
+import 'package:food_dating_app/models/match.dart';
+import 'package:food_dating_app/models/swipe.dart';
 
 // Update this part with Firebase later
 final DatabaseService db =
@@ -13,26 +14,14 @@ final DatabaseService db =
 late List<AppUser>? userList = [];
 
 class TinderImage extends StatefulWidget {
+  const TinderImage({Key? key}) : super(key: key);
+
   @override
   _TinderImageState createState() => _TinderImageState();
 }
 
 class _TinderImageState extends State<TinderImage> {
-  List<Card> cards = [
-    // Card(
-    //
-    // ),
-    // Card(
-    //   Image.network(userList![1].getURL()),
-    //   Text(userList![1].getName()),
-    //   Text(userList![1].getRestaurant()),
-    // ),
-    // Card(
-    //   Image.network(userList![2].getURL()),
-    //   Text(userList![2].getName()),
-    //   Text(userList![2].getRestaurant()),
-    // ),
-  ];
+  List<Card> cards = [];
 
   // Dynamically load cards from database
   @override
@@ -53,14 +42,10 @@ class _TinderImageState extends State<TinderImage> {
 
   @override
   Widget build(BuildContext context) {
-    //  if (userList == null) {
-
-//      return Text("loading");
-    //} else {
     for (AppUser appUser in userList!) {
       //print(appUser.name);
       cards.add(Card(Image.network(appUser.getURL()), Text(appUser.getName()),
-          Text(appUser.getRestaurant())));
+          Text(appUser.getRestaurant()), appUser));
       //print(appUser.name + appUser.getURL() + "added");
     }
 
@@ -68,22 +53,10 @@ class _TinderImageState extends State<TinderImage> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.width * 1.5,
-      // width: 240,
-      // height: 300,
       // Important to keep as a stack to have overlay of cards.
       child: Stack(
         children: cards,
       ),
-      // child: StreamBuilder<List<Card>>(
-      //       stream: cards,
-      //       builder: (context, snapshot) {
-      //         if (!snapshot.hasData) return SizedBox();
-      //         final data = snapshot.data;
-      //         return Stack(
-      //           children: data!,
-      //         );
-      //       },
-      //     ),
     );
   }
   //}
@@ -93,46 +66,103 @@ class Card extends StatelessWidget {
   final Image image;
   final Text title;
   final Text subtitle;
-  Card(this.image, this.title, this.subtitle);
+  final AppUser otherUser;
+  //late bool isLiked = true;
+
+  Card(this.image, this.title, this.subtitle, this.otherUser);
+
+  final _auth = FirebaseAuth.instance;
+  late List<String> _ignoreSwipeIds;
+
+  late User? user = _auth.currentUser;
+
+  String getUserId() {
+    //final User? user = _auth.currentUser;
+    final userId = user!.uid;
+    return userId;
+  }
+
+  AppUser convertCurrentUser() {
+    final User? user = _auth.currentUser;
+    // ignore: avoid_print
+    //print(user!.uid);
+    return AppUser(
+        uid: user!.uid, name: "", age: 0, restaurant: "", pfpDownloadURL: "");
+  }
+
+  late final DatabaseService _localDatabase = DatabaseService(uid: getUserId());
+
+  Future personSwiped(AppUser otherUser, bool isLiked) async {
+    _localDatabase.addSwipedUser(Swipe(otherUser.uid, isLiked));
+    //_ignoreSwipeIds.add(otherUser.uid);
+
+    if (isLiked == true) {
+      if (await isMatch(otherUser) == true) {
+        _localDatabase.addMatch(getUserId(), Match(otherUser.uid));
+        _localDatabase.addMatch(otherUser.uid, Match(getUserId()));
+        // save line 48&49 later to incorporate with chat
+        //String chatId = compareAndCombineIds(myUser.uid, otherUser.uid);
+        //_localDatabase.addChat(Chat(chatId, null));
+
+        // will quickly build a match screen
+        // Navigator.pushNamed(context, MatchedScreen.id, arguments: {
+        //   "my_user_id": myUser.id,
+        //   "my_profile_photo_path": myUser.profilePhotoPath,
+        //   "other_user_profile_photo_path": otherUser.profilePhotoPath,
+        //   "other_user_id": otherUser.id
+        // });
+      }
+    }
+    setState(() {});
+  }
+
+  Future<bool> isMatch(AppUser otherUser) async {
+    print("o");
+    DocumentSnapshot swipeSnapshot =
+        await _localDatabase.getSwipe(otherUser.uid);
+    print("1");
+    if (swipeSnapshot.exists) {
+      Swipe swipe = Swipe.fromSnapshot(swipeSnapshot);
+
+      if (swipe.liked == true) {
+        print("or here");
+        return true;
+      }
+    }
+    print("pass here");
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Swipable(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.width * 1.5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              image: DecorationImage(
-                image: image.image,
-                fit: BoxFit.fill,
-                alignment: Alignment.bottomCenter,
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.width * 1.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                image: DecorationImage(
+                  image: image.image,
+                  fit: BoxFit.fill,
+                  alignment: Alignment.bottomCenter,
+                ),
               ),
+              child: Text(title.toString()),
             ),
-            child: Text(title.toString()),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+        onSwipeLeft: (finalPosition) {
+          print("true");
+          personSwiped(otherUser, true);
+          //print('true');
+        },
+        onSwipeRight: (finalPosition) {
+          print("false");
+          personSwiped(otherUser, false);
+        });
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Swipable(
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(16.0),
-  //         image: DecorationImage(
-  //           image: image.image,
-  //           fit: BoxFit.cover,
-  //           alignment: Alignment.bottomCenter,
-  //         ),
-  //       ),
-  //       child: title,
-  //     ),
-  //     //onSwipeRight, left, up, down, cancel, etc...
-  //   );
-  // }
+  void setState(Null Function() param0) {}
 }

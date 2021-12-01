@@ -116,3 +116,13 @@ ios/build/Pods.build/Release-iphonesimulator/TOCropViewController-TOCropViewCont
 ios/build/Pods.build/Release-iphonesimulator/TOCropViewController.build/dgph
 ios/Flutter/flutter_export_environment 2.sh
 pubspec.lock
+android/.settings/org.eclipse.buildship.core.prefs
+android/.settings/org.eclipse.buildship.core.prefs
+ios/build/Pods.build/Release-iphonesimulator/shared_preferences_ios.build/dgph
+ios/Podfile
+ios/Podfile.lock
+ios/Runner.xcodeproj/project.pbxproj
+pubspec.lock
+ios/Runner.xcodeproj/project.pbxproj
+*.lock
+ios/Podfile
