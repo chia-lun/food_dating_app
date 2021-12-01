@@ -45,61 +45,61 @@ class AuthProvider extends ChangeNotifier {
   //   }
   // }
 
-  Future<bool> handleSignIn() async {
-    // _status = Status.authenticating;
-    // notifyListeners();
+  // Future<bool> handleSignIn() async {
+  //   // _status = Status.authenticating;
+  //   // notifyListeners();
 
-    // GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    // if (googleUser != null) {
-    //   GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
-    //   final AuthCredential credential = GoogleAuthProvider.credential(
-    //     accessToken: googleAuth.accessToken,
-    //     idToken: googleAuth.idToken,
-    //   );
+  //   // GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+  //   // if (googleUser != null) {
+  //   //   GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+  //   //   final AuthCredential credential = GoogleAuthProvider.credential(
+  //   //     accessToken: googleAuth.accessToken,
+  //   //     idToken: googleAuth.idToken,
+  //   //   );
 
-    // User? firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;
-    User? firebaseUser = firebaseAuth.currentUser;
-    if (firebaseUser != null) {
-      final QuerySnapshot result = await firebaseFirestore
-          .collection("users")
-          .where("id", isEqualTo: firebaseUser.uid)
-          .get();
-      final List<DocumentSnapshot> documents = result.docs;
-      if (documents.length == 0) {
-        // Writing data to server because here is a new user
-        firebaseFirestore.collection("users").doc(firebaseUser.uid).set({
-          "name": firebaseUser.displayName,
-          //FirestoreConstants.photoUrl: firebaseUser.photoURL,
-          "id": firebaseUser.uid,
-          'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          "chattingwith": null
-        });
+  //   // User? firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;
+  //   User? firebaseUser = firebaseAuth.currentUser;
+  //   if (firebaseUser != null) {
+  //     final QuerySnapshot result = await firebaseFirestore
+  //         .collection("user")
+  //         .where("id", isEqualTo: firebaseUser.uid)
+  //         .get();
+  //     final List<DocumentSnapshot> documents = result.docs;
+  //     if (documents.length == 0) {
+  //       // Writing data to server because here is a new user
+  //       firebaseFirestore.collection("user").doc(firebaseUser.uid).set({
+  //         //"name": firebaseUser.displayName,
+  //         //FirestoreConstants.photoUrl: firebaseUser.photoURL,
+  //         //  "id": firebaseUser.uid,
+  //         //'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
+  //         //"chattingwith": null
+  //       });
 
-        // Write data to local storage
-        User? currentUser = await firebaseUser;
-        await prefs.setString("id", currentUser.uid);
-        await prefs.setString("name", currentUser.displayName ?? "");
-        //await prefs.setString(FirestoreConstants.photoUrl, currentUser.photoURL ?? "");
-      } else {
-        // Already sign up, just get data from firestore
-        DocumentSnapshot documentSnapshot = documents[0];
-        model.User userChat = model.User.fromDocument(documentSnapshot);
-        // Write data to local
-        await prefs.setString("id", userChat.idUser);
-        await prefs.setString("name", userChat.name);
+  //       // Write data to local storage
+  //       User? currentUser = await firebaseUser;
+  //       await prefs.setString("id", currentUser.uid);
+  //       //await prefs.setString("name", currentUser.displayName ?? "");
+  //       //await prefs.setString(FirestoreConstants.photoUrl, currentUser.photoURL ?? "");
+  //     } else {
+  //       // Already sign up, just get data from firestore
+  //       DocumentSnapshot documentSnapshot = documents[0];
+  //       model.User userChat = model.User.fromDocument(documentSnapshot);
+  //       // Write data to local
+  //       await prefs.setString("id", userChat.idUser);
+  //       //await prefs.setString("name", userChat.name);
 
-        //   await prefs.setString(FirestoreConstants.photoUrl, userChat.photoUrl);
-        //   await prefs.setString(FirestoreConstants.aboutMe, userChat.aboutMe);
-      }
-      _status = Status.authenticated;
-      notifyListeners();
-      return true;
-    } else {
-      _status = Status.authenticateError;
-      notifyListeners();
-      return false;
-    }
-  }
+  //       //   await prefs.setString(FirestoreConstants.photoUrl, userChat.photoUrl);
+  //       //   await prefs.setString(FirestoreConstants.aboutMe, userChat.aboutMe);
+  //     }
+  //     _status = Status.authenticated;
+  //     notifyListeners();
+  //     return true;
+  //   } else {
+  //     _status = Status.authenticateError;
+  //     notifyListeners();
+  //     return false;
+  //   }
+  // }
 
   //  else {
   //   _status = Status.authenticateCanceled;
@@ -110,13 +110,13 @@ class AuthProvider extends ChangeNotifier {
       String pathCollection, int limit, String? textSearch) {
     if (textSearch?.isNotEmpty == true) {
       return firebaseFirestore
-          .collection("users")
+          .collection(pathCollection)
           .limit(limit)
-          .where("id", isEqualTo: textSearch)
+          .where("name", isEqualTo: textSearch)
           .snapshots();
     } else {
       return firebaseFirestore
-          .collection("users")
+          .collection(pathCollection)
           .limit(limit)
           .snapshots();
     }

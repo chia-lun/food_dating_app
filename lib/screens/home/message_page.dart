@@ -93,7 +93,7 @@ class _MessagePageState extends State<MessagePage> {
               Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                 stream: authProvider.getStreamFireStore(
-                    "users", _limit, _textSearch),
+                    "user", _limit, _textSearch),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
@@ -107,7 +107,7 @@ class _MessagePageState extends State<MessagePage> {
                       );
                     }
                   }
-                  return const Text("hello");
+                  return const Text("No Contacts");
                 },
               ))
             ],
@@ -185,9 +185,9 @@ class _MessagePageState extends State<MessagePage> {
                         Container(
                           child: Text(
                             //'Nickname: ${userChat.nickname}',
-                            'UserID: ${document.get('id')}',
+                            'UserID: ${document.get('name')}',
                             maxLines: 1,
-                            //style: TextStyle(color: ColorConstants.primaryColor),
+                            style: TextStyle(color: Colors.orange),
                           ),
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.fromLTRB(10, 0, 0, 5),

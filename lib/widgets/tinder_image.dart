@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +46,23 @@ class _TinderImageState extends State<TinderImage> {
   Widget build(BuildContext context) {
     for (AppUser appUser in userList!) {
       //print(appUser.name);
-      cards.add(Card(Image.network(appUser.getURL()), Text(appUser.getName()),
-          Text(appUser.getRestaurant()), appUser));
+      cards.add(Card(
+          Image.network(appUser.getURL()),
+          Text(appUser.getName(),
+              style: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+          Text(appUser.getAge().toString(),
+              style: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+          Text(appUser.getRestaurant(),
+              style: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold))));
       //print(appUser.name + appUser.getURL() + "added");
     }
 
@@ -65,6 +82,7 @@ class _TinderImageState extends State<TinderImage> {
 class Card extends StatelessWidget {
   final Image image;
   final Text title;
+  final Text age_title;
   final Text subtitle;
   final AppUser otherUser;
   //late bool isLiked = true;
@@ -133,35 +151,72 @@ class Card extends StatelessWidget {
     return false;
   }
 
+  Card(this.image, this.title, this.age_title, this.subtitle);
+
   @override
   Widget build(BuildContext context) {
     return Swipable(
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.width * 1.5,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                image: DecorationImage(
-                  image: image.image,
-                  fit: BoxFit.fill,
-                  alignment: Alignment.bottomCenter,
-                ),
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.width * 1.5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+              image: DecorationImage(
+                image: image.image,
+                fit: BoxFit.cover,
+                alignment: Alignment.bottomCenter,
               ),
               child: Text(title.toString()),
             ),
-          ],
-        ),
-        onSwipeLeft: (finalPosition) {
-          print("true");
-          personSwiped(otherUser, true);
-          //print('true');
-        },
-        onSwipeRight: (finalPosition) {
-          print("false");
-          personSwiped(otherUser, false);
-        });
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: title,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: age_title,
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: subtitle,
+                    )
+                  ],
+                ),
+              ],
+              // children: [
+              //   Container(
+              //     child: title,
+              //   ),
+              //   Container(
+              //     child: age_title,
+              //   ),
+              //   Container(
+              //     child: subtitle,
+              //   )
+              // ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void setState(Null Function() param0) {}

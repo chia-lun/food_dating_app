@@ -49,7 +49,7 @@ class __PageState extends State<_Page> {
   String email = '';
   String password = '';
   String name = "";
-  double age = 12;
+  double age = 18;
   String gender = "";
   // // Gender gender;
   String restaurant = "";

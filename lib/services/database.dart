@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/models/match.dart';
@@ -36,13 +37,16 @@ class DatabaseService {
   //method to add a new user
   Future addUser(String name, int age, String restaurant, String email,
       String password, String pfpDownloadURL) async {
-    return await userCollection.add({
+    return await userCollection
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
       'name': name,
       'age': age,
       'restaurant': restaurant,
       'email': email,
       'password': password,
       'pfpDownloadURL': pfpDownloadURL,
+      'id': FirebaseAuth.instance.currentUser!.uid,
     });
   }
 
@@ -56,7 +60,7 @@ class DatabaseService {
                   name: doc.get('name') ?? '',
                   age: doc.get('age') ?? 0,
                   restaurant: doc.get('restaurant') ?? '',
-                  uid: '',
+                  uid: doc.get('id') ?? '',
                   pfpDownloadURL: doc.get('pfpDownloadURL') ?? '');
               //print(doc.get('name'));
               listOfUsers.add(user);
