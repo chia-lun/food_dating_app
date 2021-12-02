@@ -54,17 +54,22 @@ class DatabaseService {
   Future<List<AppUser>> userListFromSnapShots() async {
     List<AppUser> listOfUsers = [];
     //snapshots.forEach((snapshot) {
-    await FirebaseFirestore.instance.collection("user").get().then(
-        (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
-              AppUser user = AppUser(
-                  name: doc.get('name') ?? '',
-                  age: doc.get('age') ?? 0,
-                  restaurant: doc.get('restaurant') ?? '',
-                  uid: doc.get('id') ?? '',
-                  pfpDownloadURL: doc.get('pfpDownloadURL') ?? '');
-              //print(doc.get('name'));
-              listOfUsers.add(user);
-            })); //{
+    await FirebaseFirestore.instance
+        .collection("user")
+        .where("id", isNotEqualTo: uid)
+        .get()
+        .then(
+            (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
+                  AppUser user = AppUser(
+                      name: doc.get('name') ?? '',
+                      age: doc.get('age') ?? 0,
+                      restaurant: doc.get('restaurant') ?? '',
+                      uid: doc.get('id') ?? '',
+                      pfpDownloadURL: doc.get('pfpDownloadURL') ?? '');
+                  //print(doc.get('name'));
+                  listOfUsers.add(user);
+                })); //{
+    print(listOfUsers);
     return listOfUsers;
   }
 

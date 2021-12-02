@@ -39,13 +39,14 @@ class _TinderImageState extends State<TinderImage> {
 
   Future<void> loadUser() async {
     userList = await db.userListFromSnapShots();
+    //print(userList);
     print(userList!.isEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
     for (AppUser appUser in userList!) {
-      //print(appUser.name);
+      print(appUser.name);
       cards.add(Card(
           context,
           Image.network(appUser.getURL()),
