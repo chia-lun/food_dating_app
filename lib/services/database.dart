@@ -77,15 +77,19 @@ class DatabaseService {
   }
 
   Future addSwipedUser(Swipe swipe) async {
-    await userCollection.doc(uid).collection('swipes').add(swipe.toMap());
-  }
-
-  Future<DocumentSnapshot> getSwipe(String swipeId) {
-    return FirebaseFirestore.instance
-        .collection('user')
+    await userCollection
         .doc(uid)
         .collection('swipes')
+        .doc(swipe.id)
+        .set(swipe.toMap());
+  }
+
+  Future<DocumentSnapshot> getSwipe(String swipeId) async {
+    return await FirebaseFirestore.instance
+        .collection('user')
         .doc(swipeId)
+        .collection('swipes')
+        .doc(uid)
         .get();
   }
 

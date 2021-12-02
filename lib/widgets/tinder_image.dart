@@ -1,10 +1,10 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/screens/home/matched_page.dart';
 import 'package:food_dating_app/screens/home/user_list.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/models/match.dart';
@@ -47,6 +47,7 @@ class _TinderImageState extends State<TinderImage> {
     for (AppUser appUser in userList!) {
       //print(appUser.name);
       cards.add(Card(
+          context,
           Image.network(appUser.getURL()),
           Text(appUser.getName(),
               style: const TextStyle(
@@ -86,9 +87,13 @@ class Card extends StatelessWidget {
   final Text age_title;
   final Text subtitle;
   final AppUser otherUser;
+  final BuildContext context;
   //late bool isLiked = true;
 
-  Card(this.image, this.title, this.age_title, this.subtitle, this.otherUser);
+  Card(this.context, this.image, this.title, this.age_title, this.subtitle,
+      this.otherUser,
+      {Key? key})
+      : super(key: key);
 
   final _auth = FirebaseAuth.instance;
   late List<String> _ignoreSwipeIds;
@@ -111,7 +116,8 @@ class Card extends StatelessWidget {
 
   late final DatabaseService _localDatabase = DatabaseService(uid: getUserId());
 
-  Future personSwiped(AppUser otherUser, bool isLiked) async {
+  Future personSwiped(
+      AppUser currentUser, AppUser otherUser, bool isLiked) async {
     _localDatabase.addSwipedUser(Swipe(otherUser.uid, isLiked));
     //_ignoreSwipeIds.add(otherUser.uid);
 
@@ -124,12 +130,12 @@ class Card extends StatelessWidget {
         //_localDatabase.addChat(Chat(chatId, null));
 
         // will quickly build a match screen
-        // Navigator.pushNamed(context, MatchedScreen.id, arguments: {
-        //   "my_user_id": myUser.id,
-        //   "my_profile_photo_path": myUser.profilePhotoPath,
-        //   "other_user_profile_photo_path": otherUser.profilePhotoPath,
-        //   "other_user_id": otherUser.id
-        // });
+        Navigator.pushNamed(context, MatchedScreen.id, arguments: {
+          "my_user_id": currentUser.uid,
+          "my_profile_photo_path": currentUser.pfpDownloadURL,
+          "other_user_profile_photo_path": otherUser.pfpDownloadURL,
+          "other_user_id": otherUser.uid
+        });
       }
     }
     setState(() {});
@@ -140,7 +146,9 @@ class Card extends StatelessWidget {
     DocumentSnapshot swipeSnapshot =
         await _localDatabase.getSwipe(otherUser.uid);
     print("1");
+    print(swipeSnapshot);
     if (swipeSnapshot.exists) {
+      print("snapshot exists");
       Swipe swipe = Swipe.fromSnapshot(swipeSnapshot);
 
       if (swipe.liked == true) {
@@ -205,10 +213,10 @@ class Card extends StatelessWidget {
         ],
       ),
       onSwipeLeft: (finalPosition) {
-        personSwiped(otherUser, true);
+        personSwiped(convertCurrentUser(), otherUser, true);
       },
       onSwipeRight: (finalPosition) {
-        personSwiped(otherUser, false);
+        personSwiped(convertCurrentUser(), otherUser, false);
       },
     );
   }

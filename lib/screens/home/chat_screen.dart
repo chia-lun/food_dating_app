@@ -15,6 +15,7 @@ import 'package:provider/src/provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
+  static const String id = 'chat_screen';
   final String userID;
 
   ChatScreen({Key? key, required this.userID}) : super(key: key);
