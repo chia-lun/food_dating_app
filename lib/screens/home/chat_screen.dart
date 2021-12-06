@@ -212,31 +212,6 @@ class ChatScreenState extends State<ChatScreen> {
             ],
           ),
           onWillPop: onBackPress),
-      // body: GestureDetector(
-      //   onTap: () => FocusScope.of(context).unfocus(),
-      //   child: Column(
-      //     children: <Widget>[
-      //       Expanded(
-      //         child: Container(
-      //           decoration: BoxDecoration(
-      //             color: Colors.white,
-      //             borderRadius: BorderRadius.only(
-      //               topLeft: Radius.circular(30.0),
-      //               topRight: Radius.circular(30.0),
-      //             ),
-      //           ),
-      //           child: ClipRRect(
-      //               borderRadius: BorderRadius.only(
-      //                 topLeft: Radius.circular(30.0),
-      //                 topRight: Radius.circular(30.0),
-      //               ),
-      //               child: buildListMessage()),
-      //         ),
-      //       ),
-      //       _buildMessageComposer(),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -340,7 +315,7 @@ class ChatScreenState extends State<ChatScreen> {
   Widget buildItem(int index, DocumentSnapshot? documentSnapshot) {
     if (documentSnapshot != null) {
       Message message = Message.fromDocument(documentSnapshot);
-      if (message.receiverID == currentUserId) {
+      if (message.receiverID != currentUserId) {
         return Row(
           children: <Widget>[
             Container(

@@ -139,45 +139,49 @@ class _MessagePageState extends State<MessagePage> {
         child: TextButton(
             child: Row(
               children: <Widget>[
-                //   Material(
-                //     child: userChat.photoUrl.isNotEmpty
-                //         ? Image.network(
-                //             userChat.photoUrl,
-                //             fit: BoxFit.cover,
-                //             width: 50,
-                //             height: 50,
-                //             loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                //               if (loadingProgress == null) return child;
-                //               return Container(
-                //                 width: 50,
-                //                 height: 50,
-                //                 child: Center(
-                //                   child: CircularProgressIndicator(
-                //                     color: ColorConstants.themeColor,
-                //                     value: loadingProgress.expectedTotalBytes != null &&
-                //                             loadingProgress.expectedTotalBytes != null
-                //                         ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                //                         : null,
-                //                   ),
-                //                 ),
-                //               );
-                //             },
-                //             errorBuilder: (context, object, stackTrace) {
-                //               return Icon(
-                //                 Icons.account_circle,
-                //                 size: 50,
-                //                 color: ColorConstants.greyColor,
-                //               );
-                //             },
-                //           )
-                //         : Icon(
-                //             Icons.account_circle,
-                //             size: 50,
-                //             color: ColorConstants.greyColor,
-                //           ),
-                //     borderRadius: BorderRadius.all(Radius.circular(25)),
-                //     clipBehavior: Clip.hardEdge,
-                //   ),
+                Material(
+                  child: document.get('pfpDownloadURL') != null
+                      ? Image.network(
+                          document.get('pfpDownloadURL'),
+                          fit: BoxFit.cover,
+                          width: 50,
+                          height: 50,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Container(
+                              width: 50,
+                              height: 50,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.orange,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                              null &&
+                                          loadingProgress.expectedTotalBytes !=
+                                              null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, object, stackTrace) {
+                            return const Icon(
+                              Icons.account_circle,
+                              size: 50,
+                              color: Colors.grey,
+                            );
+                          },
+                        )
+                      : const Icon(
+                          Icons.account_circle,
+                          size: 50,
+                          color: Colors.grey,
+                        ),
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  clipBehavior: Clip.hardEdge,
+                ),
                 Flexible(
                   child: Container(
                     child: Column(
@@ -185,7 +189,7 @@ class _MessagePageState extends State<MessagePage> {
                         Container(
                           child: Text(
                             //'Nickname: ${userChat.nickname}',
-                            'UserID: ${document.get('name')}',
+                            '${document.get('name')}',
                             maxLines: 1,
                             style: TextStyle(color: Colors.orange),
                           ),
