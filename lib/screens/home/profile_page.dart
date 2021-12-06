@@ -29,9 +29,9 @@ class _SignUpPageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String myId = '';
-  String myUsername = '';
+  late String myUsername;
   String myUrlAvatar = '';
-
+  late int myage;
   // void inputData() {
   //   final User user = _auth.currentUser;
   //   Future<DocumentSnapshot<Map<String, dynamic>>> snap =
@@ -72,11 +72,37 @@ class _SignUpPageState extends State<ProfilePage> {
 
   @override
   void initState() {
+    getAge();
+    getName();
     super.initState();
-
     authProvider = context.read<AuthProvider>();
   }
 
+  Future<void> getAge() async {
+    return await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => doc.get('age'))
+        .then((age) {
+      setState(() {
+        myage = age;
+      });
+    });
+  }
+
+  Future<void> getName() async {
+    return await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => doc.get('name'))
+        .then((name) {
+      setState(() {
+        myUsername = name;
+      });
+    });
+  }
   // String getUserId() {
   //   final User? user = _auth.currentUser;
   //   final userId = user!.uid;
@@ -109,7 +135,7 @@ class _SignUpPageState extends State<ProfilePage> {
   }
 
   @override
-  Widget build(BuildContext context, DocumentSnapshot document) {
+  Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
@@ -146,31 +172,31 @@ class _SignUpPageState extends State<ProfilePage> {
                 }),
             TextFormField(
               //for future text call
-              // initialValue:
+              initialValue: myUsername,
               //Controller: nameController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your name',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+              // decoration: const InputDecoration(
+              //   hintText: 'Enter your name',
+              // ),
+              // validator: (String? value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Please enter some text';
+              //   }
+              //   return null;
+              // },
             ),
             TextFormField(
               //for future text call
-              initialValue: AppUser.fromDocument(document).getAge().toString(),
-              controller: ageController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your age',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+              initialValue: myage.toString(),
+              // controller: ageController,
+              // decoration: const InputDecoration(
+              //   hintText: 'Enter your age',
+              // ),
+              // validator: (String? value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Please enter some text';
+              //   }
+              //   return null;
+              // },
             ),
             TextFormField(
               //for future text call
@@ -238,8 +264,7 @@ class _SignUpPageState extends State<ProfilePage> {
                         .child("profiles$randomFileName.jpg");
                     String pfpDownloadURL =
                         (await ref.getDownloadURL()).toString();
-                    DatabaseService(uid: AppUser.fromDocument(document).getId())
-                        .addUser(
+                    DatabaseService(uid: _auth.currentUser!.uid).addUser(
                       nameController.text,
                       int.parse(ageController.text),
                       restaurantController.text,
@@ -266,10 +291,4 @@ class _SignUpPageState extends State<ProfilePage> {
       )),
     );
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  throw UnimplementedError();
 }
