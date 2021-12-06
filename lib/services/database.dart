@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/models/app_user.dart';
-import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/models/swipe.dart';
 

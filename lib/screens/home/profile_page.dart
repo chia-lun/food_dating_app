@@ -1,5 +1,6 @@
 // import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:flutter/services.dart';
@@ -97,6 +98,7 @@ class __PageState extends State<_Page> {
                   neumorphic_widgets.NTextField(
                     label: "Email",
                     hint: "",
+                    // hint: FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser!.uid).get().doc("age").toString(),
                     onChanged: (email) {
                       setState(() {
                         this.email = email;

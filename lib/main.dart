@@ -7,14 +7,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/providers/chat_provider.dart';
 import 'package:food_dating_app/routes.dart';
-// import 'package:food_dating_app/screens/authentication/signin_page.dart';
-// import 'package:provider/provider.dart';
-
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(MyApp());
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:food_dating_app/services/restraurant_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,8 +48,8 @@ class _MyAppState extends State<MyApp> {
           Provider<ChatProvider>(
             create: (_) => ChatProvider(
               prefs: prefs,
-              firebaseFirestore: this.firebaseFirestore,
-              firebaseStorage: this.firebaseStorage,
+              firebaseFirestore: firebaseFirestore,
+              firebaseStorage: firebaseStorage,
             ),
           )
         ],
