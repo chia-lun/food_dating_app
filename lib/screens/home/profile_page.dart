@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_dating_app/api/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:food_dating_app/services/auth.dart';
@@ -42,24 +43,6 @@ class _SignUpPageState extends State<ProfilePage> {
   //     name = user.displayName!;
   //   });
   // }
-
-  void _getdata() async {
-  final User user = _auth.currentUser;
-  FirebaseFirestore.instance
-    .collection('users')
-    .doc(user.uid)
-    .snapshots()
-    .listen((userData) {
- 
-    setState(() {
-      myId = userData.data()!['uid'];
-        myUsername = userData.data()!['name'];
-       myUrlAvatar = userData.data()!['avatarurl'];
-      
-    });
-    
-  };
-
 
   final AuthService _authService = AuthService();
   late AuthProvider authProvider;
@@ -101,7 +84,6 @@ class _SignUpPageState extends State<ProfilePage> {
   //   return userId;
   // }
 
-  
   Future pickImage() async {
     try {
       XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -127,7 +109,7 @@ class _SignUpPageState extends State<ProfilePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, DocumentSnapshot document) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
@@ -164,7 +146,7 @@ class _SignUpPageState extends State<ProfilePage> {
                 }),
             TextFormField(
               //for future text call
-              // initialValue: 
+              // initialValue:
               //Controller: nameController,
               decoration: const InputDecoration(
                 hintText: 'Enter your name',
@@ -178,7 +160,7 @@ class _SignUpPageState extends State<ProfilePage> {
             ),
             TextFormField(
               //for future text call
-              initialValue: authProvider.getUserFirebaseId(),
+              initialValue: AppUser.fromDocument(document).getAge().toString(),
               controller: ageController,
               decoration: const InputDecoration(
                 hintText: 'Enter your age',
@@ -256,7 +238,8 @@ class _SignUpPageState extends State<ProfilePage> {
                         .child("profiles$randomFileName.jpg");
                     String pfpDownloadURL =
                         (await ref.getDownloadURL()).toString();
-                    DatabaseService(uid: getUserId()).addUser(
+                    DatabaseService(uid: AppUser.fromDocument(document).getId())
+                        .addUser(
                       nameController.text,
                       int.parse(ageController.text),
                       restaurantController.text,
@@ -282,258 +265,11 @@ class _SignUpPageState extends State<ProfilePage> {
         ),
       )),
     );
-    // } else {
-    //   return SizedBox.shrink();
-    // }
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-
-// class _ProfilePageWidgetState extends State<ProfilePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.only(top: 180.0),
-//               child: Center(
-//                 child: Container(
-//                     width: 200,
-//                     height: 150,
-//                     /*decoration: BoxDecoration(
-//                         color: Colors.red,
-//                         borderRadius: BorderRadius.circular(50.0)),*/
-//                     child: Image.asset('assets/images/icon.jpg')),
-//               ),
-//             ),
-//             const Padding(
-//               padding:
-//                   EdgeInsets.only(left: 15.0, right: 15.0, top: 0, bottom: 0),
-//               //padding: EdgeInsets.symmetric(horizontal: 15),
-//               child: TextField(
-//                 decoration: InputDecoration(
-//                     border: OutlineInputBorder(),
-//                     labelText: 'Email',
-//                     hintText: 'Enter valid email id as abc@gmail.com'),
-//               ),
-//             ),
-//             const Padding(
-//               padding:
-//                   EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-//               //padding: EdgeInsets.symmetric(horizontal: 15),
-//               child: TextField(
-//                 obscureText: true,
-//                 decoration: InputDecoration(
-//                     border: OutlineInputBorder(),
-//                     labelText: 'Password',
-//                     hintText: 'Enter secure password'),
-//               ),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 //TODO FORGOT PASSWORD SCREEN GOES HERE
-//               },
-//               child: const Text(
-//                 'Forgot Password',
-//                 style: TextStyle(color: Colors.orange, fontSize: 15),
-//               ),
-//             ),
-//             Container(
-//               height: 50,
-//               width: 250,
-//               decoration: BoxDecoration(
-//                   color: Colors.orange,
-//                   borderRadius: BorderRadius.circular(20)),
-//               child: TextButton(
-//                 onPressed: () {},
-//                 child: const Text(
-//                   'Login',
-//                   style: TextStyle(color: Colors.white, fontSize: 20),
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 130,
-//             ),
-//             const Text('New User? Create Account')
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// // import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter/cupertino.dart';
-// //import 'package:flutter/services.dart';
-// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-// import 'package:food_dating_app/services/auth.dart';
-// import 'package:food_dating_app/swipe_message_profile.dart';
-// import 'package:food_dating_app/screens/authentication/signin_page.dart';
-// import 'package:food_dating_app/widgets/neumorphic_widgets.dart'
-//     as neumorphic_widgets;
-
-// class ProfilePage extends StatelessWidget {
-//   ProfilePage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return NeumorphicTheme(
-//       themeMode: ThemeMode.light,
-//       theme: const NeumorphicThemeData(
-//         baseColor: Color(0xFFFFFFFF),
-//         lightSource: LightSource.topLeft,
-//         accentColor: Colors.orange,
-//         variantColor: Colors.black38,
-//         depth: 10,
-//       ),
-//       darkTheme: const NeumorphicThemeData(
-//         baseColor: Color(0xFF3E3E3E),
-//         lightSource: LightSource.topLeft,
-//         depth: 6,
-//       ),
-//       child: Material(
-//         child: NeumorphicBackground(
-//           child: _Page(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class _Page extends StatefulWidget {
-//   @override
-//   __PageState createState() => __PageState();
-// }
-
-// enum Gender { MALE, FEMALE, NON_BINARY }
-
-// class __PageState extends State<_Page> {
-//   String email = '';
-//   String password = '';
-//   String name = "";
-//   double age = 18;
-//   String gender = "";
-//   // // Gender gender;
-//   String restaurant = "";
-//   Set<String> rides = Set();
-
-//   //for signout
-//   final AuthService _auth = AuthService();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: <Widget>[
-//             Container(
-//               margin: const EdgeInsets.only(left: 12, right: 12, top: 10),
-//             ),
-//             Neumorphic(
-//               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//               style: NeumorphicStyle(
-//                 boxShape:
-//                     NeumorphicBoxShape.roundRect(BorderRadius.circular(13)),
-//               ),
-//               child: Column(
-//                 children: <Widget>[
-//                   Align(
-//                       alignment: Alignment.bottomRight,
-//                       child: NeumorphicButton(
-//                         onPressed: () async {
-//                           await _auth.signOut();
-
-//                           /// _logoutStatus = true;
-//                           Navigator.of(context, rootNavigator: true)
-//                               .pushReplacement(MaterialPageRoute(
-//                                   builder: (context) => ProfilePage()));
-//                         },
-//                         child: const Text("logout"),
-//                       )),
-//                   neumorphic_widgets.AvatarField(),
-//                   const SizedBox(
-//                     height: 8,
-//                   ),
-//                   neumorphic_widgets.NTextField(
-//                     label: "Email",
-//                     hint: "",
-//                     onChanged: (email) {
-//                       setState(() {
-//                         this.email = email;
-//                       });
-//                     },
-//                   ),
-//                   neumorphic_widgets.NTextField(
-//                     label: "Password",
-//                     hint: "",
-//                     onChanged: (password) {
-//                       setState(() {
-//                         this.password = password;
-//                       });
-//                     },
-//                   ),
-//                   neumorphic_widgets.NTextField(
-//                     label: "Name",
-//                     hint: "",
-//                     onChanged: (name) {
-//                       setState(() {
-//                         this.name = name;
-//                       });
-//                     },
-//                   ),
-//                   neumorphic_widgets.NTextField(
-//                     label: "Gender",
-//                     hint: "",
-//                     onChanged: (gener) {
-//                       setState(() {
-//                         this.gender = gender;
-//                       });
-//                     },
-//                   ),
-//                   neumorphic_widgets.AgeField(
-//                     age: this.age,
-//                     onChanged: (age) {
-//                       setState(() {
-//                         this.age = age;
-//                       });
-//                     },
-//                   ),
-//                   neumorphic_widgets.NTextField(
-//                     label: "Restaurant",
-//                     hint: "",
-//                     onChanged: (restaurant) {
-//                       setState(() {
-//                         this.restaurant = restaurant;
-//                       });
-//                     },
-//                   ),
-//                   const SizedBox(
-//                     height: 20,
-//                   ),
-//                 ],
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   bool _isButtonEnabled() {
-//     //return this.firstName.isNotEmpty && this.lastName.isNotEmpty;
-//     return this.name.isNotEmpty;
-//   }
-// }
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
+}
