@@ -33,7 +33,7 @@ class _SignUpPageState extends State<ProfilePage> {
 
   String myId = '';
   late String myUsername;
-  String myUrlAvatar = '';
+  String _myUrl = '';
   late int myage;
   String myRestaurant = '';
 
@@ -65,6 +65,7 @@ class _SignUpPageState extends State<ProfilePage> {
     getAge();
     getName();
     getRestaurant();
+    getURL();
     super.initState();
     authProvider = context.read<AuthProvider>();
   }
@@ -104,6 +105,19 @@ class _SignUpPageState extends State<ProfilePage> {
         .then((restaurant) {
       setState(() {
         myRestaurant = restaurant;
+      });
+    });
+  }
+
+  Future<void> getURL() async {
+    return await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => doc.get('pfpDownloadURL'))
+        .then((pfpDownloadURL) {
+      setState(() {
+        _myUrl = pfpDownloadURL;
       });
     });
   }
@@ -155,12 +169,8 @@ class _SignUpPageState extends State<ProfilePage> {
                   height: screenWidth - 150,
                   width: screenWidth - 150,
                   color: Colors.grey[300],
-                  child: _image == null
-                      ? const Icon(Icons.add_a_photo,
-                          color: Colors.white, size: 150)
-                      : Image(
-                          image: FileImage(File(_image!.path)),
-                          fit: BoxFit.contain)),
+                  child: Image(
+                      image: Image.network(_myUrl).image, fit: BoxFit.contain)),
             ),
             MaterialButton(
                 color: Colors.orange,
