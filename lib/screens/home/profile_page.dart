@@ -28,24 +28,14 @@ enum ImageSourceType { gallery, camera }
 class _SignUpPageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService();
+  late AuthProvider authProvider;
+
   String myId = '';
   late String myUsername;
   String myUrlAvatar = '';
   late int myage;
-  // void inputData() {
-  //   final User user = _auth.currentUser;
-  //   Future<DocumentSnapshot<Map<String, dynamic>>> snap =
-  //       FirebaseFirestore.instance.collection('Users').doc(user!.uid).get();
-  //   // String myId = snap['uid'];
-  //   // String myUsername = snap['name'];
-  //   // String myUrlAvatar = snap['avatarurl'];
-  //   setState(() {
-  //     name = user.displayName!;
-  //   });
-  // }
-
-  final AuthService _authService = AuthService();
-  late AuthProvider authProvider;
+  String myRestaurant = '';
 
   // text field state
   String name = "";
@@ -74,6 +64,7 @@ class _SignUpPageState extends State<ProfilePage> {
   void initState() {
     getAge();
     getName();
+    getRestaurant();
     super.initState();
     authProvider = context.read<AuthProvider>();
   }
@@ -100,6 +91,19 @@ class _SignUpPageState extends State<ProfilePage> {
         .then((name) {
       setState(() {
         myUsername = name;
+      });
+    });
+  }
+
+  Future<void> getRestaurant() async {
+    return await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => doc.get('restaurant'))
+        .then((restaurant) {
+      setState(() {
+        myRestaurant = restaurant;
       });
     });
   }
@@ -174,9 +178,9 @@ class _SignUpPageState extends State<ProfilePage> {
               //for future text call
               initialValue: myUsername,
               //Controller: nameController,
-              // decoration: const InputDecoration(
-              //   hintText: 'Enter your name',
-              // ),
+              decoration: const InputDecoration(
+                hintText: 'Enter your new name',
+              ),
               // validator: (String? value) {
               //   if (value == null || value.isEmpty) {
               //     return 'Please enter some text';
@@ -188,9 +192,9 @@ class _SignUpPageState extends State<ProfilePage> {
               //for future text call
               initialValue: myage.toString(),
               // controller: ageController,
-              // decoration: const InputDecoration(
-              //   hintText: 'Enter your age',
-              // ),
+              decoration: const InputDecoration(
+                hintText: 'Enter your new age',
+              ),
               // validator: (String? value) {
               //   if (value == null || value.isEmpty) {
               //     return 'Please enter some text';
@@ -200,55 +204,55 @@ class _SignUpPageState extends State<ProfilePage> {
             ),
             TextFormField(
               //for future text call
-              //initialValue: '${document.get('restaurant')}',
-              controller: restaurantController,
+              initialValue: myRestaurant,
+              //controller: restaurantController,
               decoration: const InputDecoration(
-                hintText: 'Enter your restaurant',
+                hintText: 'Enter your new restaurant preference',
               ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() => restaurant = value);
-              },
+              // validator: (String? value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Please enter some text';
+              //   }
+              //   return null;
+              // },
+              // onChanged: (value) {
+              //   setState(() => restaurant = value);
+              // },
             ),
-            TextFormField(
-              //for future text call
-              //initialValue: '${document.get('email')}',
-              controller: emailController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your email',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please an email';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() => email = value);
-              },
-            ),
-            TextFormField(
-              //for future text call
-              //initialValue: '${document.get('password')}',
-              controller: passwordController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your password',
-              ),
-              validator: (String? value) {
-                if (value == null || value.length < 6) {
-                  return 'Enter vaild password with 6+ chars long';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() => password = value);
-              },
-            ),
+            // TextFormField(
+            //   //for future text call
+            //   //initialValue: '${document.get('email')}',
+            //   controller: emailController,
+            //   decoration: const InputDecoration(
+            //     hintText: 'Enter your email',
+            //   ),
+            //   validator: (String? value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please an email';
+            //     }
+            //     return null;
+            //   },
+            //   onChanged: (value) {
+            //     setState(() => email = value);
+            //   },
+            // ),
+            // TextFormField(
+            //   //for future text call
+            //   //initialValue: '${document.get('password')}',
+            //   controller: passwordController,
+            //   decoration: const InputDecoration(
+            //     hintText: 'Enter your password',
+            //   ),
+            //   validator: (String? value) {
+            //     if (value == null || value.length < 6) {
+            //       return 'Enter vaild password with 6+ chars long';
+            //     }
+            //     return null;
+            //   },
+            //   onChanged: (value) {
+            //     setState(() => password = value);
+            //   },
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: MaterialButton(
