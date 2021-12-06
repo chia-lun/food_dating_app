@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AppUser {
   late final String uid;
   late final String name;
@@ -14,6 +16,14 @@ class AppUser {
     idUser,
   });
 
+  String getId() {
+    return uid;
+  }
+
+  AppUser getUser() {
+    return this;
+  }
+
   String getName() {
     return name;
   }
@@ -28,6 +38,20 @@ class AppUser {
 
   int getAge() {
     return age;
+  }
+
+  factory AppUser.fromDocument(DocumentSnapshot doc) {
+    String idUser = "";
+    String name = "";
+    //String urlAvatar = "";
+    try {
+      idUser = doc.get("idUser");
+    } catch (e) {}
+    try {
+      name = doc.get("name");
+    } catch (e) {}
+    return AppUser.fromDocument(doc);
+    //return AppUser(idUser: idUser, name: name, age: null);
   }
 
   // User(this.fullname, this.username, this.password, this.gender, this.birthday,
