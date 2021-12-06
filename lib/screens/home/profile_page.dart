@@ -181,8 +181,14 @@ class _SignUpPageState extends State<ProfilePage> {
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   pickImage();
+                  await uploadImage();
+                  firebase_storage.Reference ref = firebase_storage
+                      .FirebaseStorage.instance
+                      .ref()
+                      .child("profiles$randomFileName.jpg");
+                  _myUrl = (await ref.getDownloadURL()).toString();
                 }),
             TextFormField(
               //for future text call
