@@ -28,6 +28,11 @@ class AuthService {
 
   Stream<User?> get onAuthStateChanged => _auth.authStateChanges();
 
+  Future<User> getCurrentUser() async {
+    User user = FirebaseAuth.instance.currentUser!;
+    return user;
+  }
+
   // sign in anon
   Future signInAnon() async {
     try {

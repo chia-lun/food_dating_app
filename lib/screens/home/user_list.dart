@@ -13,12 +13,6 @@ class _BrewListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     final appUsers = Provider.of<List<AppUser>>(context);
-    // // print(users);
-    // users.forEach((user) {
-    //   print(user.name);
-    //   //print(user.age);
-    //   //print(user.restaurant);
-    // });
 
     return ListView.builder(
       itemCount: appUsers.length,
