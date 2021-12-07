@@ -279,14 +279,8 @@ class _SignUpPageState extends State<ProfilePage> {
                         .child("pfps/$randomFileName.jpg");
                     String pfpDownloadURL =
                         (await ref.getDownloadURL()).toString();
-                    DatabaseService(uid: _auth.currentUser!.uid).addUser(
-                      nameController.text,
-                      int.parse(ageController.text),
-                      restaurantController.text,
-                      emailController.text,
-                      passwordController.text,
-                      pfpDownloadURL,
-                    );
+                    DatabaseService(uid: _auth.currentUser!.uid)
+                        .updateDoc("pfpDownloadURL", pfpDownloadURL);
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
                     // if (_formKey.currentState!.validate()) {
