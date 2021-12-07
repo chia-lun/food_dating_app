@@ -34,6 +34,10 @@ class DatabaseService {
     });
   }
 
+  Future updateDoc(String doc, value) async {
+    return await userCollection.doc(uid).update({doc: value});
+  }
+
   //method to add a new user
   Future addUser(String name, int age, String restaurant, String email,
       String password, String pfpDownloadURL) async {

@@ -54,6 +54,7 @@ class _SignUpPageState extends State<ProfilePage> {
 
   final ImagePicker _picker = ImagePicker();
   File? _image;
+  late Image pfp;
   late String randomFileName;
   //XFile? _image;
 
@@ -118,6 +119,7 @@ class _SignUpPageState extends State<ProfilePage> {
         .then((pfpDownloadURL) {
       setState(() {
         _myUrl = pfpDownloadURL;
+        pfp = Image.network(_myUrl);
       });
     });
   }
@@ -137,6 +139,7 @@ class _SignUpPageState extends State<ProfilePage> {
 
       setState(() {
         _image = pickedFileList;
+        pfp = Image.file(File(image.path));
       });
     } on PlatformException catch (e) {
       print("Failed to pick image: $e");
@@ -169,8 +172,7 @@ class _SignUpPageState extends State<ProfilePage> {
                   height: screenWidth - 150,
                   width: screenWidth - 150,
                   color: Colors.grey[300],
-                  child: Image(
-                      image: Image.network(_myUrl).image, fit: BoxFit.contain)),
+                  child: Image(image: pfp.image, fit: BoxFit.contain)),
             ),
             MaterialButton(
                 color: Colors.orange,
@@ -183,12 +185,6 @@ class _SignUpPageState extends State<ProfilePage> {
                 ),
                 onPressed: () async {
                   pickImage();
-                  await uploadImage();
-                  firebase_storage.Reference ref = firebase_storage
-                      .FirebaseStorage.instance
-                      .ref()
-                      .child("profiles$randomFileName.jpg");
-                  _myUrl = (await ref.getDownloadURL()).toString();
                 }),
             TextFormField(
               //for future text call
@@ -276,12 +272,11 @@ class _SignUpPageState extends State<ProfilePage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   onPressed: () async {
-                    _authService.registerWithEmailAndPassword(email, password);
                     await uploadImage();
                     firebase_storage.Reference ref = firebase_storage
                         .FirebaseStorage.instance
                         .ref()
-                        .child("profiles$randomFileName.jpg");
+                        .child("pfps/$randomFileName.jpg");
                     String pfpDownloadURL =
                         (await ref.getDownloadURL()).toString();
                     DatabaseService(uid: _auth.currentUser!.uid).addUser(

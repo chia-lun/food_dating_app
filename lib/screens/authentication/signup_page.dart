@@ -220,7 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     firebase_storage.Reference ref = firebase_storage
                         .FirebaseStorage.instance
                         .ref()
-                        .child("profiles$randomFileName.jpg");
+                        .child("pfps/$randomFileName.jpg");
                     String pfpDownloadURL =
                         (await ref.getDownloadURL()).toString();
                     DatabaseService(uid: getUserId()).addUser(
