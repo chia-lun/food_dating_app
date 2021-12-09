@@ -16,11 +16,11 @@ class SwipeMessageProfile extends StatefulWidget {
 
 class SwipeMessageProfileState extends State<SwipeMessageProfile> {
   String _currentPage = "SwipePage";
-  List<String> pageKeys = ["SwipePage", "Messages", "Profiles"];
+  List<String> pageKeys = ["SwipePage", "Messages", "Profile"];
   final Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "SwipePage": GlobalKey<NavigatorState>(),
     "Messages": GlobalKey<NavigatorState>(),
-    "Profiles": GlobalKey<NavigatorState>(),
+    "Profile": GlobalKey<NavigatorState>(),
   };
   int _selectedIndex = 0;
 
@@ -47,14 +47,13 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
             return false;
           }
         }
-        // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
         body: Stack(children: <Widget>[
           _buildOffstageNavigator("SwipePage"),
           _buildOffstageNavigator("Messages"),
-          _buildOffstageNavigator("Profiles"),
+          _buildOffstageNavigator("Profile"),
         ]),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.orange,
@@ -73,7 +72,7 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Profiles',
+              label: 'Profile',
             ),
           ],
           type: BottomNavigationBarType.fixed,

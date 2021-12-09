@@ -16,7 +16,7 @@ class TabNavigator extends StatelessWidget {
       child = HomePage();
     } else if (tabItem == "Messages") {
       child = MessagePage();
-    } else if (tabItem == "Profiles") {
+    } else if (tabItem == "Profile") {
       child = ProfilePage();
     }
 
