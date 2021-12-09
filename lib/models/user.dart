@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
-import 'package:food_dating_app/widgets/utils.dart';
-
 class User {
   // late String fullname;
   // late String username;
