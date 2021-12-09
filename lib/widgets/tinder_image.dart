@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/screens/home/matched_page.dart';
-import 'package:food_dating_app/screens/home/user_list.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/models/swipe.dart';

@@ -47,7 +47,6 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(
                 firebaseAuth: FirebaseAuth.instance,
-                prefs: prefs,
                 firebaseFirestore: firebaseFirestore),
           ),
           Provider<ChatProvider>(

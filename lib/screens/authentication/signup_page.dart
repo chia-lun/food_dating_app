@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_dating_app/api/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_dating_app/services/auth.dart';
+import 'package:food_dating_app/providers/auth_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../swipe_message_profile.dart';
@@ -23,7 +24,9 @@ enum ImageSourceType { gallery, camera }
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final AuthService _authService = AuthService();
+  final AuthProvider _authService = AuthProvider(
+      firebaseAuth: FirebaseAuth.instance,
+      firebaseFirestore: FirebaseFirestore.instance);
 
   // text field state
   String name = "";
