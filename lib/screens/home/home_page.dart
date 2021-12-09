@@ -6,7 +6,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:food_dating_app/widgets/tinder_image.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:food_dating_app/screens/home/user_list.dart';
+//import 'package:food_dating_app/screens/home/user_list.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/models/swipe.dart';
