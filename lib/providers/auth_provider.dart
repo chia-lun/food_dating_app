@@ -48,26 +48,10 @@ class AuthProvider extends ChangeNotifier {
 
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await auth.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      User? user = result.user;
-      // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
-      return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
-      return null;
     }
-  }
-
-  AppUser? _userFromFirebaseUser(User user) {
-    return user != null
-        ? AppUser(
-            uid: user.uid,
-            name: "uma",
-            age: 10,
-            restaurant: "restaurant",
-            pfpDownloadURL: '')
-        : null;
   }
 }

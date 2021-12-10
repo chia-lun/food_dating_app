@@ -28,13 +28,6 @@ class _SignUpPageState extends State<SignUpPage> {
       firebaseAuth: FirebaseAuth.instance,
       firebaseFirestore: FirebaseFirestore.instance);
 
-  // text field state
-  String name = "";
-  String age = "";
-  String restaurant = "";
-  String email = '';
-  String password = '';
-
   //Create a TextEditingController to retrieve the text a user has entered
   //into a text field
   final nameController = TextEditingController();
@@ -57,18 +50,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return userId;
   }
-
-  // void _handleImage({required ImageSource source}) async {
-  //   Navigator.pop(context);
-  //   XFile? imageFile = await ImagePicker().pickImage(source: source);
-
-  //   if (imageFile != null) {
-  //     //imageFile = await _cropImage(imageFile: imageFile);
-  //     setState(() {
-  //       _image = imageFile;
-  //     });
-  //   }
-  // }
 
   Future pickImage() async {
     try {
@@ -175,9 +156,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
                 return null;
               },
-              onChanged: (value) {
-                setState(() => restaurant = value);
-              },
             ),
             TextFormField(
               //for future text call
@@ -190,9 +168,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   return 'Please an email';
                 }
                 return null;
-              },
-              onChanged: (value) {
-                setState(() => email = value);
               },
             ),
             TextFormField(
@@ -207,9 +182,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
                 return null;
               },
-              onChanged: (value) {
-                setState(() => password = value);
-              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -218,7 +190,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   onPressed: () async {
-                    _authService.registerWithEmailAndPassword(email, password);
+                    _authService.registerWithEmailAndPassword(
+                        emailController.text, passwordController.text);
                     await uploadImage();
                     firebase_storage.Reference ref = firebase_storage
                         .FirebaseStorage.instance
@@ -234,11 +207,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       passwordController.text,
                       pfpDownloadURL,
                     );
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                    // if (_formKey.currentState!.validate()) {
-                    //   // Process data.
-                    // }
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const SwipeMessageProfile()));
                   },

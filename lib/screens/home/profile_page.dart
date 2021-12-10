@@ -32,10 +32,6 @@ class _SignUpPageState extends State<ProfilePage> {
   String myURL = '';
   String myRestaurant = '';
 
-  // text field state
-  String name = "";
-  String restaurant = "";
-
   //Create a TextEditingController to retrieve the text a user has entered
   //into a text field
   final nameController = TextEditingController();
@@ -161,7 +157,7 @@ class _SignUpPageState extends State<ProfilePage> {
               //for future text call
               initialValue: myName,
               decoration: const InputDecoration(
-                hintText: 'Don\'t edit here',
+                enabled: false,
                 labelText: 'Your current name: ',
                 labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
@@ -189,7 +185,7 @@ class _SignUpPageState extends State<ProfilePage> {
               //for future text call
               initialValue: myRestaurant,
               decoration: const InputDecoration(
-                hintText: 'Don\'t edit here',
+                enabled: false,
                 labelText: 'Your current preferred restaurant: ',
                 labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
@@ -228,6 +224,7 @@ class _SignUpPageState extends State<ProfilePage> {
                           (await ref.getDownloadURL()).toString();
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("pfpDownloadURL", pfpDownloadURL);
+                      imageChanged = false;
                     }
                     if (nameController.text != myName) {
                       DatabaseService(uid: _auth.currentUser!.uid)
@@ -237,9 +234,10 @@ class _SignUpPageState extends State<ProfilePage> {
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("restaurant", restaurantController.text);
                     }
-                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //     builder: (context) => const SwipeMessageProfile()));
-                    // We can have it refresh? instead
+                    setState(() {
+                      getName();
+                      getRestaurant();
+                    });
                   },
                   child: const Text(
                     'Update Profile Info',
