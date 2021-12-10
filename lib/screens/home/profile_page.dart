@@ -159,17 +159,49 @@ class _SignUpPageState extends State<ProfilePage> {
                 }),
             TextFormField(
               //for future text call
+              initialValue: "Your current name: " + myName,
+              decoration: const InputDecoration(
+                hintText: 'Don\'t edit here',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+              ),
+              cursorColor: Colors.orange,
+            ),
+            TextFormField(
+              //for future text call
+              //initialValue: myName,
               controller: nameController,
               decoration: const InputDecoration(
                 hintText: 'Enter your new name',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
               ),
+              cursorColor: Colors.orange,
+            ),
+            TextFormField(
+              //for future text call
+              initialValue:
+                  "Your current preferred restaurant: " + myRestaurant,
+              decoration: const InputDecoration(
+                hintText: 'Don\'t edit here',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+              ),
+              cursorColor: Colors.orange,
             ),
             TextFormField(
               //for future text call
               controller: restaurantController,
               decoration: const InputDecoration(
                 hintText: 'Enter your new restaurant preference',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
               ),
+              cursorColor: Colors.orange,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
