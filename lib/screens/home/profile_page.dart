@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/providers/auth_provider.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../swipe_message_profile.dart';
@@ -122,6 +123,24 @@ class _SignUpPageState extends State<ProfilePage> {
     return FirebaseApi.uploadFile(randomFileName, _image!);
   }
 
+  // Future<void> _signOut() async {
+  //   await FirebaseAuth.instance.signOut();
+  // }
+
+  Future logout() async {
+    // await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context)
+    //     .pushAndRemoveUntil(
+    //         MaterialPageRoute(builder: (context) => SignInPage()),
+    //         (route) => false));
+    //await _auth.signOut();
+    print("attempted logout1");
+
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInPage())));
+    print("attempted logout2");
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -134,6 +153,21 @@ class _SignUpPageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            //Row(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            ///children: [
+            MaterialButton(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: const Text(
+                  'LOGOUT',
+                  style: TextStyle(
+                      color: Colors.orange, fontWeight: FontWeight.w600),
+                ),
+                onPressed: logout),
+            //],
+            //),
             GestureDetector(
               child: Container(
                   height: screenWidth - 150,
@@ -144,7 +178,7 @@ class _SignUpPageState extends State<ProfilePage> {
             MaterialButton(
                 color: Colors.orange,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                    borderRadius: BorderRadius.circular(10)),
                 child: const Text(
                   'Replace your profile image',
                   style: TextStyle(
@@ -212,7 +246,7 @@ class _SignUpPageState extends State<ProfilePage> {
               child: MaterialButton(
                   color: Colors.orange,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(10)),
                   onPressed: () async {
                     if (imageChanged) {
                       await uploadImage();
@@ -244,7 +278,7 @@ class _SignUpPageState extends State<ProfilePage> {
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
-            )
+            ),
           ],
         ),
       )),
