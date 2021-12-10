@@ -159,21 +159,26 @@ class _SignUpPageState extends State<ProfilePage> {
                 }),
             TextFormField(
               //for future text call
-              initialValue: "Your current name: " + myName,
+              initialValue: myName,
               decoration: const InputDecoration(
                 hintText: 'Don\'t edit here',
+                labelText: 'Your current name: ',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
               ),
               cursorColor: Colors.orange,
+              style: TextStyle(color: Colors.orange),
             ),
             TextFormField(
               //for future text call
-              //initialValue: myName,
               controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'Enter your new name',
+                //filled: true,
+                //icon: Icon(Icons.person),
+                labelText: 'Enter your new name here',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
@@ -182,21 +187,24 @@ class _SignUpPageState extends State<ProfilePage> {
             ),
             TextFormField(
               //for future text call
-              initialValue:
-                  "Your current preferred restaurant: " + myRestaurant,
+              initialValue: myRestaurant,
               decoration: const InputDecoration(
                 hintText: 'Don\'t edit here',
+                labelText: 'Your current preferred restaurant: ',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
               ),
               cursorColor: Colors.orange,
+              style: TextStyle(color: Colors.orange),
             ),
             TextFormField(
               //for future text call
               controller: restaurantController,
               decoration: const InputDecoration(
-                hintText: 'Enter your new restaurant preference',
+                labelText: 'Enter your new restaurant preference',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
