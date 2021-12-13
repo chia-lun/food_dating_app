@@ -127,6 +127,8 @@ class _SignUpPageState extends State<ProfilePage> {
     await FirebaseAuth.instance.signOut().then((value) =>
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => SignInPage())));
+
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -145,14 +147,14 @@ class _SignUpPageState extends State<ProfilePage> {
           children: [
             SizedBox(height: size.height * 0.05),
             Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                  ),
-                )
+              children: const <Widget>[
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 5.0, left: 20),
+                //   child: Text(
+                //     'Profile',
+                //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                //   ),
+                // )
               ],
             ),
             GestureDetector(
