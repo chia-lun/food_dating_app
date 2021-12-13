@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
                 child: const Text("Go"),
                 onPressed: () {
                   Navigator.of(context).pop(customController.text.toString());
-                  print(FirebaseAuth.instance.currentUser!.uid);
                 },
               )
             ],
