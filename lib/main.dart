@@ -61,8 +61,8 @@ class _MyAppState extends State<MyApp> {
             title: 'food_dating_app',
             theme: ThemeData(
               primaryColor: Colors.orange,
-              accentColor: Colors.orange,
-              hintColor: Colors.orange,
+              //accentColor: Colors.orange,
+              //hintColor: Colors.orange,
             ),
             home: FutureBuilder(
                 future: _fbApp,
