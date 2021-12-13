@@ -77,8 +77,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    // get the screenWidth
-    final double screenWidth = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -88,20 +88,18 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(height: size.height * 0.10),
             GestureDetector(
-              // onTap: () {
-              //   _showSelectImageDialog();
-              // },
               child: Container(
-                  height: screenWidth - 150,
-                  width: screenWidth - 150,
+                  height: 200,
+                  width: 200,
                   color: Colors.grey[300],
                   child: _image == null
                       ? const Icon(Icons.add_a_photo,
                           color: Colors.white, size: 150)
                       : Image(
                           image: FileImage(File(_image!.path)),
-                          fit: BoxFit.contain)),
+                          fit: BoxFit.fill)),
             ),
             MaterialButton(
                 color: Colors.orange,
