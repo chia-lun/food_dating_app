@@ -123,27 +123,17 @@ class _SignUpPageState extends State<ProfilePage> {
     return FirebaseApi.uploadFile(randomFileName, _image!);
   }
 
-  // Future<void> _signOut() async {
-  //   await FirebaseAuth.instance.signOut();
-  // }
-
   Future logout() async {
-    // await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context)
-    //     .pushAndRemoveUntil(
-    //         MaterialPageRoute(builder: (context) => SignInPage()),
-    //         (route) => false));
-    //await _auth.signOut();
-    print("attempted logout1");
-
     await FirebaseAuth.instance.signOut().then((value) =>
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => SignInPage())));
-    print("attempted logout2");
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -153,27 +143,25 @@ class _SignUpPageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            //Row(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            ///children: [
-            MaterialButton(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Text(
-                  'LOGOUT',
-                  style: TextStyle(
-                      color: Colors.orange, fontWeight: FontWeight.w600),
-                ),
-                onPressed: logout),
-            //],
-            //),
+            SizedBox(height: size.height * 0.05),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 20),
+                  child: Text(
+                    'Profile',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+                )
+              ],
+            ),
             GestureDetector(
               child: Container(
-                  height: screenWidth - 150,
-                  width: screenWidth - 150,
-                  color: Colors.grey[300],
-                  child: Image(image: pfp.image, fit: BoxFit.contain)),
+                height: 200,
+                width: 200,
+                color: Colors.grey[300],
+                child: Image(image: pfp.image, fit: BoxFit.fill),
+              ),
             ),
             MaterialButton(
                 color: Colors.orange,
@@ -279,6 +267,16 @@ class _SignUpPageState extends State<ProfilePage> {
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
             ),
+            MaterialButton(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: const Text(
+                  'LOGOUT',
+                  style: TextStyle(
+                      color: Colors.orange, fontWeight: FontWeight.w600),
+                ),
+                onPressed: logout),
           ],
         ),
       )),
