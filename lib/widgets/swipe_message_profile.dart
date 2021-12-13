@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:persistent_bottom/tab_navigator.dart';
-//import 'package:custom_navigator/custom_navigator.dart';
 import 'package:flutter/cupertino.dart';
-//import 'package:custom_navigator/custom_scaffold.dart';
 import 'package:food_dating_app/tab_navigator.dart';
-import 'package:food_dating_app/screens/authentication/signin_page.dart';
-import 'package:food_dating_app/screens/home/profile_page.dart';
 
 class SwipeMessageProfile extends StatefulWidget {
   const SwipeMessageProfile({Key? key}) : super(key: key);
@@ -63,15 +58,15 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
           currentIndex: _selectedIndex,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home, size: 27),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.messenger),
+              icon: Icon(Icons.messenger, size: 27),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_ind),
+              icon: Icon(Icons.assignment_ind, size: 27),
               label: '',
             ),
           ],
