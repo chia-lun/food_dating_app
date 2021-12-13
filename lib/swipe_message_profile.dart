@@ -64,15 +64,15 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              label: 'Messages',
+              icon: Icon(Icons.messenger),
+              label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Profile',
+              icon: Icon(Icons.assignment_ind),
+              label: '',
             ),
           ],
           type: BottomNavigationBarType.fixed,
