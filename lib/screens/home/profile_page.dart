@@ -11,7 +11,7 @@ import 'package:food_dating_app/services/auth_provider.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import '../../swipe_message_profile.dart';
+import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import '../../helpers/random_string.dart';
 import 'package:provider/src/provider.dart';

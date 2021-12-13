@@ -10,7 +10,7 @@ import 'package:food_dating_app/models/message.dart';
 import 'package:food_dating_app/services/auth_provider.dart';
 import 'package:food_dating_app/services/chat_provider.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
-import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:provider/src/provider.dart';
 
 class ChatScreen extends StatefulWidget {
