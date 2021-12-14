@@ -11,8 +11,6 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import '../../helpers/random_string.dart';
-import 'package:food_dating_app/services/restaurant_database.dart'
-    as restaurant_data;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

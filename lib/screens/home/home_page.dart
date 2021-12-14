@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             Container(
                 margin: const EdgeInsets.all(20.0),
                 child: Column(
-                  children: [
+                  children: const [
                     TinderImage(),
                   ],
                 )),
