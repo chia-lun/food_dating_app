@@ -3,14 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_dating_app/api/firebase_api.dart';
+import 'package:food_dating_app/services/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
-import 'package:food_dating_app/providers/auth_provider.dart';
+import 'package:food_dating_app/services/auth_provider.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import '../../swipe_message_profile.dart';
+import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import '../../helpers/random_string.dart';
 import 'package:provider/src/provider.dart';
@@ -32,15 +33,10 @@ class _SignUpPageState extends State<ProfilePage> {
   String myURL = '';
   String myRestaurant = '';
 
-  // text field state
-  String name = "";
-  String restaurant = "";
-
   //Create a TextEditingController to retrieve the text a user has entered
   //into a text field
   final nameController = TextEditingController();
   final ageController = TextEditingController();
-  final restaurantController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   File? _image;
@@ -126,9 +122,46 @@ class _SignUpPageState extends State<ProfilePage> {
     return FirebaseApi.uploadFile(randomFileName, _image!);
   }
 
+  Future logout() async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInPage())));
+  }
+
+  String _selectedRestaurant = "Estelle";
+
+  final List<String> _restaurant = [
+    "Groveland Tap",
+    "Estelle",
+    "Tono Pizzeria + Cheesecakes",
+    "Simplicitea",
+    "Nashville Coop",
+    "Starbucks",
+    "Chip’s Clubhouse",
+    "Hot Hands Pie & Biscuit",
+    "Roots Roasting",
+    "Caribou",
+    "Nothing Bundt Cakes",
+    "Breadsmith",
+    "Jamba",
+    "St Paul Cheese Shop",
+    "Khyber Pass Cafe",
+    "Dunn Bros",
+    "Pad Thai Restaurant",
+    "French Meadow",
+    "Shish",
+    "The Italian Pie Shoppe",
+    "Grand Catch",
+    "St Paul Meat Shop",
+    "Sencha",
+    "Indochin"
+  ];
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -138,17 +171,30 @@ class _SignUpPageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(height: size.height * 0.05),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 20),
+                  child: Text(
+                    'Profile',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+                )
+              ],
+            ),
             GestureDetector(
               child: Container(
-                  height: screenWidth - 150,
-                  width: screenWidth - 150,
-                  color: Colors.grey[300],
-                  child: Image(image: pfp.image, fit: BoxFit.contain)),
+                height: 200,
+                width: 200,
+                color: Colors.grey[300],
+                child: Image(image: pfp.image, fit: BoxFit.fill),
+              ),
             ),
             MaterialButton(
                 color: Colors.orange,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                    borderRadius: BorderRadius.circular(10)),
                 child: const Text(
                   'Replace your profile image',
                   style: TextStyle(
@@ -159,21 +205,26 @@ class _SignUpPageState extends State<ProfilePage> {
                 }),
             TextFormField(
               //for future text call
-              initialValue: "Your current name: " + myName,
+              initialValue: myName,
               decoration: const InputDecoration(
-                hintText: 'Don\'t edit here',
+                enabled: false,
+                labelText: 'Your current name: ',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
               ),
               cursorColor: Colors.orange,
+              style: TextStyle(color: Colors.orange),
             ),
             TextFormField(
               //for future text call
-              //initialValue: myName,
               controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'Enter your new name',
+                //filled: true,
+                //icon: Icon(Icons.person),
+                labelText: 'Enter your new name here',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
@@ -182,33 +233,38 @@ class _SignUpPageState extends State<ProfilePage> {
             ),
             TextFormField(
               //for future text call
-              initialValue:
-                  "Your current preferred restaurant: " + myRestaurant,
+              initialValue: myRestaurant,
               decoration: const InputDecoration(
-                hintText: 'Don\'t edit here',
+                enabled: false,
+                labelText: 'Your current preferred restaurant: ',
+                labelStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
               ),
               cursorColor: Colors.orange,
+              style: TextStyle(color: Colors.orange),
             ),
-            TextFormField(
-              //for future text call
-              controller: restaurantController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your new restaurant preference',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              cursorColor: Colors.orange,
+            DropdownButton(
+              hint: const Text("Select your restaurant"),
+              isExpanded: true,
+              onChanged: (newValue) {
+                _selectedRestaurant = newValue.toString();
+              },
+              items: _restaurant.map((restaurant) {
+                return DropdownMenuItem(
+                  value: restaurant,
+                  child: Text(restaurant),
+                );
+              }).toList(),
+              value: _selectedRestaurant,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: MaterialButton(
                   color: Colors.orange,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(10)),
                   onPressed: () async {
                     if (imageChanged) {
                       await uploadImage();
@@ -220,25 +276,38 @@ class _SignUpPageState extends State<ProfilePage> {
                           (await ref.getDownloadURL()).toString();
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("pfpDownloadURL", pfpDownloadURL);
+                      imageChanged = false;
                     }
-                    if (nameController.text != myName) {
+                    if (nameController.text != myName &&
+                        nameController.text.isNotEmpty) {
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("name", nameController.text);
                     }
-                    if (restaurantController.text != myRestaurant) {
+                    if (_selectedRestaurant != myRestaurant) {
                       DatabaseService(uid: _auth.currentUser!.uid)
-                          .updateDoc("restaurant", restaurantController.text);
+                          .updateDoc("restaurant", _selectedRestaurant);
                     }
-                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //     builder: (context) => const SwipeMessageProfile()));
-                    // We can have it refresh? instead
+                    setState(() {
+                      getName();
+                      getRestaurant();
+                    });
                   },
                   child: const Text(
                     'Update Profile Info',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
-            )
+            ),
+            MaterialButton(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: const Text(
+                  'LOGOUT',
+                  style: TextStyle(
+                      color: Colors.orange, fontWeight: FontWeight.w600),
+                ),
+                onPressed: logout),
           ],
         ),
       )),

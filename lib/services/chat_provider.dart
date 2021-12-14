@@ -16,12 +16,6 @@ class ChatProvider {
     return prefs.getString(key);
   }
 
-  UploadTask uploadFile(File image, String fileName) {
-    Reference reference = firebaseStorage.ref().child(fileName);
-    UploadTask uploadTask = reference.putFile(image);
-    return uploadTask;
-  }
-
   Future<void> updateDataFirestore(String collectionPath, String docPath,
       Map<String, dynamic> dataNeedUpdate) {
     return firebaseFirestore

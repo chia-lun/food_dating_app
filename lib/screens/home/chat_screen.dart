@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_dating_app/constants/color_constants.dart';
 import 'package:food_dating_app/models/message.dart';
-import 'package:food_dating_app/providers/auth_provider.dart';
-import 'package:food_dating_app/providers/chat_provider.dart';
+import 'package:food_dating_app/services/auth_provider.dart';
+import 'package:food_dating_app/services/chat_provider.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
-import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:provider/src/provider.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';

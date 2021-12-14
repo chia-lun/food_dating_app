@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_dating_app/providers/auth_provider.dart';
+import 'package:food_dating_app/services/auth_provider.dart';
 import 'package:food_dating_app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_dating_app/swipe_message_profile.dart';
+import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/screens/authentication/signup_page.dart';
 import 'package:food_dating_app/widgets/rounded_button.dart';
@@ -43,16 +43,6 @@ class _SignInPageWidgetState extends State<SignInPage> {
               ),
             ),
           ),
-          // SizedBox(height: size.height * 0.05),
-          // Image.asset(
-          //   "assets/images/Clink_logo_by_Sawyer_Neske.png",
-          //   fit: BoxFit.fitWidth,
-          //   width: 220.0,
-          //   alignment: Alignment.bottomCenter,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(50.0),
-          // child: TextField(
           SizedBox(height: size.height * 0.05),
           SizedBox(
             width: size.width * 0.75,
@@ -94,26 +84,6 @@ class _SignInPageWidgetState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // MaterialButton(
-                //     color: Colors.orange,
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(30)),
-                //     child: const Text(
-                //       'Signin anon',
-                //       style: TextStyle(
-                //           color: Colors.white, fontWeight: FontWeight.w600),
-                //     ),
-                //     onPressed: () async {
-                //       dynamic result = await _auth.signInAnonymously();
-                //       if (result == null) {
-                //         print("error signing in");
-                //       } else {
-                //         print("signed in");
-                //         //print(result.uid);
-                //       }
-                //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //           builder: (context) => const SwipeMessageProfile()));
-                //     }),
                 MaterialButton(
                     color: Colors.orange,
                     shape: RoundedRectangleBorder(
