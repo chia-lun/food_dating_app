@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:persistent_bottom/tab_navigator.dart';
-//import 'package:custom_navigator/custom_navigator.dart';
 import 'package:flutter/cupertino.dart';
-//import 'package:custom_navigator/custom_scaffold.dart';
 import 'package:food_dating_app/tab_navigator.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/screens/home/profile_page.dart';
@@ -64,7 +61,7 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Swipe',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
