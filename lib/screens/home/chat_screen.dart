@@ -20,6 +20,7 @@ class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key, required this.userID}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state
   ChatScreenState createState() => ChatScreenState(
         userID: userID,
       );

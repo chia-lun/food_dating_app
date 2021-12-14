@@ -77,6 +77,24 @@ class DatabaseService {
     return listOfUsers;
   }
 
+  Future<List<String>> userMatched() async {
+    List<String> listOfUsersID = [];
+    //snapshots.forEach((snapshot) {
+    await FirebaseFirestore.instance
+        .collection("user")
+        .doc(uid)
+        .collection("matches")
+        .get()
+        .then(
+            (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
+                  String userID = doc.get('id') ?? '';
+                  //print(doc.get('name'));
+                  listOfUsersID.add(userID);
+                })); //{
+    print(listOfUsersID);
+    return listOfUsersID;
+  }
+
   Future addMatch(String userId, Match match) async {
     await userCollection
         .doc(userId)

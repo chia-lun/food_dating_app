@@ -31,19 +31,12 @@ class AuthProvider extends ChangeNotifier {
   });
 
   Stream<QuerySnapshot> getStreamFireStore(
-      String pathCollection, int limit, String? textSearch) {
-    if (textSearch?.isNotEmpty == true) {
-      return firebaseFirestore
-          .collection(pathCollection)
-          .limit(limit)
-          .where("name", isEqualTo: textSearch)
-          .snapshots();
-    } else {
-      return firebaseFirestore
-          .collection(pathCollection)
-          .limit(limit)
-          .snapshots();
-    }
+      String pathCollection, int limit, List<String> id) {
+    return firebaseFirestore
+        .collection(pathCollection)
+        .limit(limit)
+        .where('id', whereIn: id)
+        .snapshots();
   }
 
   Future registerWithEmailAndPassword(String email, String password) async {
