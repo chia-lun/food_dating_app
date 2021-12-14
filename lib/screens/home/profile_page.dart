@@ -278,7 +278,8 @@ class _SignUpPageState extends State<ProfilePage> {
                           .updateDoc("pfpDownloadURL", pfpDownloadURL);
                       imageChanged = false;
                     }
-                    if (nameController.text != myName) {
+                    if (nameController.text != myName &&
+                        nameController.text.isNotEmpty) {
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("name", nameController.text);
                     }
