@@ -18,10 +18,9 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
-  // late CollectionReference swipeColletion = FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc("POpmAxUz9yMDJSUqKKfAqYOhMSh1")
-  //     .collection("swipes");
+  Future<DocumentSnapshot> getUser() {
+    return instance.collection('user').doc(uid).get();
+  }
 
   //method to update an existing user
   Future updateUser(
@@ -102,6 +101,10 @@ class DatabaseService {
         .get();
   }
 
+  Future<QuerySnapshot> getSwipes(String userId) {
+    return instance.collection('user').doc(userId).collection('swipes').get();
+  }
+
   Future<QuerySnapshot> getMatches() async {
     return await FirebaseFirestore.instance
         .collection('user')
@@ -110,12 +113,16 @@ class DatabaseService {
         .get();
   }
 
-  Future<QuerySnapshot> getPersonsToMatchWith(
-      int limit, List<String> ignoreIds) {
+  Future<QuerySnapshot> getUserToMatch(List<String> ignoreIds) {
+    print(instance
+        .collection('user')
+        .where('id', whereNotIn: ignoreIds)
+        //.limit(limit)
+        .get());
     return instance
         .collection('user')
         .where('id', whereNotIn: ignoreIds)
-        .limit(limit)
+        // .limit(limit)
         .get();
   }
 }

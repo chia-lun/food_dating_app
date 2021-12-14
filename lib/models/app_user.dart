@@ -40,18 +40,12 @@ class AppUser {
     return age;
   }
 
-  factory AppUser.fromDocument(DocumentSnapshot doc) {
-    String idUser = "";
-    String name = "";
-    //String urlAvatar = "";
-    try {
-      idUser = doc.get("idUser");
-    } catch (e) {}
-    try {
-      name = doc.get("name");
-    } catch (e) {}
-    return AppUser.fromDocument(doc);
-    //return AppUser(idUser: idUser, name: name, age: null);
+  AppUser.fromDocument(DocumentSnapshot doc) {
+    uid = doc['id'];
+    name = doc['name'];
+    age = doc['age'];
+    restaurant = doc['restaurant'];
+    pfpDownloadURL = doc['pfpDownloadURL'];
   }
 
   // User(this.fullname, this.username, this.password, this.gender, this.birthday,

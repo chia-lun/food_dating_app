@@ -2,11 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/app_user.dart';
-//import 'package:food_dating_aoo/constants/constants.dart';
-//import 'package:food_dating_app/models/.dart';
-import 'package:food_dating_app/models/user.dart' as model;
 import 'package:food_dating_app/services/database.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
 
 enum Status {
   uninitialized,
@@ -21,7 +17,9 @@ class AuthProvider extends ChangeNotifier {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firebaseFirestore;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  Status _status = Status.uninitialized;
+  final Status _status = Status.uninitialized;
+  //late AppUser _user;
+  Future<AppUser> get user => _getUser();
 
   Status get status => _status;
 
@@ -52,22 +50,18 @@ class AuthProvider extends ChangeNotifier {
           email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
-      return _userFromFirebaseUser(user);
+      //await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
+      return _getUser();
     } catch (error) {
       print(error.toString());
       return null;
     }
   }
 
-  AppUser? _userFromFirebaseUser(User user) {
-    return user != null
-        ? AppUser(
-            uid: user.uid,
-            name: "uma",
-            age: 10,
-            restaurant: "restaurant",
-            pfpDownloadURL: '')
-        : null;
+  Future<AppUser> _getUser() async {
+    //if (_user.getId()!= null) return _user;
+    String id = FirebaseAuth.instance.currentUser!.uid;
+    print(AppUser.fromDocument(await DatabaseService(uid: id).getUser()).name);
+    return AppUser.fromDocument(await DatabaseService(uid: id).getUser());
   }
 }
