@@ -37,7 +37,6 @@ class _SignUpPageState extends State<ProfilePage> {
   //into a text field
   final nameController = TextEditingController();
   final ageController = TextEditingController();
-  final restaurantController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   File? _image;
@@ -129,6 +128,35 @@ class _SignUpPageState extends State<ProfilePage> {
             MaterialPageRoute(builder: (context) => SignInPage())));
   }
 
+  String _selectedRestaurant = "Estelle";
+
+  final List<String> _restaurant = [
+    "Groveland Tap",
+    "Estelle",
+    "Tono Pizzeria + Cheesecakes",
+    "Simplicitea",
+    "Nashville Coop",
+    "Starbucks",
+    "Chip’s Clubhouse",
+    "Hot Hands Pie & Biscuit",
+    "Roots Roasting",
+    "Caribou",
+    "Nothing Bundt Cakes",
+    "Breadsmith",
+    "Jamba",
+    "St Paul Cheese Shop",
+    "Khyber Pass Cafe",
+    "Dunn Bros",
+    "Pad Thai Restaurant",
+    "French Meadow",
+    "Shish",
+    "The Italian Pie Shoppe",
+    "Grand Catch",
+    "St Paul Meat Shop",
+    "Sencha",
+    "Indochin"
+  ];
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -217,17 +245,19 @@ class _SignUpPageState extends State<ProfilePage> {
               cursorColor: Colors.orange,
               style: TextStyle(color: Colors.orange),
             ),
-            TextFormField(
-              //for future text call
-              controller: restaurantController,
-              decoration: const InputDecoration(
-                labelText: 'Enter your new restaurant preference',
-                labelStyle: TextStyle(color: Colors.grey),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              cursorColor: Colors.orange,
+            DropdownButton(
+              hint: const Text("Select your restaurant"),
+              isExpanded: true,
+              onChanged: (newValue) {
+                _selectedRestaurant = newValue.toString();
+              },
+              items: _restaurant.map((restaurant) {
+                return DropdownMenuItem(
+                  value: restaurant,
+                  child: Text(restaurant),
+                );
+              }).toList(),
+              value: _selectedRestaurant,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -252,9 +282,9 @@ class _SignUpPageState extends State<ProfilePage> {
                       DatabaseService(uid: _auth.currentUser!.uid)
                           .updateDoc("name", nameController.text);
                     }
-                    if (restaurantController.text != myRestaurant) {
+                    if (_selectedRestaurant != myRestaurant) {
                       DatabaseService(uid: _auth.currentUser!.uid)
-                          .updateDoc("restaurant", restaurantController.text);
+                          .updateDoc("restaurant", _selectedRestaurant);
                     }
                     setState(() {
                       getName();
