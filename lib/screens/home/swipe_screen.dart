@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/swipe.dart';
-import 'package:food_dating_app/providers/auth_provider.dart';
+import 'package:food_dating_app/services/auth_provider.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/widgets/custom_modal.dart';

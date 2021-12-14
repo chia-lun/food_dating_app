@@ -48,18 +48,14 @@ class AuthProvider extends ChangeNotifier {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-<<<<<<< HEAD:lib/providers/auth_provider.dart
-      User? user = result.user;
+      //User? user = result.user;
       // create a new document for the user with the uid
       //await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
       return _getUser();
-=======
->>>>>>> 971b68685189f649172af7e84001ef2f2b55a34a:lib/services/auth_provider.dart
     } catch (error) {
       print(error.toString());
     }
   }
-<<<<<<< HEAD:lib/providers/auth_provider.dart
 
   Future<AppUser> _getUser() async {
     //if (_user.getId()!= null) return _user;
@@ -67,6 +63,4 @@ class AuthProvider extends ChangeNotifier {
     print(AppUser.fromDocument(await DatabaseService(uid: id).getUser()).name);
     return AppUser.fromDocument(await DatabaseService(uid: id).getUser());
   }
-=======
->>>>>>> 971b68685189f649172af7e84001ef2f2b55a34a:lib/services/auth_provider.dart
 }

@@ -58,13 +58,8 @@ class SwipeMessageProfileState extends State<SwipeMessageProfile> {
           currentIndex: _selectedIndex,
           items: const [
             BottomNavigationBarItem(
-<<<<<<< HEAD:lib/swipe_message_profile.dart
               icon: Icon(Icons.home),
               label: 'Swipe',
-=======
-              icon: Icon(Icons.home, size: 27),
-              label: '',
->>>>>>> 971b68685189f649172af7e84001ef2f2b55a34a:lib/widgets/swipe_message_profile.dart
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.messenger, size: 27),
