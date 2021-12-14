@@ -121,7 +121,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
   Widget build(BuildContext buildContext) {
     return Scaffold(
         key: _scaffoldKey,
-        body: Container(child: Consumer<AuthProvider>(
+        body: Consumer<AuthProvider>(
           builder: (context, authProvider, child) {
             return FutureBuilder<AppUser>(
               future: authProvider.user,
@@ -150,54 +150,44 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                 child: Container(),
                               );
                             }
-                            return Container(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(30, 38, 1, 1),
-                                child: Column(children: <Widget>[
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                          children: snapshot.data!
-                                              .map((user) => Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.9,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            1.5,
-                                                    child:
-                                                        SwipeCard(user: user),
-                                                  ))
-                                              .toList()),
-                                    ],
-                                  ),
-                                  // const Padding(
-                                  //   padding: EdgeInsets.only(bottom: 620),
-                                  // ),
-                                  TextButton(
-                                    onPressed: () {
-                                      createChatDialog(context);
-                                    },
-                                    child: const Text('   Chat   ',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white)),
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Colors.orange,
-                                      //minimumSize: const Size(30.0, 10.0),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                    ),
-                                  )
-                                ]),
-                              ),
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(23, 1, 1, 1),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Stack(
+                                        children: snapshot.data!
+                                            .map((user) => Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.9,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      1.5,
+                                                  child: SwipeCard(user: user),
+                                                ))
+                                            .toList()),
+                                    TextButton(
+                                      onPressed: () {
+                                        createChatDialog(context);
+                                      },
+                                      child: const Text('   Chat   ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white)),
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.orange,
+                                        //minimumSize: const Size(30.0, 10.0),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ),
+                                    )
+                                  ]),
                             );
                           })
                       : Container(),
@@ -205,6 +195,6 @@ class _SwipeScreenState extends State<SwipeScreen> {
               },
             );
           },
-        )));
+        ));
   }
 }
