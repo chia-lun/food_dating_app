@@ -3,10 +3,12 @@
 ///
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/services/auth_provider.dart';
+import 'package:food_dating_app/services/database.dart';
 //import 'package:food_dating_app/models/message_model.dart';
 import 'package:provider/provider.dart';
 import 'chat_screen.dart';
@@ -24,7 +26,8 @@ class _MessagePageState extends State<MessagePage> {
   final ScrollController listScrollController = ScrollController();
   int _limit = 20;
   int _limitIncrement = 20;
-  String _textSearch = "";
+  final DatabaseService db =
+      DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
 
   late AuthProvider authProvider;
   late String currentUserId;
@@ -33,7 +36,7 @@ class _MessagePageState extends State<MessagePage> {
   late final FocusNode _focusNode;
   //UserRepository users = UserRepository();
   String _terms = '';
-
+  late List<String> usersMatchedWith;
   @override
   void initState() {
     super.initState();
@@ -43,6 +46,11 @@ class _MessagePageState extends State<MessagePage> {
     _focusNode = FocusNode();
     listScrollController.addListener(() {
       scrollListener;
+    });
+    loadUser().then((userMatchedWith) {
+      setState(() {
+        usersMatchedWith = usersMatchedWith;
+      });
     });
   }
 
@@ -69,6 +77,12 @@ class _MessagePageState extends State<MessagePage> {
     });
   }
 
+  Future<void> loadUser() async {
+    usersMatchedWith = await db.userMatched();
+    //print(userList);
+    print(usersMatchedWith!.isEmpty);
+  }
+
   Widget _buildSearchBox() {
     return Padding(
       padding: const EdgeInsets.all(8),
@@ -93,7 +107,7 @@ class _MessagePageState extends State<MessagePage> {
               Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                 stream: authProvider.getStreamFireStore(
-                    "user", _limit, _textSearch),
+                    "user", _limit, usersMatchedWith),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
