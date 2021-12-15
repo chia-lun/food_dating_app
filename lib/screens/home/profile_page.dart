@@ -170,15 +170,18 @@ class _SignUpPageState extends State<ProfilePage> {
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: size.height * 0.05),
             GestureDetector(
               child: Container(
-                height: 200,
-                width: 200,
-                color: Colors.grey[300],
-                child: Image(image: pfp.image, fit: BoxFit.fill),
-              ),
+                  height: 200,
+                  width: 200,
+                  color: Colors.grey[300],
+                  child: Image(
+                      image: pfp.image,
+                      fit: BoxFit.fill,
+                      alignment: Alignment.topRight)),
             ),
             MaterialButton(
                 color: Colors.orange,
@@ -234,6 +237,13 @@ class _SignUpPageState extends State<ProfilePage> {
               cursorColor: Colors.orange,
               style: TextStyle(color: Colors.orange),
             ),
+            const Text("                            ",
+                style: TextStyle(color: Colors.grey, fontSize: 8),
+                textAlign: TextAlign.start),
+            const Text(
+                "Enter your new restaurant here:                                       ",
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+                textAlign: TextAlign.start),
             DropdownButton(
               hint: const Text("Select your restaurant"),
               isExpanded: true,
