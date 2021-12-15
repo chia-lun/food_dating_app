@@ -150,7 +150,7 @@ class ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.photo),
               iconSize: 25.0,
-              color: Theme.of(context).primaryColor,
+              color: Colors.orange,
               onPressed: () {} //onSendMessage(textEditingController.text),
               ),
           Expanded(
@@ -172,7 +172,7 @@ class ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
+            color: Colors.orange,
             onPressed: () => onSendMessage(textEditingController.text),
           ),
         ],
