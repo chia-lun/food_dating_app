@@ -172,17 +172,6 @@ class _SignUpPageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: size.height * 0.05),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                  ),
-                )
-              ],
-            ),
             GestureDetector(
               child: Container(
                 height: 200,
@@ -250,6 +239,9 @@ class _SignUpPageState extends State<ProfilePage> {
               isExpanded: true,
               onChanged: (newValue) {
                 _selectedRestaurant = newValue.toString();
+                setState(() {
+                  _selectedRestaurant;
+                });
               },
               items: _restaurant.map((restaurant) {
                 return DropdownMenuItem(

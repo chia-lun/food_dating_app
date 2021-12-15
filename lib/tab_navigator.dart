@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_dating_app/models/swipe.dart';
-import 'package:food_dating_app/screens/home/home_page.dart';
 import 'package:food_dating_app/screens/home/message_page.dart';
 import 'package:food_dating_app/screens/home/profile_page.dart';
 import 'package:food_dating_app/screens/home/swipe_screen.dart';
