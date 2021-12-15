@@ -183,6 +183,9 @@ class _SignUpPageState extends State<SignUpPage> {
               isExpanded: true,
               onChanged: (newValue) {
                 _selectedRestaurant = newValue.toString();
+                setState(() {
+                  _selectedRestaurant;
+                });
               },
               items: _restaurant.map((restaurant) {
                 return DropdownMenuItem(
