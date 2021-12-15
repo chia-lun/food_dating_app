@@ -147,3 +147,6 @@ ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png
 ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png
 ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png
 pubspec.lock
+ios/Podfile.lock
+pubspec.lock
+ios/Podfile.lock

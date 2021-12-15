@@ -58,6 +58,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
     return await db.userListFromSnapShots();
   }
 
+  AppUser convertCurrentUser() {
+    final User? user = FirebaseAuth.instance.currentUser!;
+    return AppUser(
+        uid: user!.uid, name: "", age: 0, restaurant: "", pfpDownloadURL: "");
+  }
+
   void personSwiped(
       AppUser currentUser, AppUser otherUser, bool isLiked) async {
     db.addSwipedUser(Swipe(otherUser.uid, isLiked));
@@ -110,6 +116,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 onPressed: () {
                   Navigator.of(context).pop(customController.text.toString());
                   print(FirebaseAuth.instance.currentUser!.uid);
+                  //personSwiped(convertCurrentUser(), otherUser, true);
                 },
               )
             ],
@@ -170,8 +177,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                                                 .size
                                                                 .width *
                                                             1.5,
-                                                    child:
-                                                        SwipeCard(user: user),
+                                                    child: SwipeCard(
+                                                        user: user,
+                                                        swipeLike: () =>
+                                                            personSwiped(
+                                                                convertCurrentUser(),
+                                                                user,
+                                                                true)),
                                                   ))
                                               .toList()),
                                     ],

@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/screens/home/swipe_screen.dart';
 
 class SwipeCard extends StatefulWidget {
   final AppUser? user;
+  final Function swipeLike;
 
-  SwipeCard({required this.user});
+  SwipeCard({required this.user, required this.swipeLike});
 
   @override
   // ignore: no_logic_in_create_state
-  _SwipeCardState createState() => _SwipeCardState(
-        user: user,
-      );
+  _SwipeCardState createState() =>
+      _SwipeCardState(user: user, swipeLike: swipeLike);
 }
 
 class _SwipeCardState extends State<SwipeCard> {
-  _SwipeCardState({required this.user});
+  _SwipeCardState({required this.user, required this.swipeLike});
   AppUser? user;
+  Function swipeLike;
 
   @override
   Widget build(BuildContext context) {
     return Swipable(
-      //horizontalSwipe: false,
+      // horizontalSwipe: false,
+      // verticalSwipe: true,
       child: ListView(
         children: [
           Container(
@@ -77,11 +80,8 @@ class _SwipeCardState extends State<SwipeCard> {
           ),
         ],
       ),
-      onSwipeLeft: (finalPosition) {
-        //personSwiped(convertCurrentUser(), otherUser, true);
-      },
       onSwipeRight: (finalPosition) {
-        //personSwiped(convertCurrentUser(), otherUser, false);
+        swipeLike;
       },
     );
   }
