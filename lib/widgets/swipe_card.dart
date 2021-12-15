@@ -1,24 +1,74 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
+import 'package:food_dating_app/models/swipe.dart';
+import 'package:food_dating_app/screens/home/matched_page.dart';
 import 'package:food_dating_app/screens/home/swipe_screen.dart';
+import 'package:food_dating_app/services/database.dart';
+import 'package:food_dating_app/models/match.dart';
 
 class SwipeCard extends StatefulWidget {
   final AppUser? user;
-  final Function swipeLike;
+  //final AppUser otherUser;
 
-  SwipeCard({required this.user, required this.swipeLike});
+  SwipeCard({required this.user});
 
   @override
   // ignore: no_logic_in_create_state
-  _SwipeCardState createState() =>
-      _SwipeCardState(user: user, swipeLike: swipeLike);
+  _SwipeCardState createState() => _SwipeCardState(user: user);
 }
 
 class _SwipeCardState extends State<SwipeCard> {
-  _SwipeCardState({required this.user, required this.swipeLike});
+  _SwipeCardState({required this.user});
   AppUser? user;
-  Function swipeLike;
+  //Function swipeLike;
+  final DatabaseService db =
+      DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
+
+  AppUser convertCurrentUser() {
+    final User? user = FirebaseAuth.instance.currentUser!;
+    return AppUser(
+        uid: user!.uid, name: "", age: 0, restaurant: "", pfpDownloadURL: "");
+  }
+
+  void personSwiped(
+      AppUser currentUser, AppUser otherUser, bool isLiked) async {
+    print('test');
+    print(otherUser.uid);
+    db.addSwipedUser(Swipe(otherUser.uid, isLiked));
+    //_ignoreSwipeIds.add(otherUser.uid);
+
+    if (await isMatch(otherUser) == true) {
+      db.addMatch(FirebaseAuth.instance.currentUser!.uid, Match(otherUser.uid));
+      db.addMatch(otherUser.uid, Match(FirebaseAuth.instance.currentUser!.uid));
+      // save line 48&49 later to incorporate with chat
+      //String chatId = compareAndCombineIds(myUser.uid, otherUser.uid);
+      //_localDatabase.addChat(Chat(chatId, null));
+
+      // will quickly build a match screen
+      Navigator.pushNamed(context, MatchedScreen.id, arguments: {
+        "my_user_id": currentUser.uid,
+        "my_profile_photo_path": currentUser.pfpDownloadURL,
+        "other_user_profile_photo_path": otherUser.pfpDownloadURL,
+        "other_user_id": otherUser.uid
+      });
+    }
+    setState(() {});
+  }
+
+  Future<bool> isMatch(AppUser otherUser) async {
+    DocumentSnapshot swipeSnapshot = await db.getSwipe(otherUser.uid);
+    if (swipeSnapshot.exists) {
+      Swipe swipe = Swipe.fromSnapshot(swipeSnapshot);
+
+      if (swipe.liked == true) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +131,9 @@ class _SwipeCardState extends State<SwipeCard> {
         ],
       ),
       onSwipeRight: (finalPosition) {
-        swipeLike;
+        personSwiped(convertCurrentUser(), user!, true);
       },
+      //onSwipeLeft: ,
     );
   }
 }
