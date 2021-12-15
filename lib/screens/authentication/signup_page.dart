@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/services/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/services/auth_provider.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import '../../helpers/random_string.dart';
+import 'package:food_dating_app/screens/authentication/signin_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -108,13 +110,27 @@ class _SignUpPageState extends State<SignUpPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        toolbarHeight: 40,
+        elevation: 0.0,
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: const Icon(Icons.more_horiz),
+        //     iconSize: 30.0,
+        //     color: Colors.white,
+        //     onPressed: () {},
+        //   ),
+        // ],
+      ),
       body: SingleChildScrollView(
           child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 40),
         height: MediaQuery.of(context).size.height - 50,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: size.height * 0.10),
             GestureDetector(
@@ -140,10 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {
                   pickImage();
-                }
-
-                //onPressed: () => _handleURLButtonPress(context, ImageSourceType.gallery);
-                ),
+                }),
             TextFormField(
               //for future text call
               controller: nameController,
@@ -261,7 +274,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
-            )
+            ),
+
+            // MaterialButton(
+            //     child: const Text("I have an account. Go back!"),
+            //     onPressed: Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => const SignUpPage())))
           ],
         ),
       )),

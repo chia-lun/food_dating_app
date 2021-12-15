@@ -11,6 +11,8 @@ import 'package:food_dating_app/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
+  static String tag = 'signin-page';
+
   @override
   State<SignInPage> createState() => _SignInPageWidgetState();
 }
