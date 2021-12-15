@@ -5,13 +5,12 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/swipe.dart';
 import 'package:food_dating_app/screens/home/matched_page.dart';
-import 'package:food_dating_app/screens/home/swipe_screen.dart';
 import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/models/match.dart';
 
 class SwipeCard extends StatefulWidget {
   final AppUser? user;
-  //final AppUser otherUser;
+  //final BuildContext swipePageContext;
 
   SwipeCard({required this.user});
 
@@ -23,7 +22,7 @@ class SwipeCard extends StatefulWidget {
 class _SwipeCardState extends State<SwipeCard> {
   _SwipeCardState({required this.user});
   AppUser? user;
-  //Function swipeLike;
+  //BuildContext swipePageContext;
   final DatabaseService db =
       DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
 
@@ -48,12 +47,27 @@ class _SwipeCardState extends State<SwipeCard> {
       //_localDatabase.addChat(Chat(chatId, null));
 
       // will quickly build a match screen
-      Navigator.pushNamed(context, MatchedScreen.id, arguments: {
-        "my_user_id": currentUser.uid,
-        "my_profile_photo_path": currentUser.pfpDownloadURL,
-        "other_user_profile_photo_path": otherUser.pfpDownloadURL,
-        "other_user_id": otherUser.uid
-      });
+      // Navigator.pushNamed(context, MatchedScreen.id, arguments: {
+      //   "my_user_id": currentUser.uid,
+      //   "my_profile_photo_path": currentUser.pfpDownloadURL,
+      //   "other_user_profile_photo_path": otherUser.pfpDownloadURL,
+      //   "other_user_id": otherUser.uid
+      // });
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MatchedScreen(
+            //   peerId: userChat.id,
+            //   peerAvatar: userChat.photoUrl,
+            //   peerNickname: userChat.nickname,
+            myProfilePhotoPath: currentUser.pfpDownloadURL,
+            myUserId: currentUser.uid,
+            otherUserProfilePhotoPath: otherUser.pfpDownloadURL,
+            otherUserId: otherUser.uid,
+          ),
+        ),
+      );
     }
     setState(() {});
   }
@@ -132,6 +146,9 @@ class _SwipeCardState extends State<SwipeCard> {
       ),
       onSwipeRight: (finalPosition) {
         personSwiped(convertCurrentUser(), user!, true);
+      },
+      onSwipeLeft: (finalPosition) {
+        //personSwiped(convertCurrentUser(), user!, false, );
       },
       //onSwipeLeft: ,
     );

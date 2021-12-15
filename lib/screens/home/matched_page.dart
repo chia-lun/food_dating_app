@@ -36,7 +36,8 @@ class MatchedScreen extends StatelessWidget {
   }
 
   void keepSwipingPressed(BuildContext context) {
-    Navigator.pop(context);
+    Navigator.of(context).pop();
+    print('tets');
   }
 
   @override
@@ -52,7 +53,7 @@ class MatchedScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('images/tinder_icon.png', width: 40),
+              Text('MATCHED'),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -64,17 +65,29 @@ class MatchedScreen extends StatelessWidget {
               ),
               Column(
                 children: [
-                  RoundedButton(
-                      text: 'SEND MESSAGE',
-                      onPressed: () {
-                        sendMessagePressed(context);
-                      }),
+                  // RoundedButton(
+                  //     text: 'SEND MESSAGE',
+                  //     onPressed: () {
+                  //       sendMessagePressed(context);
+                  //     }),
                   SizedBox(height: 20),
-                  RoundedOutlinedButton(
-                      text: 'KEEP SWIPING',
-                      onPressed: () {
-                        keepSwipingPressed(context);
-                      }),
+                  TextButton(
+                    onPressed: () {
+                      //createChatDialog(context);
+                      keepSwipingPressed(context);
+                    },
+                    child: const Text('   Keep Swiping   ',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white)),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      //minimumSize: const Size(30.0, 10.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                  ),
                 ],
               ),
             ],
