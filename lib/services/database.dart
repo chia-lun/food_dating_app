@@ -18,9 +18,10 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
-  Future<DocumentSnapshot> getUser() {
-    return instance.collection('user').doc(uid).get();
-  }
+  // late CollectionReference swipeColletion = FirebaseFirestore.instance
+  //     .collection('user')
+  //     .doc("POpmAxUz9yMDJSUqKKfAqYOhMSh1")
+  //     .collection("swipes");
 
   //method to update an existing user
   Future updateUser(
@@ -76,6 +77,24 @@ class DatabaseService {
     return listOfUsers;
   }
 
+  Future<List<String>> userMatched() async {
+    List<String> listOfUsersID = [];
+    //snapshots.forEach((snapshot) {
+    await FirebaseFirestore.instance
+        .collection("user")
+        .doc(uid)
+        .collection("matches")
+        .get()
+        .then(
+            (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
+                  String userID = doc.get('id') ?? '';
+                  //print(doc.get('name'));
+                  listOfUsersID.add(userID);
+                })); //{
+    print(listOfUsersID);
+    return listOfUsersID;
+  }
+
   Future addMatch(String userId, Match match) async {
     await userCollection
         .doc(userId)
@@ -101,10 +120,6 @@ class DatabaseService {
         .get();
   }
 
-  Future<QuerySnapshot> getSwipes(String userId) {
-    return instance.collection('user').doc(userId).collection('swipes').get();
-  }
-
   Future<QuerySnapshot> getMatches() async {
     return await FirebaseFirestore.instance
         .collection('user')
@@ -113,16 +128,16 @@ class DatabaseService {
         .get();
   }
 
-  Future<QuerySnapshot> getUserToMatch(List<String> ignoreIds) {
-    print(instance
-        .collection('user')
-        .where('id', whereNotIn: ignoreIds)
-        //.limit(limit)
-        .get());
+  Future<QuerySnapshot> getPersonsToMatchWith(
+      int limit, List<String> ignoreIds) {
     return instance
         .collection('user')
         .where('id', whereNotIn: ignoreIds)
-        // .limit(limit)
+        .limit(limit)
         .get();
+  }
+
+  Future<DocumentSnapshot> getUser() {
+    return instance.collection('user').doc(uid).get();
   }
 }
