@@ -101,30 +101,30 @@ class _SwipeScreenState extends State<SwipeScreen> {
     return false;
   }
 
-  createChatDialog(BuildContext context) {
-    TextEditingController customController = TextEditingController();
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Dinner?"),
-            content: TextField(
-              controller: customController,
-            ),
-            actions: <Widget>[
-              MaterialButton(
-                elevation: 5.0,
-                child: const Text("Go"),
-                onPressed: () {
-                  Navigator.of(context).pop(customController.text.toString());
-                  print(FirebaseAuth.instance.currentUser!.uid);
-                  //personSwiped(convertCurrentUser(), otherUser, true);
-                },
-              )
-            ],
-          );
-        });
-  }
+  // createChatDialog(BuildContext context) {
+  //   TextEditingController customController = TextEditingController();
+  //   return showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: const Text("Dinner?"),
+  //           content: TextField(
+  //             controller: customController,
+  //           ),
+  //           actions: <Widget>[
+  //             MaterialButton(
+  //               elevation: 5.0,
+  //               child: const Text("Go"),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop(customController.text.toString());
+  //                 print(FirebaseAuth.instance.currentUser!.uid);
+  //                 //personSwiped(convertCurrentUser(), otherUser, true);
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   @override
   Widget build(BuildContext buildContext) {
@@ -160,10 +160,11 @@ class _SwipeScreenState extends State<SwipeScreen> {
                               );
                             }
                             return Padding(
-                              padding: EdgeInsets.fromLTRB(1, 30, 1, 1),
+                              padding: EdgeInsets.fromLTRB(20, 90, 1, 1),
                               child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  verticalDirection: VerticalDirection.up,
                                   children: <Widget>[
                                     Stack(
                                         children: snapshot.data!

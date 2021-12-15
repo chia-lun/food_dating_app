@@ -89,7 +89,9 @@ class _SwipeCardState extends State<SwipeCard> {
     return Swipable(
       // horizontalSwipe: false,
       // verticalSwipe: true,
-      child: ListView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
