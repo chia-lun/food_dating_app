@@ -90,6 +90,7 @@ class _SwipeCardState extends State<SwipeCard> {
       // horizontalSwipe: false,
       // verticalSwipe: true,
       child: Column(
+        
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
