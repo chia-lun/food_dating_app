@@ -80,7 +80,7 @@ class _MessagePageState extends State<MessagePage> {
   Future<void> loadUser() async {
     usersMatchedWith = await db.userMatched();
     //print(userList);
-    print(usersMatchedWith!.isEmpty);
+    print(usersMatchedWith.isEmpty);
   }
 
   Widget _buildSearchBox() {

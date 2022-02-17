@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,20 +106,36 @@ class _SignInPageWidgetState extends State<SignInPage> {
                       });
                     }),
                 SizedBox(height: size.height * 0.20),
-                MaterialButton(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Text(
-                    'Don\'t have an Account? Signup now',
-                    style: TextStyle(
-                        color: Colors.orange, fontWeight: FontWeight.w600),
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()));
-                  },
-                )
+                // MaterialButton(
+                //   color: Colors.white,
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10)),
+                //   child: const Text(
+                //     'Don\'t have an Account? Signup now',
+                //     style: TextStyle(
+                //         color: Colors.orange, fontWeight: FontWeight.w600),
+                //   ),
+                //   onPressed: () {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => SignUpPage()));
+                //   },
+                // )
+                RichText(
+                    text: TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        text: 'Don\'t have an Account?',
+                        children: [
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpPage()));
+                            },
+                          text: ' Sign Up Now',
+                          style: TextStyle(color: Colors.orange))
+                    ]))
               ])
         ],
       ),

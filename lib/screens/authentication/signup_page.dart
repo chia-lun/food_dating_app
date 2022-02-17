@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
@@ -228,6 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
             TextFormField(
               //for future text call
               controller: passwordController,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 hintText: 'Enter your password',
                 focusedBorder: UnderlineInputBorder(
@@ -236,6 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               validator: (String? value) {
                 if (value == null || value.length < 6) {
+                  // create more for security later
                   return 'Enter vaild password with 6+ chars long';
                 }
                 return null;
@@ -275,13 +278,23 @@ class _SignUpPageState extends State<SignUpPage> {
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
             ),
-
-            // MaterialButton(
-            //     child: const Text("I have an account. Go back!"),
-            //     onPressed: Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => const SignUpPage())))
+            SizedBox(height: 20),
+            RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.black),
+                    text: "Already have an account?",
+                    children: [
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInPage()));
+                        },
+                      text: ' Log In Now',
+                      style: TextStyle(color: Colors.orange))
+                ]))
           ],
         ),
       )),

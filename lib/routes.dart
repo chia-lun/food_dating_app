@@ -3,6 +3,7 @@
 //import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:food_dating_app/screens/authentication/landing_page.dart';
 import 'package:food_dating_app/screens/home/chat_screen.dart';
 import 'package:food_dating_app/screens/home/matched_page.dart';
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';

@@ -82,9 +82,6 @@ class _MyAppState extends State<MyApp> {
                       child: CircularProgressIndicator(),
                     );
                   }
-                }) //const MyHomePage(title: 'Flutter Demo Home Page'),
-
-            ));
+                })));
   }
-//}
 }
