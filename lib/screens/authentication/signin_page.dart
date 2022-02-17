@@ -50,6 +50,7 @@ class _SignInPageWidgetState extends State<SignInPage> {
           SizedBox(
             width: size.width * 0.75,
             child: TextField(
+              autofocus: true,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 hintText: 'Email',

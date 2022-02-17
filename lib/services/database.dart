@@ -4,11 +4,13 @@ import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/models/swipe.dart';
+import 'package:food_dating_app/screens/authentication/signup_page.dart';
 
 class DatabaseService {
   final String uid;
   final FirebaseFirestore instance = FirebaseFirestore.instance;
-  //const
+
+  var formKey;
   var appUser;
 
   DatabaseService({
@@ -18,12 +20,6 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
-  // late CollectionReference swipeColletion = FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc("POpmAxUz9yMDJSUqKKfAqYOhMSh1")
-  //     .collection("swipes");
-
-  //method to update an existing user
   Future updateUser(
       String name, int age, String restaurant, String pfpDownloadURL) async {
     return await userCollection.doc(uid).set({
@@ -41,6 +37,7 @@ class DatabaseService {
   //method to add a new user
   Future addUser(String name, int age, String restaurant, String email,
       String password, String pfpDownloadURL) async {
+    final isValid = formKey.currentState!.valide();
     return await userCollection
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({

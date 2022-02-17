@@ -44,9 +44,6 @@ class AuthProvider extends ChangeNotifier {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      //User? user = result.user;
-      // create a new document for the user with the uid
-      //await DatabaseService(uid: user!.uid).updateUser('Uma', 1, 'Petco', '');
       return _getUser();
     } catch (error) {
       print(error.toString());

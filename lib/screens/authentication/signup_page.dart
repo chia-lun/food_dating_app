@@ -14,6 +14,7 @@ import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/services/database.dart';
 import '../../helpers/random_string.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -111,19 +112,6 @@ class _SignUpPageState extends State<SignUpPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        toolbarHeight: 40,
-        elevation: 0.0,
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: const Icon(Icons.more_horiz),
-        //     iconSize: 30.0,
-        //     color: Colors.white,
-        //     onPressed: () {},
-        //   ),
-        // ],
-      ),
       body: SingleChildScrollView(
           child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -219,8 +207,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please an email';
+                if (value == null && EmailValidator.validate(value!)) {
+                  return 'Enter a valid email';
                 }
                 return null;
               },
@@ -230,6 +218,7 @@ class _SignUpPageState extends State<SignUpPage> {
               //for future text call
               controller: passwordController,
               textInputAction: TextInputAction.next,
+              obscureText: true,
               decoration: const InputDecoration(
                 hintText: 'Enter your password',
                 focusedBorder: UnderlineInputBorder(
@@ -239,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
               validator: (String? value) {
                 if (value == null || value.length < 6) {
                   // create more for security later
-                  return 'Enter vaild password with 6+ chars long';
+                  return 'Enter min. 6 characters';
                 }
                 return null;
               },
@@ -278,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: size.height * 0.03),
             RichText(
                 text: TextSpan(
                     style: TextStyle(color: Colors.black),
@@ -292,7 +281,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               MaterialPageRoute(
                                   builder: (context) => SignInPage()));
                         },
-                      text: ' Log In Now',
+                      text: ' Log In',
                       style: TextStyle(color: Colors.orange))
                 ]))
           ],

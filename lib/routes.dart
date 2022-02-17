@@ -7,7 +7,6 @@ import 'package:food_dating_app/screens/authentication/landing_page.dart';
 import 'package:food_dating_app/screens/home/chat_screen.dart';
 import 'package:food_dating_app/screens/home/matched_page.dart';
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
-import 'package:food_dating_app/screens/home/home_page.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
 import 'package:food_dating_app/screens/home/message_page.dart';
 import 'package:food_dating_app/screens/home/profile_page.dart';

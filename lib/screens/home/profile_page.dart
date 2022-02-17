@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_dating_app/services/firebase_api.dart';
@@ -166,7 +167,7 @@ class _SignUpPageState extends State<ProfilePage> {
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.symmetric(horizontal: 40),
-        height: MediaQuery.of(context).size.height - 50,
+        height: MediaQuery.of(context).size.height - 20,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -195,20 +196,20 @@ class _SignUpPageState extends State<ProfilePage> {
                 onPressed: () async {
                   pickImage();
                 }),
-            TextFormField(
-              //for future text call
-              initialValue: myName,
-              decoration: const InputDecoration(
-                enabled: false,
-                labelText: 'Your current name: ',
-                labelStyle: TextStyle(color: Colors.grey),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              cursorColor: Colors.orange,
-              style: TextStyle(color: Colors.orange),
-            ),
+            // TextFormField(
+            //   //for future text call
+            //   initialValue: myName,
+            //   decoration: const InputDecoration(
+            //     enabled: false,
+            //     labelText: 'Your current name: ',
+            //     labelStyle: TextStyle(color: Colors.grey),
+            //     focusedBorder: UnderlineInputBorder(
+            //       borderSide: BorderSide(color: Colors.orange),
+            //     ),
+            //   ),
+            //   cursorColor: Colors.orange,
+            //   style: TextStyle(color: Colors.orange),
+            // ),
             TextFormField(
               //for future text call
               controller: nameController,
@@ -223,23 +224,23 @@ class _SignUpPageState extends State<ProfilePage> {
               ),
               cursorColor: Colors.orange,
             ),
-            TextFormField(
-              //for future text call
-              initialValue: myRestaurant,
-              decoration: const InputDecoration(
-                enabled: false,
-                labelText: 'Your current preferred restaurant: ',
-                labelStyle: TextStyle(color: Colors.grey),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              cursorColor: Colors.orange,
-              style: TextStyle(color: Colors.orange),
-            ),
-            const Text("                            ",
-                style: TextStyle(color: Colors.grey, fontSize: 8),
-                textAlign: TextAlign.start),
+            // TextFormField(
+            //   //for future text call
+            //   initialValue: myRestaurant,
+            //   decoration: const InputDecoration(
+            //     enabled: false,
+            //     labelText: 'Your current preferred restaurant: ',
+            //     labelStyle: TextStyle(color: Colors.grey),
+            //     focusedBorder: UnderlineInputBorder(
+            //       borderSide: BorderSide(color: Colors.orange),
+            //     ),
+            //   ),
+            //   cursorColor: Colors.orange,
+            //   style: TextStyle(color: Colors.orange),
+            // ),
+            // const Text("                            ",
+            //     style: TextStyle(color: Colors.grey, fontSize: 8),
+            //     textAlign: TextAlign.start),
             const Text(
                 "Enter your new restaurant here:                                       ",
                 style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -300,16 +301,23 @@ class _SignUpPageState extends State<ProfilePage> {
                         color: Colors.white, fontWeight: FontWeight.w600),
                   )),
             ),
-            MaterialButton(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Text(
-                  'LOGOUT',
-                  style: TextStyle(
-                      color: Colors.orange, fontWeight: FontWeight.w600),
-                ),
-                onPressed: logout),
+            SizedBox(height: size.height * 0.1),
+            RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.black),
+                    text: 'Wanna take a break? ',
+                    children: [
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInPage()));
+                        },
+                      text: 'Log out.',
+                      style: TextStyle(color: Colors.orange))
+                ]))
           ],
         ),
       )),

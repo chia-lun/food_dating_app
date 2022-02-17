@@ -22,72 +22,10 @@ class _SwipeScreenState extends State<SwipeScreen> {
       DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> _ignoreSwipeIds = [];
-  //late List<AppUser> userList = [];
-
-  // Future<List<AppUser>> loadPeople(String myUserId) async {
-  //   print(_ignoreSwipeIds.length);
-  //   print('hi');
-  //   if (_ignoreSwipeIds.isEmpty) {
-  //     print('empty');
-  //     _ignoreSwipeIds = <String>[];
-  //     var swipes = await db.getSwipes(myUserId);
-  //     for (var i = 0; i < swipes.size; i++) {
-  //       print(swipes.size);
-  //       Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
-  //       print(swipe.id);
-  //       _ignoreSwipeIds.add(swipe.id);
-  //     }
-  //     _ignoreSwipeIds.add(myUserId);
-  //   }
-  //   print('not empty');
-  //   QuerySnapshot userToMatch = await db.getUserToMatch(_ignoreSwipeIds);
-  //   if (userToMatch.docs.isNotEmpty) {
-  //     var userToMatchWith = AppUser.fromDocument(userToMatch.docs.first);
-  //     print(userToMatchWith.name);
-  //     return userToMatchWith;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
-  // Future<void> loadUser() async {
-  //   userList = ((await db.userListFromSnapShots()) as Stream<AppUser>?)!;
-  // }
 
   Future<List<AppUser>> loadPeople() async {
     return await db.userListFromSnapShots();
   }
-
-  // AppUser convertCurrentUser() {
-  //   final User? user = FirebaseAuth.instance.currentUser!;
-  //   return AppUser(
-  //       uid: user!.uid, name: "", age: 0, restaurant: "", pfpDownloadURL: "");
-  // }
-
-  // void personSwiped(
-  //     AppUser currentUser, AppUser otherUser, bool isLiked) async {
-  //   print('test');
-  //   print(otherUser.uid);
-  //   db.addSwipedUser(Swipe(otherUser.uid, isLiked));
-  //   _ignoreSwipeIds.add(otherUser.uid);
-
-  //   if (await isMatch(otherUser) == true) {
-  //     db.addMatch(FirebaseAuth.instance.currentUser!.uid, Match(otherUser.uid));
-  //     db.addMatch(otherUser.uid, Match(FirebaseAuth.instance.currentUser!.uid));
-  //     // save line 48&49 later to incorporate with chat
-  //     //String chatId = compareAndCombineIds(myUser.uid, otherUser.uid);
-  //     //_localDatabase.addChat(Chat(chatId, null));
-
-  //     // will quickly build a match screen
-  //     Navigator.pushNamed(context, MatchedScreen.id, arguments: {
-  //       "my_user_id": currentUser.uid,
-  //       "my_profile_photo_path": currentUser.pfpDownloadURL,
-  //       "other_user_profile_photo_path": otherUser.pfpDownloadURL,
-  //       "other_user_id": otherUser.uid
-  //     });
-  //   }
-  //   setState(() {});
-  // }
 
   Future<bool> isMatch(AppUser otherUser) async {
     DocumentSnapshot swipeSnapshot = await db.getSwipe(otherUser.uid);
@@ -118,7 +56,6 @@ class _SwipeScreenState extends State<SwipeScreen> {
   //               onPressed: () {
   //                 Navigator.of(context).pop(customController.text.toString());
   //                 print(FirebaseAuth.instance.currentUser!.uid);
-  //                 //personSwiped(convertCurrentUser(), otherUser, true);
   //               },
   //             )
   //           ],
@@ -137,7 +74,6 @@ class _SwipeScreenState extends State<SwipeScreen> {
               builder: (context, userSnapshot) {
                 return CustomModalProgressHUD(
                   inAsyncCall: authProvider.user == null,
-                  //offset: ,
                   child: (userSnapshot.hasData)
                       ? FutureBuilder<List<AppUser>>(
                           future: loadPeople(),
