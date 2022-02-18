@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/services/auth_provider.dart';
-import 'package:food_dating_app/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
-import 'package:food_dating_app/services/database.dart';
 import 'package:food_dating_app/screens/authentication/signup_page.dart';
-import 'package:food_dating_app/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
@@ -28,74 +24,148 @@ class _SignInPageWidgetState extends State<SignInPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: size.height * 0.10),
-          Container(
-            width: 200,
-            height: 200,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              color: Colors.white,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image:
-                    AssetImage("assets/images/Clink_logo_by_Sawyer_Neske.png"),
-              ),
-            ),
+        body: Stack(children: <Widget>[
+      Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage("assets/images/landing_page.jpeg"),
           ),
-          SizedBox(height: size.height * 0.05),
-          SizedBox(
-            width: size.width * 0.75,
-            child: TextField(
-              autofocus: true,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                hintText: 'Email',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+        ),
+      ),
+      Container(
+        color: Color.fromRGBO(0, 0, 0, 0.55),
+      ),
+      Container(
+        margin: EdgeInsets.only(
+            right: size.width * 0.1,
+            bottom: size.height * 0.1,
+            left: size.width * 0.04),
+        alignment: Alignment.centerLeft,
+        child: const Center(
+          child: Text(
+            'Welcome back',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 40.0,
+                fontFamily: 'bold',
+                fontWeight: FontWeight.bold,
+                color: Color.fromRGBO(255, 255, 255, 1)),
+          ),
+        ),
+      ),
+      Container(
+        margin:
+            EdgeInsets.only(right: size.width * 0.45, left: size.width * 0.1),
+        alignment: Alignment.centerLeft,
+        child: const Center(
+          child: Text(
+            'I know you missed me, xoxo.',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 13.0, color: Color.fromRGBO(255, 255, 255, 1)),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(
+            right: size.width * 0.1,
+            bottom: size.height * 0.35,
+            left: size.width * 0.1),
+        alignment: Alignment.bottomCenter,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                child: MaterialButton(
+              onPressed: () => {},
+              color: Color.fromRGBO(255, 255, 255, 0.35),
+              minWidth: size.width * 1,
+              height: size.width * 0.1,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  hintText: 'Email',
+                  border: InputBorder.none,
                 ),
+                cursorColor: Color.fromRGBO(255, 255, 255, 0.75),
+                onChanged: (value) => {
+                  setState(() {
+                    _email = value.trim();
+                  })
+                },
               ),
-              cursorColor: Colors.orange,
-              onChanged: (value) {
-                setState(() {
-                  _email = value.trim();
-                });
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: TextField(
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Password',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+            )),
+          ],
+        ),
+      ),
+      Container(
+          margin: EdgeInsets.only(
+              right: size.width * 0.1,
+              bottom: size.height * 0.27,
+              left: size.width * 0.1),
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  child: MaterialButton(
+                onPressed: () => {},
+                color: Color.fromRGBO(255, 255, 255, 0.35),
+                minWidth: size.width * 1,
+                height: size.width * 0.1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-              ),
-              cursorColor: Colors.orange,
-              onChanged: (value) {
-                setState(() {
-                  _password = value.trim();
-                });
-              },
-            ),
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                MaterialButton(
-                    color: Colors.orange,
+                child: TextField(
+                  obscureText: true,
+                  style: TextStyle(color: Colors.white),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: 'Password',
+                    border: InputBorder.none,
+                  ),
+                  cursorColor: Color.fromRGBO(255, 255, 255, 0.75),
+                  onChanged: (value) => {
+                    setState(() {
+                      _password = value.trim();
+                    })
+                  },
+                ),
+              )),
+            ],
+          )),
+      Container(
+          margin: EdgeInsets.only(
+              right: size.width * 0.1,
+              bottom: size.height * 0.15,
+              left: size.width * 0.1),
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: MaterialButton(
+                    minWidth: size.width * 1,
+                    height: size.width * 0.12,
+                    color: Color.fromRGBO(199, 16, 144, 1.0),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(20)),
                     child: const Text(
-                      '                             SIGNIN                             ',
+                      'Login',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w800),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
                     ),
                     onPressed: () async {
                       _auth
@@ -106,118 +176,39 @@ class _SignInPageWidgetState extends State<SignInPage> {
                             builder: (context) => const SwipeMessageProfile()));
                       });
                     }),
-                SizedBox(height: size.height * 0.20),
-                // MaterialButton(
-                //   color: Colors.white,
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(10)),
-                //   child: const Text(
-                //     'Don\'t have an Account? Signup now',
-                //     style: TextStyle(
-                //         color: Colors.orange, fontWeight: FontWeight.w600),
-                //   ),
-                //   onPressed: () {
-                //     Navigator.push(context,
-                //         MaterialPageRoute(builder: (context) => SignUpPage()));
-                //   },
-                // )
-                RichText(
-                    text: TextSpan(
-                        style: TextStyle(color: Colors.black),
-                        text: 'Don\'t have an Account?',
-                        children: [
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUpPage()));
-                            },
-                          text: ' Sign Up Now',
-                          style: TextStyle(color: Colors.orange))
-                    ]))
-              ])
-        ],
-      ),
-    );
+              ),
+            ],
+          )),
+      Container(
+          margin: EdgeInsets.only(
+              right: size.width * 0.1,
+              bottom: size.height * 0.05,
+              left: size.width * 0.1),
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  child: RichText(
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.white),
+                          text: 'Don\'t have an Account?',
+                          children: [
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpPage()));
+                          },
+                        text: ' Sign Up Now',
+                        style:
+                            TextStyle(color: Color.fromRGBO(225, 16, 144, 1.0)))
+                  ])))
+            ],
+          ))
+    ]));
   }
 }
-
-
-// class _SignInPageWidgetState extends State<SignInPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.only(top: 180.0),
-//               child: Center(
-//                 child: Container(
-//                     width: 200,
-//                     height: 150,
-//                     /*decoration: BoxDecoration(
-//                         color: Colors.red,
-//                         borderRadius: BorderRadius.circular(50.0)),*/
-//                     child: Image.asset('assets/images/icon.jpg')),
-//               ),
-//             ),
-//             const Padding(
-//               padding:
-//                   EdgeInsets.only(left: 15.0, right: 15.0, top: 0, bottom: 0),
-//               //padding: EdgeInsets.symmetric(horizontal: 15),
-//               child: TextField(
-//                 decoration: InputDecoration(
-//                     border: OutlineInputBorder(),
-//                     labelText: 'Email',
-//                     hintText: 'Enter valid email id as abc@gmail.com'),
-//               ),
-//             ),
-//             const Padding(
-//               padding:
-//                   EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-//               //padding: EdgeInsets.symmetric(horizontal: 15),
-//               child: TextField(
-//                 obscureText: true,
-//                 decoration: InputDecoration(
-//                     border: OutlineInputBorder(),
-//                     labelText: 'Password',
-//                     hintText: 'Enter secure password'),
-//               ),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 //TODO FORGOT PASSWORD SCREEN GOES HERE
-//               },
-//               child: const Text(
-//                 'Forgot Password',
-//                 style: TextStyle(color: Colors.orange, fontSize: 15),
-//               ),
-//             ),
-//             Container(
-//               height: 50,
-//               width: 250,
-//               decoration: BoxDecoration(
-//                   color: Colors.orange,
-//                   borderRadius: BorderRadius.circular(20)),
-//               child: TextButton(
-//                 onPressed: () {},
-//                 child: const Text(
-//                   'Login',
-//                   style: TextStyle(color: Colors.white, fontSize: 20),
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 130,
-//             ),
-//             const Text('New User? Create Account')
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

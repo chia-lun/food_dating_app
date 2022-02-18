@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_dating_app/screens/authentication/landing_page.dart';
 import 'package:food_dating_app/services/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_dating_app/models/app_user.dart';
@@ -313,7 +314,7 @@ class _SignUpPageState extends State<ProfilePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignInPage()));
+                                  builder: (context) => LandingPage()));
                         },
                       text: 'Log out.',
                       style: TextStyle(color: Colors.orange))

@@ -93,6 +93,7 @@ flutter:
   assets:
     - assets/images/Clink_logo_by_Sawyer_Neske.png
     - assets/images/landing_page.jpeg
+    - assets/images/login_page.jpeg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

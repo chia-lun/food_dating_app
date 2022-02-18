@@ -32,7 +32,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
           Container(
             margin: EdgeInsets.only(
-                left: size.width * 0.04, bottom: size.width * 0.5),
+                left: size.width * 0.08, bottom: size.width * 0.3),
             alignment: Alignment.topLeft,
             child: const Center(
               child: Text(
@@ -49,9 +49,9 @@ class _LandingPageState extends State<LandingPage> {
           Container(
             margin: EdgeInsets.only(
                 right: size.width * 0.45,
-                top: size.height * 0.05,
-                left: size.width * 0.05),
-            alignment: Alignment.centerLeft,
+                top: size.height * 0.15,
+                left: size.width * 0.1),
+            alignment: Alignment.topLeft,
             child: const Center(
               child: Text(
                 'We help you match with your food soul mate.',
