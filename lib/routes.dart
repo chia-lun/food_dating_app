@@ -26,7 +26,7 @@ var routes = {
   //login_signup_page is the page that users use to sign up or log in, after
   //either sign up bottom or log in bottom is on press, they will be navigated
   //to swipe_message_profile page
-  'login_signup_page': (context) => SignInPage(),
+  'login_signup_page': (context) => LandingPage(),
 
   MatchedScreen.id: (context) => MatchedScreen(
         myProfilePhotoPath: (ModalRoute.of(context)!.settings.arguments
