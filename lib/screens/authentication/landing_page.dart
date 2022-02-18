@@ -31,14 +31,15 @@ class _LandingPageState extends State<LandingPage> {
             color: Color.fromRGBO(0, 0, 0, 0.55),
           ),
           Container(
-            margin: EdgeInsets.only(left: size.width * 0.04),
+            margin: EdgeInsets.only(
+                left: size.width * 0.04, bottom: size.width * 0.5),
             alignment: Alignment.topLeft,
             child: const Center(
               child: Text(
                 'Food,             better than     ever before',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: 50.0,
                     fontFamily: 'bold',
                     fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(255, 255, 255, 1)),
@@ -48,7 +49,7 @@ class _LandingPageState extends State<LandingPage> {
           Container(
             margin: EdgeInsets.only(
                 right: size.width * 0.45,
-                top: size.height * 0.27,
+                top: size.height * 0.05,
                 left: size.width * 0.05),
             alignment: Alignment.centerLeft,
             child: const Center(
@@ -78,7 +79,8 @@ class _LandingPageState extends State<LandingPage> {
                       'Login',
                       style: TextStyle(
                           color: Color.fromRGBO(199, 16, 144, 1.0),
-                          fontWeight: FontWeight.w800),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w900),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -90,20 +92,22 @@ class _LandingPageState extends State<LandingPage> {
                 MaterialButton(
                     minWidth: size.width * 0.8,
                     height: size.width * 0.1,
-                    color: Color.fromRGBO(199, 16, 144, 1.0),
+                    color: const Color.fromRGBO(199, 16, 144, 1.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
                       'Signup',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w800),
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w900),
                     ),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignUpPage()));
+                              builder: (context) => const SignUpPage()));
                     })
               ],
             ),
