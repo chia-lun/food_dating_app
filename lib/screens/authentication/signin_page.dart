@@ -22,7 +22,7 @@ class _SignInPageWidgetState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    //AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

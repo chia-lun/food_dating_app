@@ -4,7 +4,7 @@ import 'package:food_dating_app/models/app_user.dart';
 import 'package:food_dating_app/models/user.dart';
 import 'package:food_dating_app/models/match.dart';
 import 'package:food_dating_app/models/swipe.dart';
-import 'package:food_dating_app/screens/authentication/signup_page.dart';
+import 'package:food_dating_app/screens/authentication/signup_page_old.dart';
 
 class DatabaseService {
   final String uid;
