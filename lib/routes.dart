@@ -1,10 +1,7 @@
-// import 'package:food_dating_app/views/chat_screen.dart';
-// ignore: avoid_web_libraries_in_flutter
-//import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:food_dating_app/screens/authentication/landing_page.dart';
 import 'package:food_dating_app/screens/home/chat_screen.dart';
+import 'package:food_dating_app/screens/home/map_screen.dart';
 import 'package:food_dating_app/screens/home/matched_page.dart';
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/screens/authentication/signin_page.dart';
@@ -21,7 +18,7 @@ var routes = {
   //swipe_message_profile is the page that allows users to navigate between
   //swipe page (home page), message page (where they can see people
   //who messaged) and profile page (where they can modify their settings)
-  'swipe_message_profile': (context) => const SwipeMessageProfile(),
+  'swipe_message_profile': (context) => const MapScreen(),
 
   //login_signup_page is the page that users use to sign up or log in, after
   //either sign up bottom or log in bottom is on press, they will be navigated

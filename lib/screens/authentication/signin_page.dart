@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_dating_app/screens/home/map_screen.dart';
 import 'package:food_dating_app/services/auth_provider.dart';
 import 'package:food_dating_app/widgets/swipe_message_profile.dart';
 import 'package:food_dating_app/screens/authentication/signup_page.dart';
@@ -172,7 +173,7 @@ class _SignInPageWidgetState extends State<SignInPage> {
                             email: _email, password: _password)
                         .then((_) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const SwipeMessageProfile()));
+                          builder: (context) => const MapScreen()));
                     });
                   }),
             ],
