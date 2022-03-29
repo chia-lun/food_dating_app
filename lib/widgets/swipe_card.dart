@@ -90,13 +90,12 @@ class _SwipeCardState extends State<SwipeCard> {
       // horizontalSwipe: false,
       // verticalSwipe: true,
       child: Column(
-        
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.width * 1.5,
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.25,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               image: DecorationImage(
@@ -117,15 +116,15 @@ class _SwipeCardState extends State<SwipeCard> {
                     ),
                     Text(user!.getName(),
                         style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(
-                      width: 10,
+                      width: 2,
                     ),
                     Text(user!.getAge().toString(),
                         style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold))
                   ],
@@ -137,7 +136,7 @@ class _SwipeCardState extends State<SwipeCard> {
                     ),
                     Text(user!.getRestaurant(),
                         style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 8,
                             color: Colors.white,
                             fontWeight: FontWeight.bold))
                   ],
